@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<templates>
+<!-- ########################################################################################################### -->
+    <template name="wall.post.contest.ready">
+        <locale language="en">
+            <title>Is preparing a new contest "${contest.name}"!</title>
+            <body>
+${contest.annotation}
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Готовится новый конкурс "${contest.name}"!</title>
+            <body>
+${contest.annotation}
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="wall.post.event.contest.request.accepting.end.perc">
+        <locale language="en">
+            <title>Approaching the end of the acceptance of applications</title>
+            <body>
+				${contest.name}: end of receipt of applications in ${time}. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Приближается конец приема заявок</title>
+            <body>
+				${contest.name}: Конец прием заявок через ${time}.
+			</body>
+        </locale>
+    </template>
+  	<template name="wall.post.event.contest.request.accepting.end">
+        <locale language="en">
+            <title>Accepting applications closed.</title>
+            <body>
+				${contest.name}: аccepting applications closed. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Прием заявок закрыт</title>
+            <body>
+				${contest.name}: прием заявок закрыт.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+  	<template name="wall.post.event.contest.work.accepting.start">
+        <locale language="en">
+            <title>Work accepting applications started.</title>
+            <body>
+				${contest.name}: work аccepting applications started. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Прием работ открыт</title>
+            <body>
+				${contest.name}: прием работ открыт.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="wall.post.event.contest.request.voting">
+        <locale language="en">
+            <title>Voting start.</title>
+            <body>
+				${contest.name}: voting open. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Голсование открыто</title>
+            <body>
+				${contest.name}: голосование открыто.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="wall.post.event.contest.voting.end.perc">
+        <locale language="en">
+            <title>Approaching the end of the voting</title>
+            <body>
+				${contest.name}: end of voting in ${time}. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Приближается конец голосования</title>
+            <body>
+				${contest.name}: конец голосования ${time}.
+			</body>
+        </locale>
+    </template>
+	<template name="wall.post.event.contest.voting.end">
+        <locale language="en">
+            <title>Accepting applications closed.</title>
+            <body>
+				${contest.name}: voting closed. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Прием заявок закрыт</title>
+            <body>
+				${contest.name}: пголосование закрыто.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+	<template name="wall.post.event.work.published">
+        <locale language="en">
+            <title>Принял участие в конкурсе.</title>
+            <body>
+				${work.name}: ${work.description}. 
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Принял участие в конкурсе</title>
+            <body>
+				${work.name}: ${work.description}.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="wall.post.event.contest.awarding">
+        <locale language="en">
+            <title>Победа в конкурсе! Приз сотавил ${prize}</title>
+            <body>
+            	${work.name}: ${work.description}.
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Победа в конкурсе! Приз сотавил ${prize}</title>
+            <body>
+            	${work.name}: ${work.description}.
+			</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+</templates>

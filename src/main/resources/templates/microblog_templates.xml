@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<templates>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.canceled.contest.feed">
+        <locale language="en">
+            <title>Contest canceled</title>
+            <body>
+				<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> canceled.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Отмена конкурса</title>
+            <body>
+            	<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> отменен.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.start.contest.feed">
+        <locale language="en">
+            <title>Contest started</title>
+            <body>
+				<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> started!
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Старт конкурса</title>
+            <body>
+            	<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> стартовал!
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.change.parameter.contest.feed">
+        <locale language="en">
+            <title>Parameter was changed in contest</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> changed ${parameter.name} in <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Изменения в параметрах конкурса</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> изменен ${parameter.name} в <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.new.comment.profile.feed">
+        <locale language="en">
+            <title>New comment in contest</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> commented on <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: ${comment}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Новый комментарий у конкурсу</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> прокомментировал <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: ${comment}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.complain.profile.feed">
+        <locale language="en">
+            <title>Complain in contest</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> complained to <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: ${complain}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Жалоба к  конкурсу</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> пожаловался на <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: ${complain}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.finished.contest.feed">
+        <locale language="en">
+            <title>The contest has been successfully completed!</title>
+            <body>
+				<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> has been successfully completed!
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Конкурс успешно завершен!</title>
+            <body>
+            	<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> успешно завершен!
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.freezed.contest.feed">
+        <locale language="en">
+            <title>The contest temporarily frozen</title>
+            <body>
+				<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> temporarily frozen.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Конкурс временно заморожен</title>
+            <body>
+            	<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div> временно заморожен.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.invite.guarantee.contest.feed">
+        <locale language="en">
+            <title>A new guarantor</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes the guarantor of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят новй поручитель</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал поручителем <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.invite.guarantee.profile.feed">
+        <locale language="en">
+            <title>A new guarantor</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes the guarantor of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят новй поручитель</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал поручителем <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.invite.partner.contest.feed">
+        <locale language="en">
+            <title>A new partner</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes a partner of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят партнер</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал партнером <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.invite.partner.profile.feed">
+        <locale language="en">
+            <title>A new partner</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes a partner of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят партнер</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал партнером <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.invite.proponent.contest.feed">
+        <locale language="en">
+            <title>A new proponent</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes a proponent of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят рекомендатель</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал рекомендателем <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.invite.proponent.profile.feed">
+        <locale language="en">
+            <title>A new proponent</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> becomes a proponent of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принят рекомендатель</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> стал рекомендателем <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.quit.guarantee.contest.feed">
+        <locale language="en">
+            <title>Guarantor quit</title>
+            <body>
+				Guarantor <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Поручитель выбыл</title>
+            <body>
+            	Поручитель <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.quit.guarantee.profile.feed">
+        <locale language="en">
+            <title>Guarantor quit</title>
+            <body>
+				Guarantor  <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Поручитель выбыл</title>
+            <body>
+            	Поручитель <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.quit.partner.contest.feed">
+        <locale language="en">
+            <title>Partner quit</title>
+            <body>
+				Partner <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Партнер выбыл</title>
+            <body>
+            	Партнер <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.quit.partner.profile.feed">
+        <locale language="en">
+            <title>Partner quit</title>
+            <body>
+				Partner <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Партнер выбыл</title>
+            <body>
+            	Партнер <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.quit.proponent.contest.feed">
+        <locale language="en">
+            <title>Proponent quit</title>
+            <body>
+				Proponent <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Рекомендатель выбыл</title>
+            <body>
+            	Рекомендатель <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.quit.proponent.profile.feed">
+        <locale language="en">
+            <title>Proponent quit</title>
+            <body>
+				Proponent <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> quit of <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Рекомендатель выбыл</title>
+            <body>
+            	Рекомедатель <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> покинул <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.media.added.contest.feed">
+        <locale language="en">
+            <title>New media added</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> adds <div location='TYPE|media_link|ID|${userresource.id}|STYLE|link'></div> to <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Добавлен новый медиафайл к конкурсу</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> добавил <div location='TYPE|media_link|ID|${userresource.id}|STYLE|link'></div> в <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.tour.start.contest.feed">
+        <locale language="en">
+            <title>Tour starts</title>
+            <body>
+				<div location='TYPE|media_link|ID|${userresource.id}|STYLE|link'></div>: ${message}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Старт тура</title>
+            <body>
+            	<div location='TYPE|media_link|ID|${userresource.id}|STYLE|link'></div>: ${message}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.contest.work.accepted.contest.feed">
+        <locale language="en">
+            <title>Work accepted</title>
+            <body>
+				<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: worck accepted <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> from <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Принята заявка</title>
+            <body>
+            	<div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>: принята работа <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> от <div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.contest.work.accepted.work.feed">
+        <locale language="en">
+            <title>Work accepted</title>
+            <body>
+				Work <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> accepted in <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+			</body>
+        </locale>
+        <locale language="ru">
+            <title>Принята заявка</title>
+            <body>
+            	Работа <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> принята в <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+         	</body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.work.new.comment.profile.feed">
+        <locale language="en">
+            <title>New comment in work</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> commented on <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>: ${comment}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Новый комментарий вработе</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> прокомментировал <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>: ${comment}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+	<template name="microblog.event.work.complain.profile.feed">
+        <locale language="en">
+            <title>Complain in work</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> complained to <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>: ${complain}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Жалоба к  работе</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> пожаловался на <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>: ${complain}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.work.submittet.profile.feed">
+        <locale language="en">
+            <title>Submitted new work</title>
+            <body>
+				You have applied <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> in <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Подана новая работа</title>
+            <body>
+            	Вы подали заявку <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> в <div location='TYPE|contest_link|ID|${contest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.work.voted.profile.feed">
+        <locale language="en">
+            <title>Work vote</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> votes for <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Оценка работы</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> проголосовал за <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+    <template name="microblog.event.work.voted.work.feed">
+        <locale language="en">
+            <title>Work vote</title>
+            <body>
+				<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> votes for <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Оценка работы</title>
+            <body>
+            	<div location='TYPE|profile_link|ID|${profile.id}|STYLE|link'></div> проголосовал за <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div>.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+    <template name="microblog.event.work.von.profile.feed">
+        <locale language="en">
+            <title>Work von</title>
+            <body>
+				<div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> won ${prize}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Победа работы</title>
+            <body>
+            	<div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> заняла ${prize}.
+            </body>
+        </locale>
+    </template>
+   	<template name="microblog.event.work.von.contests.feed">
+        <locale language="en">
+            <title>Work von</title>
+            <body>
+				Congratulations to <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> to give ${prize}.
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Победа работы</title>
+            <body>
+            	Поздравляем <div location='TYPE|contestrequest_link|ID|${contestrequest.id}|STYLE|link'></div> с получением ${prize}.
+            </body>
+        </locale>
+    </template>
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+<!-- ########################################################################################################### -->
+    
+</templates>

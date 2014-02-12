@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<templates>
+    <template name="mail.newcomment.complain">
+        <locale language="en">
+            <title>New comment on complain</title>
+            <body>Complain to object 
+                <div location='TYPE|commentable_link|COMMENTABLE_TYPE|${commentable.type}|ID|${commentable.id}|CAPT|${commentable.caption}|STYLE|link'></div> have new comment
+                <div location='TYPE|complain|ID|${complain.id}'></div>
+            </body>
+        </locale>
+        <locale language="ru">
+            <title>Новый комментарий на жалобу</title>
+            <body>Новый комментарий к жалобе на объект 
+                <div location='TYPE|commentable_link|COMMENTABLE_TYPE|${commentable.type}|ID|${commentable.id}|CAPT|${commentable.caption}|STYLE|link'></div>
+                <div location='TYPE|complain|ID|${complain.id}'></div>
+            </body>
+        </locale>
+    </template>
+</templates>

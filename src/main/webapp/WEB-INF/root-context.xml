@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- QUARTZ TRIGGERS -->
+	<!-- import resource="quartz-context.xml"/ --> 
+
+    <context:spring-configured/>
+    <context:annotation-config/>
+    <!-- Core DAO beans -->
+    <context:component-scan base-package="diploma.webcad.core.dao.impl"/>
+    <!-- Core manager beans -->
+    <context:component-scan base-package="diploma.webcad.core.manager"/>
+    <context:component-scan base-package="diploma.webcad.core.transaction"/>
+    <!-- Quiz DAO beans -->
+    <context:component-scan base-package="diploma.webcad.core.dao"/>
+    <!-- Quiz manager beans -->
+    <context:component-scan base-package="diploma.webcad.manager"/>
+    <!-- Quiz view beans -->
+    <context:component-scan base-package="diploma.webcad.view"/>
+    <!-- Trigger beans -->
+    <context:component-scan base-package="diploma.webcad.trigger"/>
+    
+    <bean id="quizProperties"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="quiz.properties"/>
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>quiz.properties</value>
+            </list>
+        </property>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <!-- Connection properties -->
+        <property name="driverClass" value="${hibernate.connection.driver_class}"/>
+        <property name="jdbcUrl" value="${hibernate.connection.url}"/>
+        <property name="user" value="${hibernate.connection.username}"/>
+        <property name="password" value="${hibernate.connection.password}"/>
+        <!-- Pool properties -->
+        <property name="minPoolSize" value="${hibernate.pool.minPoolSize}"/>
+        <property name="maxPoolSize" value="${hibernate.pool.maxPoolSize}"/>
+        <property name="maxStatements" value="${hibernate.pool.maxStatements}"/>
+        <property name="idleConnectionTestPeriod" value="${hibernate.pool.idleConnectionTestPeriod}"/>
+        <property name="loginTimeout" value="${hibernate.pool.loginTimeout}"/>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="hibernateProperties" ref="quizProperties"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>diploma.webcad.core.model</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+	    	<tx:method name="*"/>
+	   	</tx:attributes>
+   	</tx:advice>
+
+    <bean id="hibernateStringEncryptor"
+          class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
+        <property name="registeredName">
+            <value>strongHibernateStringEncryptor</value>
+        </property>
+        <property name="algorithm">
+            <value>PBEWithMD5AndTripleDES</value>
+        </property>
+        <property name="password">
+            <value>qkVd93NF9823l2Jx</value>
+        </property>
+    </bean>
+
+
+<!-- Aspects -->
+    <context:component-scan base-package="diploma.webcad.aop.aspects"/>
+	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.manager.ApplicationContextProvider" />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	<aop:config>
+		<aop:pointcut id="hibernateSessionDependingOperation" expression="@annotation(diploma.webcad.core.annotation.HibernateSessionRequired)" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="hibernateSessionDependingOperation" />
+	</aop:config>    
+	
+</beans>

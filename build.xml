@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="webcad" default="fast-deploy" basedir=".">
+	<property name="tomcat-server-home" value="C:/programs/apache-tomcat-6.0.35" />
+	<property name="project-dir" value="C:/Users/morozov.yury/git/webcad" />
+	<property name="war-name" value="ROOT"/>
+
+	<target name="install" depends="clear-target-folder, install-web, copy-to-tomcat"/>
+		
+		<target name="clear-target-folder">
+			<delete dir="${project-dir}/target"/>
+		</target>
+		<target name="clean-install" depends="clean-tomcat, install"/>
+
+		<target name="install-web">
+			<exec executable="mvn.bat">
+	<!--
+				<arg line="-o -f ${project-dir}/pom.xml clean install"/>
+	-->
+				<arg line="-e -f ${project-dir}/pom.xml clean install"/>
+			</exec>
+		</target>
+
+		<target name="copy-to-tomcat">
+			<delete file="${tomcat-server-home}/webapps/${war-name}.war"/>
+			<delete dir="${tomcat-server-home}/webapps/${war-name}"/>
+			<move file="${project-dir}/target/webapp-1.0.0.war" tofile="${tomcat-server-home}/webapps/${war-name}.war"/>
+		</target>
+		
+		<target name="fast-deploy" depends="clear-target-folder">
+			<delete dir="${tomcat-server-home}/webapps/${war-name}"/>
+			<exec executable="mvn.bat">
+				<arg line="jrebel:generate"/>
+			</exec>
+			<exec executable="mvn.bat">
+				<arg line="-f ${project-dir}/pom.xml compile war:exploded"/>
+			</exec>
+		</target>
+		
+		<target name="deploy-to-remote-tomcat" depends="clear-target-folder">
+			<exec executable="mvn.bat">
+				<arg line="-f ${project-dir}/pom.xml tomcat:redeploy"/>
+			</exec>
+		</target>
+
+		<target name="clean-tomcat">
+			<delete includeemptydirs="true">
+				<fileset dir="${tomcat-server-home}/webapps/" includes="**/*"/>
+				<fileset dir="${tomcat-server-home}/conf/Catalina/" includes="**/*"/>
+				<fileset dir="${tomcat-server-home}/work/Catalina/" includes="**/*"/>
+			</delete>
+		</target>
+</project>
