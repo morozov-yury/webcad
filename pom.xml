@@ -471,6 +471,13 @@
 			<artifactId>quartz</artifactId>
 			<version>${quartz-scheduler.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.50</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
