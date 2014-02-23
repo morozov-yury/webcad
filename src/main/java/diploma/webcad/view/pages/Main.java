@@ -89,6 +89,8 @@ public class Main extends AbstractContentTile {
 							}
 							String message = new String(tmp, 0, i, "UTF-8");
 							System.out.println(message);
+							System.out.println(message);
+							System.out.println(message);
 							Notification.show("Time on morozov@176.119.11.236:22 - " + message, Type.HUMANIZED_MESSAGE);
 						}
 						if (channel.isClosed()) {
