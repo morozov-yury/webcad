@@ -87,10 +87,9 @@ public class Main extends AbstractContentTile {
 							if (i < 0) {
 								break;
 							}
-							String message = new String(tmp, 0, i);
-							message = new String(tmp, 0, i, "UTF-8");
+							String message = new String(tmp, 0, i, "UTF-8");
 							System.out.println(message);
-							Notification.show("Response from morozov@176.119.11.236:22 - " + message, Type.TRAY_NOTIFICATION);
+							Notification.show("Response from morozov@176.119.11.236:22 - " + message, Type.HUMANIZED_MESSAGE);
 						}
 						if (channel.isClosed()) {
 							System.out.println("exit-status: " + channel.getExitStatus());
@@ -118,8 +117,6 @@ public class Main extends AbstractContentTile {
 		mainVertLayout.addComponent(testButton);
 		// vl.addComponent(new Button("Referral test page", new
 		// RedirectListener(ReferralTestPage.NAME)));
-
-		
 
 	}
 
