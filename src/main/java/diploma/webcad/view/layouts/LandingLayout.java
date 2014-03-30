@@ -65,7 +65,7 @@ public class LandingLayout extends VerticalLayout implements Layout {
 		gridLayout.setComponentAlignment((Component) view, Alignment.TOP_CENTER);
 		
 		((Component)view).setWidth(1000, Unit.PIXELS);
-		((Component)view).setHeight(800, Unit.PIXELS);
+		//((Component)view).setHeight(1000, Unit.PIXELS);
 	}
 
 	@Override
