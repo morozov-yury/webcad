@@ -148,7 +148,6 @@ public class Main extends AbstractContentTile {
 	public class MyUserInfo implements UserInfo {
 
 		public MyUserInfo() {
-
 		}
 
 		@Override
