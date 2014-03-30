@@ -11,6 +11,8 @@ public class SshManager {
 	@Autowired 
 	private WebCadPropertyManager propertyManager;
 	
-	
+	public boolean testConnection () {
+		return false;
+	}
 
 }
