@@ -35,7 +35,7 @@ public abstract class AbstractPage extends Panel implements View {
 
 	public AbstractPage() {
 		setSizeUndefined();
-		setWidth(100, Unit.PERCENTAGE);
+		addStyleName("webcad-abstract-page");
 	}
 
 	public abstract void enter();

@@ -27,6 +27,11 @@
 @import "views/reports.scss";
 @import "views/transactions.scss";
 
+@import "webcad/webcad.scss";
+
+@import "webcad/layouts/main-layout.scss";
+
+@import "webcad/tiles/top-tile.scss";
 
 @mixin dashboard {
 	
@@ -48,7 +53,10 @@
 	@include dashboard-sales-view;
 	@include dashboard-reports-view;
 	@include dashboard-transactions-view;
-
+	
+	@include webcad;
+	@include main-layout;
+	@include top-tile;
 
 	.v-view {
 		overflow: hidden;
@@ -700,13 +708,6 @@
 			vertical-align: middle;
 		}
 	}
-	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	.main-view-component {
-		background: #dfe0e1;
-		padding: 10px !important;
-		margin: 10px;
-	}
+
 
 }

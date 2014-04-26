@@ -1,4 +1,4 @@
-package diploma.webcad.core.web.filter;
+package diploma.webcad.core.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.ComponentContainer;

@@ -3,7 +3,6 @@ package diploma.webcad.core.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.maven.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

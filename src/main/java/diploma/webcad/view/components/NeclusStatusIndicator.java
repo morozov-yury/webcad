@@ -31,6 +31,13 @@ public class NeclusStatusIndicator extends FormLayout {
 	ThemeResource statusImageResourceOff = null;
 	
 	public NeclusStatusIndicator () {
+		
+	}
+	
+	@Override
+	public void attach() {
+		removeAllComponents();
+		
 		contextHelper = WebCadUI.getCurrent().getSessionState().getHelper();
 		neclusManager = contextHelper.getBean(NeclusService.class);
 		
@@ -50,7 +57,9 @@ public class NeclusStatusIndicator extends FormLayout {
 		};
 		timer.schedule(task, 1000, 1000);
 	}
-	
+
+
+
 	private void updateStatus () {
 		statusImage.setSource((neclusManager.isNeclusOnline()) ? statusImageResourceOn : statusImageResourceOff);
 		markAsDirtyRecursive();

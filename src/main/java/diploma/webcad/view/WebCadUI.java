@@ -29,11 +29,10 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.core.service.WebCadProperties;
-import diploma.webcad.core.web.filter.QuizViewDisplay;
+import diploma.webcad.core.view.QuizViewDisplay;
 import diploma.webcad.manager.MappingProcessor;
 import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.layouts.MainLayout;
-import diploma.webcad.view.pages.AbstractPage;
 
 /**
  * The Application's "main" class
@@ -91,8 +90,7 @@ public class WebCadUI extends UI {
 			sessionState.putParameter(SessionState.SPRING_HELPER, helper);
 		}
 		setSizeFull();
-		navigator = new DiscoveryNavigator(this, new QuizViewDisplay(
-				landingLayout)) {
+		navigator = new DiscoveryNavigator(this, new QuizViewDisplay(landingLayout)) {
 			@Override
 			public void navigateTo(String navigationState) {
 				try {
