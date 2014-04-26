@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="webcad" default="fast-deploy" basedir=".">
-	<property name="tomcat-server-home" value="C:/programs/apache-tomcat-6.0.35" />
+	<property name="tomcat-server-home" value="C:/programs/apache-tomcat-7.0.47" />
 	<property name="project-dir" value="C:/Users/morozov.yury/git/webcad" />
 	<property name="war-name" value="ROOT"/>
 

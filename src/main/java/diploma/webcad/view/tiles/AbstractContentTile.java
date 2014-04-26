@@ -108,8 +108,10 @@ public abstract class AbstractContentTile extends Panel implements Tile, View {
 	protected void enterManager(ViewChangeEvent event) {
 	}
 
-	public abstract boolean validate(ViewChangeEvent event)
-			throws RedirectException;
+	public boolean validate(ViewChangeEvent event) throws RedirectException {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 	public void setValidated(boolean validated) {
 		this.validated = validated;

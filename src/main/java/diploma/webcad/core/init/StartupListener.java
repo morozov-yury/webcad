@@ -79,7 +79,7 @@ public class StartupListener implements ServletContextListener {
 		log.info("  --> loadApplicationResources done. "
 				+ (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		loadTemplates(helper);
+		//loadTemplates(helper);
 		log.info("  --> loadMailTemplates done. "
 				+ (System.currentTimeMillis() - currentTimeMillis));
 		log.info("--> Startup initialization done.");

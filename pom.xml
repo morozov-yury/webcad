@@ -20,7 +20,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<tomcat-webapp-dir>C:/programs/apache-tomcat-6.0.35/webapps/ROOT</tomcat-webapp-dir>
+		<tomcat-webapp-dir>C:/programs/apache-tomcat-7.0.47/webapps/ROOT</tomcat-webapp-dir>
 		<spring-social.version>1.0.2.RELEASE</spring-social.version>
 		<spring-social-facebook.version>1.0.3.RELEASE</spring-social-facebook.version>
 		<spring-social-twitter.version>1.0.5.RELEASE</spring-social-twitter.version>
