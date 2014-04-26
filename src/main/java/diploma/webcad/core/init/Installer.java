@@ -16,13 +16,13 @@ import diploma.webcad.common.security.MD5Helper;
 import diploma.webcad.core.dao.ApplicationResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.UserDao;
-import diploma.webcad.core.manager.SystemManager;
 import diploma.webcad.core.model.ApplicationConstant;
 import diploma.webcad.core.model.ApplicationConstantType;
 import diploma.webcad.core.model.ApplicationResource;
 import diploma.webcad.core.model.ApplicationResourceValue;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.service.SystemService;
 
 public class Installer {
 
@@ -48,7 +48,7 @@ public class Installer {
 		String marker = "installed: " + format.format(new Date());
 		log.info("INSTALLATION FINISH: " + marker);
 		ApplicationConstant constant = new ApplicationConstant("installed", marker, "Installation flag", ApplicationConstantType.SYSTEM);
-		helper.getBean(SystemManager.class).saveApplicationConstant(constant );
+		helper.getBean(SystemService.class).saveApplicationConstant(constant );
 		log.info("INSTALLATION END.");
 	}
 

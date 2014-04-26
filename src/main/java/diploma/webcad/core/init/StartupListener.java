@@ -30,11 +30,11 @@ import diploma.webcad.core.data.appconstants.Constants;
 import diploma.webcad.core.data.templates.XmlLocale;
 import diploma.webcad.core.data.templates.XmlTemplate;
 import diploma.webcad.core.data.templates.XmlTemplates;
-import diploma.webcad.core.manager.SystemManager;
 import diploma.webcad.core.model.ApplicationResource;
 import diploma.webcad.core.model.ApplicationResourceValue;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.Template;
+import diploma.webcad.core.service.SystemService;
 
 public class StartupListener implements ServletContextListener {
 
@@ -97,7 +97,7 @@ public class StartupListener implements ServletContextListener {
 	}
 
 	private boolean installed(SpringContextHelper helper) {
-		String installed = helper.getBean(SystemManager.class)
+		String installed = helper.getBean(SystemService.class)
 				.getConstantValue("installed");
 		return installed.startsWith("installed");
 	}
@@ -211,8 +211,8 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private SystemManager getSystemManager(SpringContextHelper helper) {
-		return (SystemManager) helper.getBean("systemManager");
+	private SystemService getSystemManager(SpringContextHelper helper) {
+		return helper.getBean(SystemService.class);
 	}
 
 	@Override

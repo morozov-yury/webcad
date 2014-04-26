@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import diploma.webcad.core.annotation.HibernateSessionRequired;
-import diploma.webcad.core.manager.RuntimeRegistrator;
-import diploma.webcad.core.manager.UserManager;
 import diploma.webcad.core.model.trigger.TriggerJobType;
+import diploma.webcad.core.service.RuntimeRegistrator;
+import diploma.webcad.core.service.UserService;
 
 @Service("testTriggerJob")
 public class TestTriggerJob extends AbstractTriggerJob {
@@ -20,7 +20,7 @@ public class TestTriggerJob extends AbstractTriggerJob {
 	private RuntimeRegistrator runtimeRegistrator;
 	
 	@Autowired
-	private UserManager userManager;
+	private UserService userManager;
 	
 	@HibernateSessionRequired
 	public void perform() throws Exception {

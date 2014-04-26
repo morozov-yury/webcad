@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import diploma.webcad.core.dao.TriggerJobInfoDao;
-import diploma.webcad.core.manager.TriggerManager;
 import diploma.webcad.core.model.trigger.TriggerJobType;
+import diploma.webcad.core.service.TriggerService;
 import diploma.webcad.core.util.date.DateUtils;
 
 public abstract class AbstractTriggerJob implements TriggerJob {
@@ -14,7 +14,7 @@ public abstract class AbstractTriggerJob implements TriggerJob {
 	private static final long serialVersionUID = 1756345435752342321L;
 
 	@Autowired
-	private TriggerManager triggerManager;
+	private TriggerService triggerManager;
 	
 	@Autowired
 	private TriggerJobInfoDao triggerJobInfoDao;
@@ -43,7 +43,7 @@ public abstract class AbstractTriggerJob implements TriggerJob {
 	
 	public abstract TriggerJobType getTriggerJobType ();
 
-	public TriggerManager getTriggerManager() {
+	public TriggerService getTriggerManager() {
 		return triggerManager;
 	}
 

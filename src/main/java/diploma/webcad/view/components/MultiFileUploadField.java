@@ -21,6 +21,8 @@ import com.wcs.wcslib.vaadin.widget.multifileupload.ui.MultiFileUpload;
 import com.wcs.wcslib.vaadin.widget.multifileupload.ui.UploadFinishedHandler;
 import com.wcs.wcslib.vaadin.widget.multifileupload.ui.UploadStateWindow;
 
+import diploma.webcad.view.model.FileData;
+
 @SuppressWarnings({ "serial", "rawtypes" })
 public class MultiFileUploadField extends CustomField<List> implements UploadFinishedHandler {
 

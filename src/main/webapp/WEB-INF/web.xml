@@ -41,7 +41,7 @@
         <servlet-class>ru.xpoft.vaadin.SpringVaadinServlet</servlet-class>
 		<init-param>
 			<param-name>beanName</param-name>
-			<param-value>quizUI</param-value>
+			<param-value>webCadUI</param-value>
 		</init-param>
 		<init-param>
 			<description>Application widgetset</description>

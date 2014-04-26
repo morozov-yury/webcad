@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import diploma.webcad.core.manager.ContentManager;
-import diploma.webcad.core.manager.RuntimeRegistrator;
-import diploma.webcad.core.manager.SessionState;
-import diploma.webcad.core.manager.TemplateManager;
-import diploma.webcad.core.manager.UserManager;
 import diploma.webcad.core.model.ApplicationResource;
 import diploma.webcad.core.model.Language;
+import diploma.webcad.core.service.ContentService;
+import diploma.webcad.core.service.RuntimeRegistrator;
+import diploma.webcad.core.service.SessionState;
+import diploma.webcad.core.service.TemplateService;
+import diploma.webcad.core.service.UserService;
 
 @Component
 @Scope("session")
@@ -20,16 +20,16 @@ public class SessionHelper {
 	private SessionState sessionState;
 	
 	@Autowired
-	private ContentManager contentManager;
+	private ContentService contentManager;
 	
 	@Autowired
-	private UserManager userManager;
+	private UserService userManager;
 	
 	@Autowired
 	private RuntimeRegistrator runtimeRegistrator;
 
 	@Autowired
-	private TemplateManager templateManager;
+	private TemplateService templateManager;
 
 	
 	/**
@@ -80,11 +80,11 @@ public class SessionHelper {
 		return sessionState;
 	}
 
-	public UserManager getUserManager() {
+	public UserService getUserManager() {
 		return userManager;
 	}
 
-	public ContentManager getContentManager() {
+	public ContentService getContentManager() {
 		return contentManager;
 	}
 

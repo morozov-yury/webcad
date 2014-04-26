@@ -11,7 +11,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Image;
 
 import diploma.webcad.core.init.SpringContextHelper;
-import diploma.webcad.core.manager.NeclusManager;
+import diploma.webcad.core.service.NeclusService;
 import diploma.webcad.view.WebCadUI;
 
 public class NeclusStatusIndicator extends FormLayout {
@@ -22,7 +22,7 @@ public class NeclusStatusIndicator extends FormLayout {
 	
 	private SpringContextHelper contextHelper;
 	
-	private NeclusManager neclusManager;
+	private NeclusService neclusManager;
 	
 	Image statusImage = null;
 	
@@ -32,7 +32,7 @@ public class NeclusStatusIndicator extends FormLayout {
 	
 	public NeclusStatusIndicator () {
 		contextHelper = WebCadUI.getCurrent().getSessionState().getHelper();
-		neclusManager = contextHelper.getBean(NeclusManager.class);
+		neclusManager = contextHelper.getBean(NeclusService.class);
 		
 		statusImageResourceOn = new ThemeResource("img/webcad/neclus_on.png");
 		statusImageResourceOff = new ThemeResource("img/webcad/neclus_off.png");
@@ -52,7 +52,6 @@ public class NeclusStatusIndicator extends FormLayout {
 	}
 	
 	private void updateStatus () {
-		log.info("updateStatus");	
 		statusImage.setSource((neclusManager.isNeclusOnline()) ? statusImageResourceOn : statusImageResourceOff);
 		markAsDirtyRecursive();
 		WebCadUI.getCurrent().push();

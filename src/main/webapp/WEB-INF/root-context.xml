@@ -20,7 +20,7 @@
     <!-- Core DAO beans -->
     <context:component-scan base-package="diploma.webcad.core.dao.impl"/>
     <!-- Core manager beans -->
-    <context:component-scan base-package="diploma.webcad.core.manager"/>
+    <context:component-scan base-package="diploma.webcad.core.service"/>
     <context:component-scan base-package="diploma.webcad.core.transaction"/>
     <!-- beans -->
     <context:component-scan base-package="diploma.webcad.core.dao"/>
@@ -102,7 +102,7 @@
 
 <!-- Aspects -->
     <context:component-scan base-package="diploma.webcad.aop.aspects"/>
-	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.manager.ApplicationContextProvider" />
+	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.ApplicationContextProvider" />
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<aop:config>
 		<aop:pointcut id="hibernateSessionDependingOperation" expression="@annotation(diploma.webcad.core.annotation.HibernateSessionRequired)" />

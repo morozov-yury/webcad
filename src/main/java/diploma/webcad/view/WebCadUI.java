@@ -25,19 +25,20 @@ import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.UI;
 
 import diploma.webcad.core.init.SpringContextHelper;
-import diploma.webcad.core.manager.RuntimeRegistrator;
-import diploma.webcad.core.manager.SessionState;
-import diploma.webcad.core.manager.WebCadPropertyManager;
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.service.RuntimeRegistrator;
+import diploma.webcad.core.service.SessionState;
+import diploma.webcad.core.service.WebCadProperties;
+import diploma.webcad.core.web.filter.QuizViewDisplay;
 import diploma.webcad.manager.MappingProcessor;
 import diploma.webcad.view.components.SessionHelper;
-import diploma.webcad.view.layouts.LandingLayout;
-import diploma.webcad.view.tiles.AbstractContentTile;
+import diploma.webcad.view.layouts.MainLayout;
+import diploma.webcad.view.pages.AbstractPage;
 
 /**
  * The Application's "main" class
  */
-@Component("quizUI")
+@Component("webCadUI")
 @Scope("prototype")
 @Theme("dashboard")
 @SuppressWarnings("serial")
@@ -45,7 +46,7 @@ import diploma.webcad.view.tiles.AbstractContentTile;
 public class WebCadUI extends UI {
 
 	@Autowired
-	private LandingLayout landingLayout;
+	private MainLayout landingLayout;
 
 	@Autowired
 	private MappingProcessor mappingProcessor;
@@ -54,7 +55,7 @@ public class WebCadUI extends UI {
 	private SessionState sessionState;
 	
 	@Autowired
-	private WebCadPropertyManager webCadPropertyManager;
+	private WebCadProperties webCadPropertyManager;
 	
 	@Autowired
 	private RuntimeRegistrator runtimeRegistrator;
@@ -98,7 +99,6 @@ public class WebCadUI extends UI {
 					super.navigateTo(navigationState);
 				} catch (Exception e) {
 					e.printStackTrace();
-					//super.navigateTo(NotFound.NAME);
 				}
 			}
 		};
@@ -113,10 +113,7 @@ public class WebCadUI extends UI {
 
 			@Override
 			public void afterViewChange(ViewChangeEvent event) {
-				AbstractContentTile abstractContentTile = (AbstractContentTile) event
-						.getNewView();
-				sessionState.putParameter(SessionState.LAST_PATH, "!"
-						+ abstractContentTile.getPath());
+				
 			}
 
 		});
