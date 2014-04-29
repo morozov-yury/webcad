@@ -29,6 +29,8 @@ public class NeclusStatusIndicator extends FormLayout {
 	ThemeResource statusImageResourceOn = null;
 	
 	ThemeResource statusImageResourceOff = null;
+
+	private Timer timer;
 	
 	public NeclusStatusIndicator () {
 		
@@ -49,20 +51,31 @@ public class NeclusStatusIndicator extends FormLayout {
 		addComponent(statusImage);
 
 		updateStatus();
-		Timer timer = new Timer();
+		timer = new Timer();
 		TimerTask task = new TimerTask() {
 			public void run() {
 				updateStatus();
 		    }
 		};
-		timer.schedule(task, 1000, 1000);
+		timer.schedule(task, 1000, 1000);	
 	}
+	
+	
 
-
+	@Override
+	public void detach() {
+		timer.cancel();
+		super.detach();
+	}
 
 	private void updateStatus () {
 		statusImage.setSource((neclusManager.isNeclusOnline()) ? statusImageResourceOn : statusImageResourceOff);
-		markAsDirtyRecursive();
+		this.getUI().getSession().lock();
+		try {
+			markAsDirtyRecursive();
+		} finally {
+		   this.getUI().getSession().unlock();
+		}
 		WebCadUI.getCurrent().push();
 	}
 

@@ -2,186 +2,26 @@
 <constants>
 
 	<constant
-		key="test_mode"
-		description="Test mode"
-		type="SYSTEM"
-		value="true"/>
-
-	<constant
-		key="default_language"
-		description="Default language for application"
-		type="DEFAULT"
-		value="en"/>
-
-	<constant
-		key="email restricted symbols"
-		description="Restricted symbols for email"
+		key="test_constant_security"
+		description="description of test_constant_security"
 		type="SECURITY"
-		value=""/>
+		value="test_constant_security_value"/>
 
 	<constant
-		key="nickname restricted symbols"
-		description="Restricted symbols for nickname"
-		type="SECURITY"
-		value="@&lt;&gt;."/>
+		key="test_constant_system"
+		description="description of test_constant_system"
+		type="SYSTEM"
+		value="test_constant_system_value"/>
 
 	<constant
-		key="amazon_aws_host"
-		description="Amazon host"
-		type="SYSTEM"
-		value="http://s3.amazonaws.com"/>
-	<constant
-		key="amazon_aws_http_bucket"
-		description="Amazon bucket name for user images"
-		type="SYSTEM"
-		value="communicator_promo_http_bucket"/>
-	<constant
-		key="amazon_aws_rtmp_bucket"
-		description="Amazon bucket name for user videos"
-		type="SYSTEM"
-		value="rtmp_bucket"/>
-	<constant
-		key="amazon_aws_access_key"
-		description="Amazon AWS access key"
-		type="SYSTEM"
-		value=""/>
-	<constant
-		key="amazon_aws_secret_key"
-		description="Amazon AWS secret key"
-		type="SYSTEM"
-		value=""/>
-	<constant
-		key="amazon_aws_region"
-		description="Amazon AWS region"
-		type="SYSTEM"
-		value="EU_Ireland"/>
+		key="test_constant_default"
+		type="DEFAULT"
+		value="test_constant_default_value"/>
 
-	<constant
-		key="iso currency default"
-		type="DEFAULT"
-		value="USD"/>
-		
-	<constant
-		key="media_file_filter_image_options"
-		type="SETTINGS"
-		value="jpg gif png tiff psd"/>
-		
-	<constant
-		key="media_file_filter_video_options"
-		type="SETTINGS"
-		value="avi mpg ogg flv mp4"/>
-		
-	<constant
-		key="media_file_filter_audio_options"
-		type="SETTINGS"
-		value="mp3 wav"/>
-		
-	<constant
-		key="media_file_filter_office_options"
-		type="SETTINGS"
-		value="doc docx xls xlsx mdb accdb vsd ai cdr"/>
-		
-	<constant
-		key="contest_price_basic"
-		type="SETTINGS"
-		value="1000|USD"/>
-		
-	<constant
-		key="contest_price_pay_participation"
-		type="SETTINGS"
-		value="500|USD"/>
-		
-	<constant
-		key="contest_price_social_networks"
-		type="SETTINGS"
-		value="200|USD"/>
-		
-	<constant
-		key="contest_price_pay_votes"
-		type="SETTINGS"
-		value="200|USD"/>
-		
-	<constant
-		key="contest_price_promotion"
-		type="SETTINGS"
-		value="300|USD"/>
-		
-	<constant
-		key="contest_price_kyc"
-		type="SETTINGS"
-		value="800|USD"/>
-		
-	<constant
-		key="vote_coefficient_anonymous"
-		type="DEFAULT"
-		value="0"/>
-		
-	<constant
-		key="vote_coefficient_registered"
-		type="DEFAULT"
-		value="1"/>
-		
-	<constant
-		key="vote_coefficient_participant"
-		type="DEFAULT"
-		value="1.25"/>
-		
-	<constant
-		key="vote_coefficient_social"
-		type="DEFAULT"
-		value="0"/>
-		
-	<constant
-		key="vote_coefficient_paid"
-		type="DEFAULT"
-		value="1"/>
-		
-<!-- TRANSACTIONS -->
 		
 	<constant 
-		key="trans_quiz_purchase_ref_perc"
+		key="test_constant_settings"
 		type="SETTINGS"
-		value="10"/>
-		
-	<constant 
-		key="trans_voice_purchase_ref_perc"
-		type="SETTINGS"
-		value="1"/>
-		
-	<constant 
-		key="trans_voice_payment_quizman"
-		type="SETTINGS"
-		value="10"/>
-		
-			
-	<constant 
-		key="trans_voice_payment_merchant"
-		type="SETTINGS"
-		value="10"/>
-		
-	<constant 
-		key="trans_vip_purchase"
-		type="SETTINGS"
-		value="10"/>
-		
-	<constant 
-		key="trans_promo_payment"
-		type="SETTINGS"
-		value="10"/>
-		
-	<constant 
-		key="trans_quiz_join_bonus"
-		type="SETTINGS"
-		value="40"/>
-		
-	<constant 
-		key="trans_quiz_join_tax"
-		type="SETTINGS"
-		value="10"/>
-		
-	<constant 
-		key="trans_quiz_join_tax_refer"
-		type="SETTINGS"
-		value="10"/>
+		value="test_constant_settings_value"/>
 
 </constants>

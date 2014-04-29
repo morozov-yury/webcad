@@ -42,7 +42,6 @@ public class Installer {
 		loadApplicationResources();
 		log.info("initSystemWallet...");
 		createSystemAccount();
-		log.info("loadRegions...");
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String marker = "installed: " + format.format(new Date());

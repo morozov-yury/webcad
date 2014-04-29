@@ -10,7 +10,9 @@ import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.ui.UI;
 
 public class SpringContextHelper {
+	
 	private WebApplicationContext context;
+	
 	private UI application;
 	
 	public static SpringContextHelper getInstance(UI application) {

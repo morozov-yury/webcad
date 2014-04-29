@@ -37,21 +37,23 @@ import diploma.webcad.core.model.Template;
 import diploma.webcad.core.service.SystemService;
 
 public class StartupListener implements ServletContextListener {
+	
+	private static final Logger log = Logger.getLogger(StartupListener.class);
 
 	private static final String SESSION_FACTORY_BEAN = "sessionFactory";
-	private static final Logger log = Logger.getLogger(StartupListener.class);
+	
 	private ServletContext servletContext;
 
-	public void contextInitialized(ServletContextEvent sce) {
-
-		servletContext = sce.getServletContext();
-		SpringContextHelper helper = new SpringContextHelper(
-				sce.getServletContext());
-		SessionFactory sessionFactory = (SessionFactory) helper
-				.getBean(SESSION_FACTORY_BEAN);
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		servletContext = servletContextEvent.getServletContext();
+		
+		SpringContextHelper helper = new SpringContextHelper(servletContextEvent.getServletContext());
+		SessionFactory sessionFactory = (SessionFactory) helper.getBean(SESSION_FACTORY_BEAN);
+		
 		Session session = null;
 		boolean participate = false;
 		Transaction transaction = null;
+		
 		if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
 			// do not modify the Session: just set the participate flag
 			participate = true;
@@ -59,11 +61,9 @@ public class StartupListener implements ServletContextListener {
 			if (log.isDebugEnabled()) {
 				log.debug("Opening temporary Hibernate session in StartupListener");
 			}
-			session = sessionFactory.openSession(); // SessionFactoryUtils.getSession(sessionFactory,
-													// true);
+			session = sessionFactory.openSession(); // SessionFactoryUtils.getSession(sessionFactory, true);
 			transaction = session.beginTransaction();
-			TransactionSynchronizationManager.bindResource(sessionFactory,
-					new SessionHolder(session));
+			TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
 		}
 
 		loadConstants(helper);
@@ -76,12 +76,10 @@ public class StartupListener implements ServletContextListener {
 
 		long currentTimeMillis = System.currentTimeMillis();
 		loadApplicationResources(helper);
-		log.info("  --> loadApplicationResources done. "
-				+ (System.currentTimeMillis() - currentTimeMillis));
+		log.info("  --> loadApplicationResources done. " + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
 		//loadTemplates(helper);
-		log.info("  --> loadMailTemplates done. "
-				+ (System.currentTimeMillis() - currentTimeMillis));
+		log.info("  --> loadMailTemplates done. " + (System.currentTimeMillis() - currentTimeMillis));
 		log.info("--> Startup initialization done.");
 
 		// closing session
@@ -97,30 +95,29 @@ public class StartupListener implements ServletContextListener {
 	}
 
 	private boolean installed(SpringContextHelper helper) {
-		String installed = helper.getBean(SystemService.class)
-				.getConstantValue("installed");
+		String installed = helper.getBean(SystemService.class).getConstantValue("installed");
 		return installed.startsWith("installed");
 	}
 
 	private void loadApplicationResources(SpringContextHelper helper) {
 		LanguageDao languageDao = (LanguageDao) helper.getBean("languageDao");
-		ApplicationResourceDao applicationResourceDao = (ApplicationResourceDao) helper
-				.getBean("applicationResourceDao");
+		ApplicationResourceDao applicationResourceDao = 
+				(ApplicationResourceDao) helper.getBean("applicationResourceDao");
 		List<Language> languages = languageDao.list();
 		for (Language language : languages) {
-			ResourceBundle bundle = ResourceBundle.getBundle(
-					Resources.APPLICATION_RESOURCE_BUNDLE_BASE, new Locale(
-							language.getIso()), new UTF8Control());
+			String iso = language.getIso();
+			UTF8Control utf8Control = new UTF8Control();
+			Locale locale = new Locale(iso);
+			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, locale, utf8Control);
 			for (String key : bundle.keySet()) {
-				ApplicationResource appResource = applicationResourceDao
-						.read(key);
+				ApplicationResource appResource = applicationResourceDao.read(key);
 				if (appResource == null) {
 					appResource = new ApplicationResource(key);
 				}
 				if (!appResource.containsLanguage(language)) {
 					String val = bundle.getString(key);
-					appResource.getLangs().add(
-							new ApplicationResourceValue(language, val));
+					ApplicationResourceValue appValue = new ApplicationResourceValue(language, val);
+					appResource.getLangs().add(appValue);
 					try {
 						applicationResourceDao.saveOrUpdate(appResource);
 					} catch (Exception e) {
@@ -133,12 +130,10 @@ public class StartupListener implements ServletContextListener {
 
 	private void loadConstants(SpringContextHelper helper) {
 		try {
-			final JAXBContext jaxbContext = JAXBContext
-					.newInstance(Constants.class);
+			final JAXBContext jaxbContext = JAXBContext.newInstance(Constants.class);
 			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			servletContext.getResourceAsStream("constants.xml");
-			final InputStream is = servletContext
-					.getResourceAsStream("/WEB-INF/classes/constants.xml");
+			final InputStream is = servletContext.getResourceAsStream("/WEB-INF/classes/constants.xml");
 			final Constants constants = (Constants) unmarshaller.unmarshal(is);
 			getSystemManager(helper).readConstants(constants);
 		} catch (JAXBException e) {
@@ -148,11 +143,8 @@ public class StartupListener implements ServletContextListener {
 
 	private void loadTemplates(SpringContextHelper helper) {
 		String[] templateFiles = {
-				"/WEB-INF/classes/templates/mail_templates.xml", 
-				"/WEB-INF/classes/templates/microblog_templates.xml",
-				"/WEB-INF/classes/templates/notification_templates.xml",
-				"/WEB-INF/classes/templates/message_templates.xml",
-				"/WEB-INF/classes/templates/wall_post_templates.xml"
+				"/WEB-INF/classes/templates/templates1.xml", 
+				"/WEB-INF/classes/templates/templates2.xml"
 				};
 		JAXBContext jaxbContext;
 		

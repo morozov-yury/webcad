@@ -17,6 +17,7 @@ import diploma.webcad.view.WebCadUI;
 @Service
 @Scope("singleton")
 public class RuntimeRegistrator {
+	
 	private Logger log = Logger.getLogger(RuntimeRegistrator.class);
 	
 	private Map<Long, Set<WebCadUI>> online;
@@ -32,15 +33,12 @@ public class RuntimeRegistrator {
 	}
 	
 	public void registerUser(User user, UI ui) {
-		log.debug("User registration: " + user);
-		
+		log.debug("User registration: " + user);	
 	}
 
 
 	public void removeUser(User user, UI ui) {
 		log.debug("User unregistration: "+user);
-		
 	}
-
 
 }

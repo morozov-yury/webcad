@@ -8,16 +8,20 @@ import org.springframework.stereotype.Component;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.service.NeclusService;
+import diploma.webcad.listener.RedirectListener;
+import diploma.webcad.view.pages.test.TestPage;
 
-@SuppressWarnings("serial")
 @Component
 @Scope("prototype")
 @VaadinView(MainPage.NAME)
 public class MainPage extends AbstractPage {
+
+	private static final long serialVersionUID = 1762911330007195607L;
 
 	public static final String NAME = "";
 
@@ -27,8 +31,8 @@ public class MainPage extends AbstractPage {
 	private NeclusService sshManager;
 
 	private VerticalLayout mainLayout;
-
-	public MainPage() {
+	
+	public MainPage () {
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
 		setContent(this.mainLayout);
@@ -38,6 +42,9 @@ public class MainPage extends AbstractPage {
 	public void enter() {
 		this.mainLayout.removeAllComponents();
 		this.mainLayout.addComponent(new Label("Welcome to WebCad"));
+		
+		mainLayout.addComponent(new Button("Go to testpage", new RedirectListener(TestPage.NAME)));	
 	}
 
 }
+ 

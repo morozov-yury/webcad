@@ -3,33 +3,19 @@ package diploma.webcad.view.pages;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 
-import diploma.webcad.core.service.SessionState;
-import diploma.webcad.manager.MappingProcessor;
 import diploma.webcad.view.WebCadUI;
-import diploma.webcad.view.components.SessionHelper;
 
 @SuppressWarnings("serial")
 public abstract class AbstractPage extends Panel implements View {
 	
 	private static Logger log = LoggerFactory.getLogger(AbstractPage.class);
-
-	@Autowired
-	private SessionState sessionState;
-
-	@Autowired
-	private MappingProcessor mappingProcessor;
-
-	@Autowired
-	private SessionHelper sessionHelper;
 
 	private String parameters;
 
