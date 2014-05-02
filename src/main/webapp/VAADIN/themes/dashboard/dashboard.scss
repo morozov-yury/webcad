@@ -29,10 +29,6 @@
 
 @import "webcad/webcad.scss";
 
-@import "webcad/layouts/main-layout.scss";
-
-@import "webcad/tiles/top-tile.scss";
-
 @mixin dashboard {
 	
 	@include base;
@@ -55,8 +51,6 @@
 	@include dashboard-transactions-view;
 	
 	@include webcad;
-	@include main-layout;
-	@include top-tile;
 
 	.v-view {
 		overflow: hidden;

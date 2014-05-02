@@ -37,6 +37,7 @@ import diploma.webcad.core.view.QuizViewDisplay;
 import diploma.webcad.manager.MappingProcessor;
 import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.layouts.MainLayout;
+import diploma.webcad.view.model.PageProperties;
 
 @Component("webCadUI")
 @Title("WebCad")
@@ -102,7 +103,7 @@ public class WebCadUI extends UI {
 				try {
 					super.navigateTo(navigationState);
 				} catch (Exception e) {
-					e.printStackTrace();
+					super.navigateTo("404/" + navigationState);
 				}
 			}
 		};
@@ -174,6 +175,13 @@ public class WebCadUI extends UI {
 
 	public void processUri(String uri) {
 		mappingProcessor.processMapping(uri);
+	}
+	
+	public void processUri(String uri, PageProperties pageProperties) {
+		if (pageProperties == null) {
+			mappingProcessor.processMapping(uri);
+		}
+		mappingProcessor.processMapping(uri + pageProperties);
 	}
 
     public String getProperty(String propertyName) {

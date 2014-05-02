@@ -1,4 +1,4 @@
-package diploma.webcad.view.components;
+package diploma.webcad.view.components.neclus;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,8 +43,8 @@ public class NeclusStatusIndicator extends FormLayout {
 		contextHelper = WebCadUI.getCurrent().getSessionState().getHelper();
 		neclusManager = contextHelper.getBean(NeclusService.class);
 		
-		statusImageResourceOn = new ThemeResource("img/webcad/neclus_on.png");
-		statusImageResourceOff = new ThemeResource("img/webcad/neclus_off.png");
+		statusImageResourceOn = new ThemeResource("img/neclus/neclus_on.png");
+		statusImageResourceOff = new ThemeResource("img/neclus/neclus_off.png");
 		
 		statusImage = new Image("Neclus status");
 		statusImage.addStyleName("neclus-status-image");
@@ -60,8 +60,6 @@ public class NeclusStatusIndicator extends FormLayout {
 		timer.schedule(task, 1000, 1000);	
 	}
 	
-	
-
 	@Override
 	public void detach() {
 		timer.cancel();

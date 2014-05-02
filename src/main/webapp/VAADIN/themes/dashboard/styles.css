@@ -5508,6 +5508,45 @@ body .dashboard.v-app .v-app-loading {
 	border-top: 1px solid #d4d5d5;
 }
 
+.dashboard .main-layout .main-layout-grid {
+	width: 1024px !important;
+}
+
+.dashboard .top-tile {
+	padding: 10px;
+}
+
+.dashboard .navigation-panel {
+	width: 40px;
+	position: fixed;
+	top: 10px;
+	z-index: 1;
+}
+
+.dashboard .navigation-panel .navigation-panel-button {
+	width: 32px;
+	height: 40px;
+	background-repeat: no-repeat;
+	background-position: top left;
+	cursor: pointer;
+}
+
+.dashboard .navigation-panel .navigation-panel-button-home {
+	background-image: url(img/navigation/home32x32.png);
+}
+
+.dashboard .navigation-panel .navigation-panel-button-home:hover {
+	background-image: url(img/navigation/home32x32-hover.png);
+}
+
+.dashboard .navigation-panel .navigation-panel-button-settings {
+	background-image: url(img/navigation/settings32x32.png);
+}
+
+.dashboard .navigation-panel .navigation-panel-button-settings:hover {
+	background-image: url(img/navigation/settings32x32-hover.png);
+}
+
 .dashboard .full-width {
 	width: 100% !important;
 }
@@ -5528,14 +5567,6 @@ body .dashboard.v-app .v-app-loading {
 .dashboard .webcad-abstract-page {
 	width: 100% !important;
 	padding: 10px !important;
-}
-
-.dashboard .main-layout .main-layout-grid {
-	width: 1024px !important;
-}
-
-.dashboard .top-tile {
-	padding: 10px;
 }
 
 .dashboard .v-view {

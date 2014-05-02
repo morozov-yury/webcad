@@ -20,16 +20,16 @@ public class NeclusService {
 	private SshProperties sshProperties;
 	
 	public boolean isNeclusOnline () {
-		try {
-			JSch jsch = new JSch();
-			Session session = jsch.getSession(sshProperties.getUsername(), sshProperties.getHost(), sshProperties.getPort());
-			session.setUserInfo(sshProperties);
-			session.connect();
-			session.disconnect();
-		} catch (JSchException e) {
-			log.info(e.getMessage());
-			return false;
-		} 
+//		try {
+//			JSch jsch = new JSch();
+//			Session session = jsch.getSession(sshProperties.getUsername(), sshProperties.getHost(), sshProperties.getPort());
+//			session.setUserInfo(sshProperties);
+//			session.connect();
+//			session.disconnect();
+//		} catch (JSchException e) {
+//			log.info(e.getMessage());
+//			return false;
+//		} 
 		return true;
 	}
 

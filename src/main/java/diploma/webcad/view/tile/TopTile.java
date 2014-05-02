@@ -3,7 +3,8 @@ package diploma.webcad.view.tile;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.view.components.NeclusStatusIndicator;
+import diploma.webcad.view.components.navigation.NavigationPanel;
+import diploma.webcad.view.components.neclus.NeclusStatusIndicator;
 
 public class TopTile extends Panel {
 

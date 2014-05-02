@@ -42,8 +42,6 @@ public class MainPage extends AbstractPage {
 	public void enter() {
 		this.mainLayout.removeAllComponents();
 		this.mainLayout.addComponent(new Label("Welcome to WebCad"));
-		
-		mainLayout.addComponent(new Button("Go to testpage", new RedirectListener(TestPage.NAME)));	
 	}
 
 }

@@ -4,12 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Properties;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -50,6 +56,22 @@ public class HttpUtils {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public static Properties getUrlProperties (String url) {
+		Properties properties = new Properties();
+		List<NameValuePair> valuePairs = null;
+		try {
+			valuePairs = URLEncodedUtils.parse(new URI(url), "UTF-8");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		if (valuePairs != null) {
+			for (NameValuePair valuePair : valuePairs) {
+				properties.put(valuePair.getName(), valuePair.getValue());
+			}
+		}
+		return properties;
 	}
 
 }

@@ -9,6 +9,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.view.Layout;
+import diploma.webcad.view.components.navigation.NavigationPanel;
 import diploma.webcad.view.tile.TopTile;
 
 @SuppressWarnings("serial")
@@ -28,15 +29,20 @@ public class MainLayout extends VerticalLayout implements Layout {
 		addStyleName("main-layout");
 		setSizeFull();
 		
-		mainGridLayout = new GridLayout(1, 2);
+		mainGridLayout = new GridLayout(2, 2);
 		mainGridLayout.addStyleName("main-layout-grid");
 		
 		topTile = new TopTile();
 		mainContentVL = new VerticalLayout();
 		mainContentVL.addStyleName("full-width");
 		
-		mainGridLayout.addComponent(topTile, 0, 0);
-		mainGridLayout.addComponent(mainContentVL, 0, 1);
+		
+		NavigationPanel navigationPanel = new NavigationPanel();
+		mainGridLayout.addComponent(navigationPanel, 0, 1);
+		
+		
+		mainGridLayout.addComponent(topTile, 1, 0);
+		mainGridLayout.addComponent(mainContentVL, 1, 1);
 		addComponent(mainGridLayout);
 		setComponentAlignment(mainGridLayout, Alignment.TOP_CENTER);
 	}

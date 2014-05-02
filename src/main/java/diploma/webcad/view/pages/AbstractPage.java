@@ -1,6 +1,5 @@
 package diploma.webcad.view.pages;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,16 +7,20 @@ import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 
+import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
+import diploma.webcad.view.model.PageProperties;
 
 @SuppressWarnings("serial")
 public abstract class AbstractPage extends Panel implements View {
 	
 	private static Logger log = LoggerFactory.getLogger(AbstractPage.class);
 
-	private String parameters;
+	private PageProperties pageProperties;
 
 	public AbstractPage() {
 		setSizeUndefined();
@@ -28,19 +31,20 @@ public abstract class AbstractPage extends Panel implements View {
 	
 	@Override
 	final public void enter(ViewChangeEvent event) {
-		parameters = event.getParameters();
+		pageProperties = new PageProperties(HttpUtils.getUrlProperties(event.getParameters()));
 		if (isAccessAvailable()) {
 			enter();
+			Notification.show(getPageLocation() + getPageParameters(), Type.TRAY_NOTIFICATION);
 		} else {
-			WebCadUI.getCurrent().processUri("!403");
+			WebCadUI.getCurrent().processUri("403");
 		}
 	}
 	
-	public boolean isAccessAvailable () {
+	protected boolean isAccessAvailable () {
 		return true;
 	}
 
-	public String getPageLocation() {
+	protected String getPageLocation() {
 		VaadinView vaadinViewAnnotation = getClass().getAnnotation(VaadinView.class);
 		if (vaadinViewAnnotation == null) {
 			return null;
@@ -48,19 +52,12 @@ public abstract class AbstractPage extends Panel implements View {
 		return vaadinViewAnnotation.value();
 	}
 
-	public String getPagePath() {
-		if (StringUtils.isBlank(getPageParameters())) {
-			return getPageLocation();
-		}
-		return getPageLocation() + "/" + getPageParameters();
-	}
-
-	private String getPageParameters() {
-		return parameters;
+	protected PageProperties getPageParameters() {
+		return pageProperties;
 	}
 
 	protected void refreshPage() {
-		WebCadUI.getCurrent().processUri("!" + getPagePath());
+		WebCadUI.getCurrent().processUri(getPageLocation(), getPageParameters());
 	}
 	
 }

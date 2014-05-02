@@ -1,0 +1,35 @@
+@mixin navigation-panel {
+
+	.navigation-panel {
+		width: 40px;
+		position: fixed;
+		top: 10px;
+		z-index: 1;
+		
+		.navigation-panel-button {
+			width: 32px;
+			height: 40px;
+			background-repeat: no-repeat;
+			background-position: top left;
+			cursor: pointer;
+		}
+		
+		.navigation-panel-button-home {
+			background-image: url(../../img/navigation/home32x32.png);
+		}
+		
+		.navigation-panel-button-home:hover {
+			background-image: url(../../img/navigation/home32x32-hover.png);
+		}
+		
+		.navigation-panel-button-settings {
+			background-image: url(../../img/navigation/settings32x32.png);
+		}
+		
+		.navigation-panel-button-settings:hover {
+			background-image: url(../../img/navigation/settings32x32-hover.png);
+		}
+		
+	}
+	
+}
