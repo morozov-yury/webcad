@@ -5547,6 +5547,23 @@ body .dashboard.v-app .v-app-loading {
 	background-image: url(img/navigation/settings32x32-hover.png);
 }
 
+.dashboard .page-content {
+	width: 100%;
+}
+
+.dashboard .page-caption {
+	width: 100%;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	background-repeat: repeat-x;
+	background-position: bottom;
+	background-image: url(img/page/caption-line-separator.png);
+}
+
+.dashboard .page-caption .v-image {
+	padding: 0 5px 2px 0;
+}
+
 .dashboard .full-width {
 	width: 100% !important;
 }

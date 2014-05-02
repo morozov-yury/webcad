@@ -1,12 +1,14 @@
 @import "layouts/main-layout.scss";
 @import "tiles/top-tile.scss";
 @import "components/navigation-panel.scss";
+@import "pages/page-caption.scss";
 
 @mixin webcad {
 
 	@include main-layout;
 	@include top-tile;
 	@include navigation-panel;
+	@include page-caption;
 
 	.full-width {
 		width: 100% !important;
@@ -29,5 +31,5 @@
 		width: 100% !important;
 		padding: 10px !important;
 	} 
-	
+
 }

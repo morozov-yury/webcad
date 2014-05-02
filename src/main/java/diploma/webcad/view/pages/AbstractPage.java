@@ -7,9 +7,15 @@ import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
@@ -22,7 +28,14 @@ public abstract class AbstractPage extends Panel implements View {
 
 	private PageProperties pageProperties;
 
-	public AbstractPage() {
+	private String caption;
+
+	private ThemeResource pageIconResource;
+	
+	Image pageIcon;
+
+	public AbstractPage(String caption) {
+		this.caption = caption;
 		setSizeUndefined();
 		addStyleName("webcad-abstract-page");
 	}
@@ -39,7 +52,7 @@ public abstract class AbstractPage extends Panel implements View {
 			WebCadUI.getCurrent().processUri("403");
 		}
 	}
-	
+
 	protected boolean isAccessAvailable () {
 		return true;
 	}
@@ -59,5 +72,32 @@ public abstract class AbstractPage extends Panel implements View {
 	protected void refreshPage() {
 		WebCadUI.getCurrent().processUri(getPageLocation(), getPageParameters());
 	}
+	
+	public void setPageIcon (String imagePath) {
+		pageIcon.setSource(new ThemeResource(imagePath));
+		pageIcon.markAsDirty();
+	}
+
+	@Override
+	public void setContent(Component content) {
+		if (content == null) {
+			super.setContent(content);
+			return;
+		}
+		HorizontalLayout captionLayout = new HorizontalLayout();
+		captionLayout.addStyleName("page-caption");
+		this.pageIcon = new Image(null);
+		ThemeResource defaultIcon = new ThemeResource("img/page/default-icon.png");
+		pageIcon.setSource(defaultIcon);
+		captionLayout.addComponent(pageIcon);
+		captionLayout.addComponent(new Label(this.caption));
+		
+		VerticalLayout mainContent = new VerticalLayout(captionLayout);
+		mainContent.addStyleName("page-content");
+		mainContent.addComponent(content);
+		
+		super.setContent(mainContent);
+	}
+
 	
 }
