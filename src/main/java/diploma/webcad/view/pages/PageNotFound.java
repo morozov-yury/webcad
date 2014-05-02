@@ -22,7 +22,8 @@ public class PageNotFound extends AbstractPage {
 
 	@Override
 	public void enter() {
-		Label label = new Label("Page not found: " + getPageLocation() + getPageParameters());
+		Object object = getPageParameters().get("page");
+		Label label = new Label("Page not found: " + object);
 		setContent(label);
 	}
 

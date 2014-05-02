@@ -1,6 +1,7 @@
 @import "layouts/main-layout.scss";
 @import "tiles/top-tile.scss";
 @import "components/navigation-panel.scss";
+@import "components/separator.scss";
 @import "pages/page-caption.scss";
 
 @mixin webcad {
@@ -8,6 +9,7 @@
 	@include main-layout;
 	@include top-tile;
 	@include navigation-panel;
+	@include separator;
 	@include page-caption;
 
 	.full-width {
@@ -29,7 +31,33 @@
 
 	.webcad-abstract-page {
 		width: 100% !important;
-		padding: 10px !important;
+		padding: 10px 10px 3px 10px !important;
 	} 
+	
+	.v-label {
+		white-space: normal;
+	}
+	
+	.v-textfield {
+		@include border-radius(0px);
+		padding: 0px 3px !important;
+		box-shadow: none; 
+	}
+	
+	.v-select-optiongroup {
+		padding-left: 20px; 
+	}
+	
+	.v-textarea {
+		width: 100% !important;
+	}
+	
+	.full-width {
+		width: 100% !important;
+	}
+	
+	.v-has-caption {
+		width: 100% !important;
+	}
 
 }

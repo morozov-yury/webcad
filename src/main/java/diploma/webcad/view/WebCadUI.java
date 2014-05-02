@@ -2,6 +2,7 @@ package diploma.webcad.view;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.Cookie;
 
@@ -103,7 +104,9 @@ public class WebCadUI extends UI {
 				try {
 					super.navigateTo(navigationState);
 				} catch (Exception e) {
-					super.navigateTo("404/" + navigationState);
+					PageProperties properties = new PageProperties();
+					properties.put("page", navigationState);
+					processUri("404", properties);
 				}
 			}
 		};

@@ -10,13 +10,13 @@
 		letter-spacing: -0.03em;
 		text-shadow: 0 .1em 0 rgba(255,255,255,.75);
 		
-		@include border-radius(.25em);
+		@include border-radius(0px);
 		
 		border: .1em solid #b3b4b5;
 		border-top-color: #d4d4d6;
 		border-bottom-color: #989b9c;
 	
-		@include box-shadow($outline);
+		//@include box-shadow($outline);
 	/* 	-webkit-box-shadow: 0 0 0 2px rgba(49,50,51,.07); */
 	/* 	-moz-box-shadow: 0 0 0 2px rgba(49,50,51,.07); */
 	/* 	box-shadow: 0 0 0 2px rgba(40,50,51,.07); */

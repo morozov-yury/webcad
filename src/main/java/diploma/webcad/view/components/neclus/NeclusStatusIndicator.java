@@ -57,12 +57,12 @@ public class NeclusStatusIndicator extends FormLayout {
 				updateStatus();
 		    }
 		};
-		timer.schedule(task, 1000, 1000);	
+		//timer.schedule(task, 1000, 1000);	
 	}
 	
 	@Override
 	public void detach() {
-		timer.cancel();
+		//timer.cancel();
 		super.detach();
 	}
 

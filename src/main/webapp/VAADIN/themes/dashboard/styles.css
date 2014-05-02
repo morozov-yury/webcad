@@ -4202,15 +4202,12 @@ body .dashboard.v-app .v-app-loading {
 	line-height: 1;
 	letter-spacing: -0.03em;
 	text-shadow: 0 0.1em 0 rgba(255, 255, 255, 0.75);
-	-webkit-border-radius: 0.25em;
-	-moz-border-radius: 0.25em;
-	border-radius: 0.25em;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 	border: 0.1em solid #b3b4b5;
 	border-top-color: #d4d4d6;
 	border-bottom-color: #989b9c;
-	-webkit-box-shadow: 0 0 0 2px rgba(49, 50, 51, 0.07);
-	-moz-box-shadow: 0 0 0 2px rgba(49, 50, 51, 0.07);
-	box-shadow: 0 0 0 2px rgba(49, 50, 51, 0.07);
 	background: #f2f2f3;
 	background: -moz-linear-gradient(top, #ffffff 0%, #fafafa 5%, #eaebec 94%, #e2e3e4 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(5%, #fafafa), color-stop(94%, #eaebec), color-stop(100%, #e2e3e4));
@@ -5547,17 +5544,28 @@ body .dashboard.v-app .v-app-loading {
 	background-image: url(img/navigation/settings32x32-hover.png);
 }
 
+.dashboard .horizontal-separator {
+	width: 100%;
+	height: 19px !important;
+	background-repeat: repeat-x;
+	background-position: center;
+	background-image: url(img/page/horizontal-separator.png);
+}
+
+.dashboard .vertical-separator {
+	width: 19px !important;
+	height: 100% !important;
+	background-repeat: repeat-y;
+	background-position: center;
+	background-image: url(img/page/vertical-separator.png);
+}
+
 .dashboard .page-content {
 	width: 100%;
 }
 
 .dashboard .page-caption {
 	width: 100%;
-	padding-bottom: 5px;
-	margin-bottom: 5px;
-	background-repeat: repeat-x;
-	background-position: bottom;
-	background-image: url(img/page/caption-line-separator.png);
 }
 
 .dashboard .page-caption .v-image {
@@ -5583,7 +5591,35 @@ body .dashboard.v-app .v-app-loading {
 
 .dashboard .webcad-abstract-page {
 	width: 100% !important;
-	padding: 10px !important;
+	padding: 10px 10px 3px 10px !important;
+}
+
+.dashboard .v-label {
+	white-space: normal;
+}
+
+.dashboard .v-textfield {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	padding: 0px 3px !important;
+	box-shadow: none;
+}
+
+.dashboard .v-select-optiongroup {
+	padding-left: 20px;
+}
+
+.dashboard .v-textarea {
+	width: 100% !important;
+}
+
+.dashboard .full-width {
+	width: 100% !important;
+}
+
+.dashboard .v-has-caption {
+	width: 100% !important;
 }
 
 .dashboard .v-view {

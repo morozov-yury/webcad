@@ -37,9 +37,7 @@ public class TestPage extends AbstractPage {
 	
 	@Override
 	public void enter() {
-		this.mainLayout.removeAllComponents();
-		this.mainLayout.addComponent(new Label("Test page"));
-		
+		this.mainLayout.removeAllComponents();		
 		Button genaButton = new Button("Gena", new RedirectListener("genarun"));
 		mainLayout.addComponent(genaButton);
 	}

@@ -19,6 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
+import diploma.webcad.view.components.HorizontalSeparator;
 import diploma.webcad.view.model.PageProperties;
 
 @SuppressWarnings("serial")
@@ -92,9 +93,11 @@ public abstract class AbstractPage extends Panel implements View {
 		captionLayout.addComponent(pageIcon);
 		captionLayout.addComponent(new Label(this.caption));
 		
-		VerticalLayout mainContent = new VerticalLayout(captionLayout);
+		VerticalLayout mainContent = new VerticalLayout(captionLayout, new HorizontalSeparator());
 		mainContent.addStyleName("page-content");
+		content.addStyleName("full-width");
 		mainContent.addComponent(content);
+		mainContent.addComponent(new HorizontalSeparator());
 		
 		super.setContent(mainContent);
 	}
