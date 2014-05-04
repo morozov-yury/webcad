@@ -2,7 +2,7 @@ package diploma.webcad.core.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,26 @@ public class SshProperties implements UserInfo {
 	
 	private static Logger log = LoggerFactory.getLogger(UserInfo.class);
 	
-	@Autowired
-	private WebCadProperties propertyManager;
+	@Value("${ssh.neclus.password}")
+	private String password;
+	
+	@Value("${ssh.neclus.username}")
+	private String username;
+	
+	@Value("${ssh.neclus.host}")
+	private String host;
+	
+	@Value("${ssh.neclus.port}")
+	private String port;
 
 	@Override
 	public String getPassphrase() {
-		return propertyManager.getProperty("Passphrase");
+		return "Passphrase";
 	}
 
 	@Override
 	public String getPassword() {
-		return propertyManager.getProperty("ssh.neclus.password");
+		return password;
 	}
 
 	@Override
@@ -51,15 +60,15 @@ public class SshProperties implements UserInfo {
 	}
 
 	public String getUsername() {
-		return propertyManager.getProperty("ssh.neclus.username");
+		return username;
 	}
 
 	public String getHost() {
-		return propertyManager.getProperty("ssh.neclus.host");
+		return host;
 	}
 
 	public int getPort() {
-		return Integer.valueOf(propertyManager.getProperty("ssh.neclus.port"));
+		return Integer.valueOf(port);
 	}
 
 }
