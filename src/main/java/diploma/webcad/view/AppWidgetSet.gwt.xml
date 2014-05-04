@@ -40,4 +40,6 @@
     
 
     
+
+    <inherits name="src.main.java.diploma.webcad.view.AppWidgetSet" />
 </module>

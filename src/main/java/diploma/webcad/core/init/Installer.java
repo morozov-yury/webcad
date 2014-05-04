@@ -81,8 +81,8 @@ public class Installer {
 	}
 	
 	private void loadApplicationResources() {
-		LanguageDao languageDao = (LanguageDao) helper.getBean("languageDao");
-		ApplicationResourceDao applicationResourceDao = (ApplicationResourceDao) helper.getBean("applicationResourceDao");
+		LanguageDao languageDao = helper.getBean(LanguageDao.class);
+		ApplicationResourceDao applicationResourceDao = helper.getBean(ApplicationResourceDao.class);
 		List<Language> languages = languageDao.list();
 		for (Language language : languages) {
 			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, new Locale(language.getIso()), new UTF8Control());

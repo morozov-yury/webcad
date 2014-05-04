@@ -1,11 +1,11 @@
 package diploma.webcad.core.dao.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.model.Template;
 
-@Component("templateDao")
+@Repository
 public class TemplateDaoImpl extends BaseDaoImpl<Template, String> implements TemplateDao {
 
 	public TemplateDaoImpl() {

@@ -3,12 +3,12 @@ package diploma.webcad.core.dao.impl;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.UserDao;
 import diploma.webcad.core.model.User;
 
-@Component("userDao")
+@Repository
 public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao {
 	
 	public UserDaoImpl() {

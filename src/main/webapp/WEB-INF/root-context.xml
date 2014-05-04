@@ -17,21 +17,15 @@
 
     <context:spring-configured/>
     <context:annotation-config/>
-    <!-- Core DAO beans -->
-    <context:component-scan base-package="diploma.webcad.core.dao.impl"/>
-    <!-- Core manager beans -->
+
+    <context:component-scan base-package="diploma.webcad.core.dao"/>
     <context:component-scan base-package="diploma.webcad.core.service"/>
     <context:component-scan base-package="diploma.webcad.core.transaction"/>
-    <!-- beans -->
-    <context:component-scan base-package="diploma.webcad.core.dao"/>
-    <!-- manager beans -->
-    <context:component-scan base-package="diploma.webcad.manager"/>
-    <!-- view beans -->
-    <context:component-scan base-package="diploma.webcad.view"/>
-    <!-- Trigger beans -->
-    <context:component-scan base-package="diploma.webcad.trigger"/>
-    <!-- ssh beans -->
     <context:component-scan base-package="diploma.webcad.core.ssh"/>
+    <context:component-scan base-package="diploma.webcad.manager"/>
+    <context:component-scan base-package="diploma.webcad.view"/>
+    <context:component-scan base-package="diploma.webcad.trigger"/>
+    <context:component-scan base-package="diploma.webcad.aop.aspects"/>
     
     <bean id="diplomaProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -101,7 +95,6 @@
 
 
 <!-- Aspects -->
-    <context:component-scan base-package="diploma.webcad.aop.aspects"/>
 	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.ApplicationContextProvider" />
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<aop:config>

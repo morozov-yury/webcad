@@ -48,7 +48,7 @@ public class StartupListener implements ServletContextListener {
 		servletContext = servletContextEvent.getServletContext();
 		
 		SpringContextHelper helper = new SpringContextHelper(servletContextEvent.getServletContext());
-		SessionFactory sessionFactory = (SessionFactory) helper.getBean(SESSION_FACTORY_BEAN);
+		SessionFactory sessionFactory = helper.getBean(SessionFactory.class);
 		
 		Session session = null;
 		boolean participate = false;
@@ -100,9 +100,8 @@ public class StartupListener implements ServletContextListener {
 	}
 
 	private void loadApplicationResources(SpringContextHelper helper) {
-		LanguageDao languageDao = (LanguageDao) helper.getBean("languageDao");
-		ApplicationResourceDao applicationResourceDao = 
-				(ApplicationResourceDao) helper.getBean("applicationResourceDao");
+		LanguageDao languageDao = (LanguageDao) helper.getBean(LanguageDao.class);
+		ApplicationResourceDao applicationResourceDao = helper.getBean(ApplicationResourceDao.class);
 		List<Language> languages = languageDao.list();
 		for (Language language : languages) {
 			String iso = language.getIso();

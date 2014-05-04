@@ -9,16 +9,15 @@ import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Type;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import diploma.webcad.core.dao.BaseDao;
 
-@Component
+@Repository
 public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDao<T, PK> {
 	protected Class<? extends Serializable> type;
 	

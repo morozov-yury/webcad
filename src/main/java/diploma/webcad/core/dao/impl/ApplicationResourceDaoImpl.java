@@ -9,14 +9,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.ApplicationResourceDao;
 import diploma.webcad.core.model.ApplicationResource;
 import diploma.webcad.core.model.ApplicationResourceCategoryPrefix;
 import diploma.webcad.core.model.Language;
 
-@Component("applicationResourceDao")
+@Repository
 public class ApplicationResourceDaoImpl extends
 		BaseDaoImpl<ApplicationResource, String> implements ApplicationResourceDao {
 

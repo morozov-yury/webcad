@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.vaadin.server.Page;
 import com.vaadin.ui.UI;
@@ -20,7 +20,7 @@ import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.User;
 import diploma.webcad.view.WebCadUI;
 
-@Component("sessionState")
+@Service
 @Scope("session")
 public class SessionState {
 

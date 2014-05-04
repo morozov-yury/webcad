@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.model.Language;
 
-@Component("languageDao")
+@Repository
 public class LanguageDaoImpl extends BaseDaoImpl<Language, String> implements LanguageDao {
 	
 	public LanguageDaoImpl(){
