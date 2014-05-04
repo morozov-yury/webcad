@@ -3,9 +3,9 @@ package diploma.webcad.core.dao;
 import java.util.Collection;
 import java.util.List;
 
-import diploma.webcad.core.model.ApplicationResource;
-import diploma.webcad.core.model.ApplicationResourceCategoryPrefix;
 import diploma.webcad.core.model.Language;
+import diploma.webcad.core.model.resource.ApplicationResource;
+import diploma.webcad.core.model.resource.ApplicationResourceCategoryPrefix;
 
 
 /**

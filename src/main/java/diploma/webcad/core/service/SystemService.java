@@ -12,8 +12,8 @@ import com.vaadin.server.Page;
 import diploma.webcad.core.dao.ApplicationConstantDao;
 import diploma.webcad.core.data.appconstants.Constant;
 import diploma.webcad.core.data.appconstants.Constants;
-import diploma.webcad.core.model.ApplicationConstant;
-import diploma.webcad.core.model.ApplicationConstantType;
+import diploma.webcad.core.model.constant.ApplicationConstant;
+import diploma.webcad.core.model.constant.ApplicationConstantType;
 
 @Service
 @Scope("singleton")

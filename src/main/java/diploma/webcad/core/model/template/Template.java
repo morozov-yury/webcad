@@ -1,4 +1,4 @@
-package diploma.webcad.core.model;
+package diploma.webcad.core.model.template;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyColumn;
+
+import diploma.webcad.core.model.Language;
 
 @Entity
 public class Template implements Serializable {

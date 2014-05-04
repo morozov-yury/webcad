@@ -1,4 +1,4 @@
-package diploma.webcad.core.model;
+package diploma.webcad.core.model.resource;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
+
+import diploma.webcad.core.model.Language;
 
 @Entity
 @Table(name="resources")

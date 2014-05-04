@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import diploma.webcad.core.model.ApplicationResource;
+import diploma.webcad.core.model.resource.ApplicationResource;
 import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;

@@ -1,4 +1,4 @@
-package diploma.webcad.core.genaconfigs;
+package diploma.webcad.core.model.gena;
 
 public abstract class GenaParameters {
 	

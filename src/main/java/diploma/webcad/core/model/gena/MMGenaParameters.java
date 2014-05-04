@@ -1,11 +1,11 @@
-package diploma.webcad.core.genaconfigs;
+package diploma.webcad.core.model.gena;
 
-public class MooreMealyParameters extends GenaParameters {
+public class MMGenaParameters extends GenaParameters {
 
 	private int promjTerms;
 	private int codingVershGSA;
 
-	public MooreMealyParameters(String sourceFilePath, int codingVershGSA, int promjTerms) {
+	public MMGenaParameters(String sourceFilePath, int codingVershGSA, int promjTerms) {
 		super(sourceFilePath);
 		this.setCodingVershGSA(codingVershGSA);
 		this.setPromjTerms(promjTerms);

@@ -12,9 +12,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.ApplicationResourceDao;
-import diploma.webcad.core.model.ApplicationResource;
-import diploma.webcad.core.model.ApplicationResourceCategoryPrefix;
 import diploma.webcad.core.model.Language;
+import diploma.webcad.core.model.resource.ApplicationResource;
+import diploma.webcad.core.model.resource.ApplicationResourceCategoryPrefix;
 
 @Repository
 public class ApplicationResourceDaoImpl extends

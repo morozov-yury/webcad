@@ -1,4 +1,4 @@
-package diploma.webcad.core.model;
+package diploma.webcad.core.model.resource;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import diploma.webcad.core.model.Language;
 
 @Entity
 public class ApplicationResourceValue {

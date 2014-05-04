@@ -11,6 +11,7 @@ public class TriggerJobBean extends QuartzJobBean {
     private static final Logger log = Logger.getLogger(TriggerJobBean.class); 
 
 	private ApplicationContext ctx;
+	
 	private String triggerJob;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {

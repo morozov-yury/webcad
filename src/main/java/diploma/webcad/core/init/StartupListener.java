@@ -30,10 +30,10 @@ import diploma.webcad.core.data.appconstants.Constants;
 import diploma.webcad.core.data.templates.XmlLocale;
 import diploma.webcad.core.data.templates.XmlTemplate;
 import diploma.webcad.core.data.templates.XmlTemplates;
-import diploma.webcad.core.model.ApplicationResource;
-import diploma.webcad.core.model.ApplicationResourceValue;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.Template;
+import diploma.webcad.core.model.resource.ApplicationResource;
+import diploma.webcad.core.model.resource.ApplicationResourceValue;
+import diploma.webcad.core.model.template.Template;
 import diploma.webcad.core.service.SystemService;
 
 public class StartupListener implements ServletContextListener {

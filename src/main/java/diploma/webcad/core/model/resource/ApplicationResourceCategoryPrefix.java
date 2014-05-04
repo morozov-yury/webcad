@@ -1,4 +1,4 @@
-package diploma.webcad.core.model;
+package diploma.webcad.core.model.resource;
 
 public enum ApplicationResourceCategoryPrefix {
 
