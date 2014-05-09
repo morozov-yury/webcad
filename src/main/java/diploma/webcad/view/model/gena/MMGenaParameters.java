@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.gena;
+package diploma.webcad.view.model.gena;
 
 public class MMGenaParameters extends GenaParameters {
 

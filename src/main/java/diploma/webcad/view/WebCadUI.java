@@ -35,7 +35,6 @@ import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.core.service.WebCadProperties;
 import diploma.webcad.core.view.QuizViewDisplay;
-import diploma.webcad.manager.MappingProcessor;
 import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
