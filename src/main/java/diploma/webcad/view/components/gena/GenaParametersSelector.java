@@ -97,27 +97,10 @@ public class GenaParametersSelector extends VerticalLayout {
 		
 		parametersLabel =  new Label(selectedComponent.toString());
 		parametersLabel.setImmediate(true);
-
-		Button runButton = new Button("Run", new Button.ClickListener() {
-			private static final long serialVersionUID = -1742466051463419737L;
-			@Override
-			public void buttonClick(ClickEvent arg0) {
-				genaService.run(selectedComponent.toString());
-			}
-		});
-		
-		Button getParamsButton = new Button("Parameters", new Button.ClickListener() {
-			private static final long serialVersionUID = -1742466051463419737L;
-			@Override
-			public void buttonClick(ClickEvent arg0) {
-				
-			}
-		});
-		
-		HorizontalLayout buttomsHorizontalLayout =  new HorizontalLayout(getParamsButton, runButton);
-		buttomsHorizontalLayout.setSpacing(true);
-		addComponent(buttomsHorizontalLayout);
-		setComponentAlignment(buttomsHorizontalLayout, Alignment.MIDDLE_RIGHT);
+	}
+	
+	public String getParameters () {
+		return selectedComponent.toString();
 	}
 
 }

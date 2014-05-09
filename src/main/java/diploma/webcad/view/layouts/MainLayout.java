@@ -1,5 +1,6 @@
 package diploma.webcad.view.layouts;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import com.vaadin.navigator.View;
@@ -10,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.view.Layout;
 import diploma.webcad.view.components.navigation.NavigationPanel;
+import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.tile.TopTile;
 
 @SuppressWarnings("serial")
@@ -25,7 +27,8 @@ public class MainLayout extends VerticalLayout implements Layout {
 
 	private View currentView = null;
 
-	public MainLayout() {
+	@Autowired
+	public MainLayout(NotificationService notificationService) {
 		addStyleName("main-layout");
 		setSizeFull();
 		
@@ -45,6 +48,8 @@ public class MainLayout extends VerticalLayout implements Layout {
 		mainGridLayout.addComponent(mainContentVL, 1, 1);
 		addComponent(mainGridLayout);
 		setComponentAlignment(mainGridLayout, Alignment.TOP_CENTER);
+		
+		addComponent(notificationService.getFancyNotifications());
 	}
 
 	@Override

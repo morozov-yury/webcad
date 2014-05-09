@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import diploma.webcad.core.dao.UserDao;
 import diploma.webcad.core.model.User;

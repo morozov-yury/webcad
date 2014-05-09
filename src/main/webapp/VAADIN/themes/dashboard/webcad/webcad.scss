@@ -2,6 +2,8 @@
 @import "tiles/top-tile.scss";
 @import "components/navigation-panel.scss";
 @import "components/separator.scss";
+@import "components/login.scss";
+@import "components/notification.scss";
 @import "pages/page-caption.scss";
 
 @mixin webcad {
@@ -11,6 +13,8 @@
 	@include navigation-panel;
 	@include separator;
 	@include page-caption;
+	@include login;
+	@include notification;
 
 	.full-width {
 		width: 100% !important;
@@ -59,5 +63,25 @@
 	.v-has-caption {
 		width: 100% !important;
 	}
-
+	
+	.test-border {
+		border: 1px solid black;
+	}
+	
+	.v-formlayout-captioncell {
+		padding: 0px !important;
+	}
+	
+	.v-formlayout-contentcell {
+		padding: 0px !important;
+	}
+	
+	.neclus-status-image {
+ 		padding-bottom: 7px;
+ 	}
+ 	
+ 	.v-button-wrap .v-icon {
+ 		margin-right: 5px !important;
+ 		margin-bottom: 3px !important;
+ 	}
 }

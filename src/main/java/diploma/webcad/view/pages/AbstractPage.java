@@ -2,6 +2,7 @@ package diploma.webcad.view.pages;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.xpoft.vaadin.VaadinView;
 
@@ -21,18 +22,20 @@ import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.components.HorizontalSeparator;
 import diploma.webcad.view.model.PageProperties;
+import diploma.webcad.view.service.NotificationService;
 
 @SuppressWarnings("serial")
 public abstract class AbstractPage extends Panel implements View {
 	
 	private static Logger log = LoggerFactory.getLogger(AbstractPage.class);
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	private PageProperties pageProperties;
 
 	private String caption;
 
-	private ThemeResource pageIconResource;
-	
 	Image pageIcon;
 
 	public AbstractPage(String caption) {
@@ -48,7 +51,7 @@ public abstract class AbstractPage extends Panel implements View {
 		pageProperties = new PageProperties(HttpUtils.getUrlProperties(event.getParameters()));
 		if (isAccessAvailable()) {
 			enter();
-			Notification.show(getPageLocation() + getPageParameters(), Type.TRAY_NOTIFICATION);
+			notificationService.showInfo(getPageLocation() + getPageParameters());
 		} else {
 			WebCadUI.getCurrent().processUri("403");
 		}

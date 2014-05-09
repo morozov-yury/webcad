@@ -1,9 +1,10 @@
 package diploma.webcad.view.tile;
 
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.view.components.navigation.NavigationPanel;
+import diploma.webcad.view.components.LoginComponent;
 import diploma.webcad.view.components.neclus.NeclusStatusIndicator;
 
 public class TopTile extends Panel {
@@ -12,11 +13,19 @@ public class TopTile extends Panel {
 	
 	public TopTile () {
 		addStyleName("top-tile");
-		VerticalLayout mainContent = new VerticalLayout();
-		setContent(mainContent);
+		HorizontalLayout mainLayout = new HorizontalLayout();
+		mainLayout.setWidth("1004px");
 		
 		NeclusStatusIndicator indicator = new NeclusStatusIndicator();
-		mainContent.addComponent(indicator);
+		LoginComponent loginComponent = new LoginComponent();
+		
+		mainLayout.addComponent(indicator);
+		mainLayout.addComponent(loginComponent);
+		
+		mainLayout.setComponentAlignment(indicator, Alignment.MIDDLE_LEFT);
+		mainLayout.setComponentAlignment(loginComponent, Alignment.MIDDLE_RIGHT);
+
+		setContent(mainLayout);
 	}
 
 }

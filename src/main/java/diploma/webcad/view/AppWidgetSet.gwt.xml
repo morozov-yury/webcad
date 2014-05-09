@@ -41,5 +41,9 @@
 
     
 
-    <inherits name="src.main.java.diploma.webcad.view.AppWidgetSet" />
+    
+
+    <inherits name="org.vaadin.alump.fancylayouts.gwt.FancyLayoutsWidgetset" />
+
+    <inherits name="org.vaadin.alump.fancylayouts.demo.widgetset.FancyLayoutsDemoWidgetset" />
 </module>

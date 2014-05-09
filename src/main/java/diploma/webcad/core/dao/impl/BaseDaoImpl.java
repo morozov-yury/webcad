@@ -32,6 +32,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
         this.sessionFactory = sessionFactory;
     }	
 	
+	@Transactional
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}

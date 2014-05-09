@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.vaadin.alump.fancylayouts.FancyNotifications;
+import org.vaadin.alump.fancylayouts.gwt.client.shared.FancyNotificationsState.Position;
 import org.vaadin.artur.icepush.ICEPush;
 
 import ru.xpoft.vaadin.DiscoveryNavigator;
@@ -22,6 +24,7 @@ import com.vaadin.annotations.Title;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.RequestHandler;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinResponse;
 import com.vaadin.server.VaadinSession;
@@ -34,10 +37,11 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.core.service.WebCadProperties;
-import diploma.webcad.core.view.QuizViewDisplay;
+import diploma.webcad.core.view.WebCadViewDisplay;
 import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
+import diploma.webcad.view.service.MappingProcessor;
 
 @Component("webCadUI")
 @Title("WebCad")
@@ -97,7 +101,7 @@ public class WebCadUI extends UI {
 		setContent(landingLayout);
 		setSizeFull();
 
-		navigator = new DiscoveryNavigator(this, new QuizViewDisplay(landingLayout)) {
+		navigator = new DiscoveryNavigator(this, new WebCadViewDisplay(landingLayout)) {
 			@Override
 			public void navigateTo(String navigationState) {
 				try {
@@ -207,5 +211,5 @@ public class WebCadUI extends UI {
 	public RuntimeRegistrator getRuntimeRegistrator() {
 		return runtimeRegistrator;
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-package diploma.webcad.view;
+package diploma.webcad.view.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;

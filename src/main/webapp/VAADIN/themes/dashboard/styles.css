@@ -4192,10 +4192,6 @@ body .dashboard.v-app .v-app-loading {
 	border-top-color: rgba(255, 255, 255, 0.1);
 }
 
-.dashboard .neclus-status-image {
-	padding-bottom: 5px;
-}
-
 .dashboard .v-button {
 	color: #5a6066;
 	padding: 0.3em 1.4em;
@@ -5510,7 +5506,7 @@ body .dashboard.v-app .v-app-loading {
 }
 
 .dashboard .top-tile {
-	padding: 10px;
+	padding: 10px !important;
 }
 
 .dashboard .navigation-panel {
@@ -5572,6 +5568,28 @@ body .dashboard.v-app .v-app-loading {
 	padding: 0 5px 2px 0;
 }
 
+.dashboard .login-image {
+	background-repeat: no-repeat;
+	background-position: top left;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background-image: url(img/login20x20.png);
+}
+
+.dashboard .login-image:hover {
+	background-image: url(img/login20x20_hover.png);
+}
+
+.dashboard .notification-error {
+	border-radius: 0px !important;
+	background-color: rgba(128, 0, 0, 0.5) !important;
+}
+
+.dashboard .notification-error:hover {
+	background-color: rgba(128, 0, 0, 0.75) !important;
+}
+
 .dashboard .full-width {
 	width: 100% !important;
 }
@@ -5620,6 +5638,27 @@ body .dashboard.v-app .v-app-loading {
 
 .dashboard .v-has-caption {
 	width: 100% !important;
+}
+
+.dashboard .test-border {
+	border: 1px solid black;
+}
+
+.dashboard .v-formlayout-captioncell {
+	padding: 0px !important;
+}
+
+.dashboard .v-formlayout-contentcell {
+	padding: 0px !important;
+}
+
+.dashboard .neclus-status-image {
+	padding-bottom: 7px;
+}
+
+.dashboard .v-button-wrap .v-icon {
+	margin-right: 5px !important;
+	margin-bottom: 3px !important;
 }
 
 .dashboard .v-view {

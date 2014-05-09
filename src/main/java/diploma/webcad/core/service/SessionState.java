@@ -71,7 +71,7 @@ public class SessionState {
 		return (User) getParameter(USER);
 	}
 
-	public void signin(String login, String password)
+	public void signin(String login, String password) 
 			throws UserAlreadySignedInException, NoSuchUserException, WrongPasswordException {
 		if (getUser() != null) {
 			throw new UserAlreadySignedInException();
