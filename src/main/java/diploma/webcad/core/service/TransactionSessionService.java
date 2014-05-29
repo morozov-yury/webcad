@@ -11,12 +11,12 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 @Service
 @Scope("singleton")
-public class SessionService {
+public class TransactionSessionService {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public SessionService() {
+	public TransactionSessionService() {
 		
 	}
 	
