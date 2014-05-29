@@ -56,14 +56,6 @@ public class GenaRun extends AbstractPage {
 		});
 		runButton.setIcon(new ThemeResource("img/buttons/play12x12.png"));
 		
-//		Button getParamsButton = new Button("Parameters", new Button.ClickListener() {
-//			private static final long serialVersionUID = -1742466051463419737L;
-//			@Override
-//			public void buttonClick(ClickEvent arg0) {
-//				
-//			}
-//		});
-		
 		HorizontalLayout buttomsHorizontalLayout =  new HorizontalLayout(runButton);
 		buttomsHorizontalLayout.setSpacing(true);
 		mainLayout.addComponent(buttomsHorizontalLayout);

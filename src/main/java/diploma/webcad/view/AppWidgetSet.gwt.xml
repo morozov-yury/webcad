@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
 
+
     <inherits name="org.vaadin.activelink.ActivelinkWidgetset" />
+
+    <inherits name="org.vaadin.alump.fancylayouts.gwt.FancyLayoutsWidgetset" />
 
     <inherits name="com.vaadin.DefaultWidgetSet" />
 
     <inherits name="org.vaadin.artur.icepush.IcepushaddonWidgetset" />
 
     <inherits name="org.vaadin.tokenfield.TokenfieldWidgetset" />
-
-    
 
     <inherits name="org.vaadin.virkki.carousel.CarouselWidgetSet" />
 
@@ -18,32 +19,4 @@
     <inherits name="com.wcs.wcslib.vaadin.widget.multifileupload.MultiFileUploadWidgetSet" />
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <inherits name="org.vaadin.alump.fancylayouts.gwt.FancyLayoutsWidgetset" />
-
-    <inherits name="org.vaadin.alump.fancylayouts.demo.widgetset.FancyLayoutsDemoWidgetset" />
 </module>

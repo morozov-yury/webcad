@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class WebCadProperties {
 
     @Autowired(required = false)
-    private PropertiesFactoryBean quizProperties;
+    private PropertiesFactoryBean webCadProperties;
     
     public String getProperty (String propertyName) {
     	if (getQuizProperties() != null) {
@@ -24,7 +24,7 @@ public class WebCadProperties {
     
     private Properties getQuizProperties() {
         try {
-            return quizProperties.getObject();
+            return webCadProperties.getObject();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
