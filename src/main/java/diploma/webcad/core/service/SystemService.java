@@ -9,32 +9,32 @@ import org.springframework.stereotype.Service;
 
 import com.vaadin.server.Page;
 
-import diploma.webcad.core.dao.ApplicationConstantDao;
+import diploma.webcad.core.dao.AppConstantDao;
 import diploma.webcad.core.data.appconstants.Constant;
 import diploma.webcad.core.data.appconstants.Constants;
-import diploma.webcad.core.model.constant.ApplicationConstant;
-import diploma.webcad.core.model.constant.ApplicationConstantType;
+import diploma.webcad.core.model.constant.AppConstant;
+import diploma.webcad.core.model.constant.AppConstantType;
 
 @Service
 @Scope("singleton")
 public class SystemService {
 	
 	@Autowired
-	private ApplicationConstantDao applicationConstantDao;
+	private AppConstantDao applicationConstantDao;
 	
 	public String getConstantValue(String id) {
 		if(id == null) return null;
-		final ApplicationConstant constant = getApplicationConstant(id);
+		final AppConstant constant = getApplicationConstant(id);
 		if(constant == null) return "";
 		return constant.getValue();
 	}
 	
-	public ApplicationConstant getApplicationConstant(String id) {
+	public AppConstant getApplicationConstant(String id) {
 		if(id == null) return null;
 		return applicationConstantDao.read(id);
 	}
 	
-	public void saveApplicationConstant(ApplicationConstant constant) {
+	public void saveApplicationConstant(AppConstant constant) {
 		if(constant == null) return;
 		try {
 			applicationConstantDao.saveOrUpdate(constant);
@@ -46,13 +46,13 @@ public class SystemService {
 	public void readConstants(Constants constants) {
 		for(Constant constant : constants.getConstants()) {
 			if(getApplicationConstant(constant.getKey()) == null) {
-				ApplicationConstantType type;
+				AppConstantType type;
 				try {
-					type = ApplicationConstantType.valueOf(constant.getType());
+					type = AppConstantType.valueOf(constant.getType());
 				} catch(Exception ex) {
-					type = ApplicationConstantType.getDefault();
+					type = AppConstantType.getDefault();
 				}
-				saveApplicationConstant(new ApplicationConstant(constant.getKey(), 
+				saveApplicationConstant(new AppConstant(constant.getKey(), 
 						constant.getValue(), constant.getDescription(), 
 						type));
 			}

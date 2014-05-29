@@ -25,20 +25,20 @@ import com.vaadin.ui.VerticalLayout;
 import diploma.webcad.core.exception.NoSuchUserException;
 import diploma.webcad.core.exception.UserAlreadySignedInException;
 import diploma.webcad.core.exception.WrongPasswordException;
+import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.SessionState;
-import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.model.SigninCredentials;
 
 @SuppressWarnings("serial")
 @org.springframework.stereotype.Component
 @Scope("prototype")
 public class SignInTile extends SignInUpTile {
-	
-	@Autowired
-	private SessionHelper sessionHelper;
-	
+
 	@Autowired
 	private SessionState sessionState;
+	
+	@Autowired
+	private ContentService contentService;
 	
 	private FieldGroup fieldGroup;
 	
@@ -62,18 +62,18 @@ public class SignInTile extends SignInUpTile {
 	private Component generateView() {
 		VerticalLayout view = new VerticalLayout();
 		
-		Label registerLabel = new Label(sessionHelper.getAppRes(this, "caption.signin"));
+		Label registerLabel = new Label(contentService.getAppResource(this, "caption.signin"));
 		registerLabel.setStyleName("signin-tile-register-label");
 		
 		HorizontalLayout modeLayout = new HorizontalLayout();
 		
 		setLoginField(new TextField());
-		getLoginField().setInputPrompt(sessionHelper.getAppRes(this, "caption.login"));
+		getLoginField().setInputPrompt(contentService.getAppResource(this, "caption.login"));
 		getLoginField().setStyleName("signin-tile-textfield");
 		getLoginField().setIcon(new ThemeResource("images/dog.png"));
 		
 		setPasswordField(new PasswordField());
-		getPasswordField().setInputPrompt(sessionHelper.getAppRes(this, "caption.password"));
+		getPasswordField().setInputPrompt(contentService.getAppResource(this, "caption.password"));
 		getPasswordField().setStyleName("signin-tile-textfield");
 		getPasswordField().setIcon(new ThemeResource("images/lock.png"));
 		
@@ -87,7 +87,7 @@ public class SignInTile extends SignInUpTile {
         SigninListener signinListener = new SigninListener("Ok", KeyCode.ENTER, null);
         formLayout.addShortcutListener(signinListener);
         
-        Button btnSignup = new Button(sessionHelper.getAppRes(this, "button.signin"));
+        Button btnSignup = new Button(contentService.getAppResource(this, "button.signin"));
         btnSignup.setStyleName("signin-tile-signup-button");
         btnSignup.setIcon(new ThemeResource("images/on.png"));
         btnSignup.addClickListener(new ClickListener() {
@@ -115,13 +115,13 @@ public class SignInTile extends SignInUpTile {
 		try {
 			sessionState.signin((String)fieldGroup.getField("login").getValue(), (String)fieldGroup.getField("password").getValue());
 		} catch (UserAlreadySignedInException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (NoSuchUserException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (WrongPasswordException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		}
 	}

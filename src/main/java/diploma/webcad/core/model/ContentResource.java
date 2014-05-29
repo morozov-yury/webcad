@@ -20,10 +20,15 @@ public abstract class ContentResource implements Serializable {
 	private static final long serialVersionUID = -3542499586657600169L;
 	
 	private Long id;
+	
 	private String uri;
+	
 	private String description;
+	
 	private Boolean active;
+	
 	private Date creationDate;
+	
 	private Date deletionDate;
 
 	public ContentResource() {

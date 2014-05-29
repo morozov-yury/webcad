@@ -2,18 +2,14 @@ package diploma.webcad.view;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.servlet.http.Cookie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.vaadin.alump.fancylayouts.FancyNotifications;
-import org.vaadin.alump.fancylayouts.gwt.client.shared.FancyNotificationsState.Position;
 import org.vaadin.artur.icepush.ICEPush;
 
 import ru.xpoft.vaadin.DiscoveryNavigator;
@@ -24,7 +20,6 @@ import com.vaadin.annotations.Title;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.RequestHandler;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinResponse;
 import com.vaadin.server.VaadinSession;
@@ -32,13 +27,12 @@ import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.UI;
 
-import diploma.webcad.core.init.SpringContextHelper;
+import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.RuntimeRegistrator;
+import diploma.webcad.core.service.SessionInterlayer;
 import diploma.webcad.core.service.SessionState;
-import diploma.webcad.core.service.WebCadProperties;
-import diploma.webcad.core.view.WebCadViewDisplay;
-import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
 import diploma.webcad.view.service.MappingProcessor;
@@ -58,22 +52,10 @@ public class WebCadUI extends UI {
 
 	@Autowired
 	private MappingProcessor mappingProcessor;
-
+	
 	@Autowired
 	private SessionState sessionState;
 	
-	@Autowired
-	private WebCadProperties webCadPropertyManager;
-	
-	@Autowired
-	private RuntimeRegistrator runtimeRegistrator;
-
-	@Autowired
-	private PropertiesFactoryBean properties;
-	
-	@Autowired
-	private SessionHelper sessionHelper;
-
 	private Map<String, String[]> requestParams;
 
 	private Cookie[] cookies;
@@ -92,11 +74,14 @@ public class WebCadUI extends UI {
 
 	@Override
 	protected void init(final VaadinRequest request) {
-		SpringContextHelper helper = (SpringContextHelper) sessionState.getParameter(SessionState.SPRING_HELPER);
-		if (helper == null) {
-			helper = new SpringContextHelper(this);
-			sessionState.putParameter(SessionState.SPRING_HELPER, helper);
+		log.info("UI init");
+		
+		SpringContext springContext = (SpringContext) sessionState.getParameter(SessionState.SPRING_CONTEXT);
+		if (springContext == null) {
+			springContext = new SpringContext(this);
+			sessionState.putParameter(SessionState.SPRING_CONTEXT, springContext);
 		}
+		initSessionInterlayer(springContext);
 		
 		setContent(landingLayout);
 		setSizeFull();
@@ -142,6 +127,13 @@ public class WebCadUI extends UI {
 		
 		getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
 		setPollInterval(1000);
+	}
+	
+	private void initSessionInterlayer (SpringContext springContext) {
+		SessionInterlayer sessionInterlayer = springContext.getBean(SessionInterlayer.class);
+		sessionInterlayer.setRuntimeRegistrator(springContext.getBean(RuntimeRegistrator.class));
+		sessionInterlayer.setSessionState(springContext.getBean(SessionState.class));
+		sessionInterlayer.setContentService(springContext.getBean(ContentService.class));
 	}
 
 	public Map<String, String[]> getRequestParams() {
@@ -190,10 +182,6 @@ public class WebCadUI extends UI {
 		mappingProcessor.processMapping(uri + pageProperties);
 	}
 
-    public String getProperty(String propertyName) {
-        return this.webCadPropertyManager.getProperty(propertyName);
-    }
-
 	@Override
     public void detach() {
 		log.info("UI {} detached", this);
@@ -203,13 +191,9 @@ public class WebCadUI extends UI {
 		}
 		super.detach();
 	}
-	
-	public SessionHelper getSessionHelper() {
-		return sessionHelper;
-	}
 
 	public RuntimeRegistrator getRuntimeRegistrator() {
-		return runtimeRegistrator;
+		return null;
 	}
 	
 }

@@ -9,7 +9,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.core.view.Layout;
+import diploma.webcad.view.Layout;
 import diploma.webcad.view.components.navigation.NavigationPanel;
 import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.tile.TopTile;

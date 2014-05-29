@@ -10,7 +10,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Image;
 
-import diploma.webcad.core.init.SpringContextHelper;
+import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.service.NeclusService;
 import diploma.webcad.view.WebCadUI;
 
@@ -20,7 +20,7 @@ public class NeclusStatusIndicator extends FormLayout {
 	
 	private static Logger log = LoggerFactory.getLogger(NeclusStatusIndicator.class);
 	
-	private SpringContextHelper contextHelper;
+	private SpringContext contextHelper;
 	
 	private NeclusService neclusManager;
 	
@@ -40,7 +40,7 @@ public class NeclusStatusIndicator extends FormLayout {
 	public void attach() {
 		removeAllComponents();
 		
-		contextHelper = WebCadUI.getCurrent().getSessionState().getHelper();
+		contextHelper = WebCadUI.getCurrent().getSessionState().getContext();
 		neclusManager = contextHelper.getBean(NeclusService.class);
 		
 		statusImageResourceOn = new ThemeResource("img/neclus/neclus_on.png");

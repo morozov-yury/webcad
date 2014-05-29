@@ -25,7 +25,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.core.init.SpringContextHelper;
+import diploma.webcad.core.init.SpringContext;
+import diploma.webcad.core.service.ContentService;
 
 @SuppressWarnings("serial")
 public class Captcha extends VerticalLayout {
@@ -41,21 +42,25 @@ public class Captcha extends VerticalLayout {
 	private String imageType;
 	private Locale locale;
 	final private static Random rand = new Random();
+
+	private ContentService contentService;
 	
-	public Captcha(SpringContextHelper helper) {
+	public Captcha(SpringContext helper) {
 		this(helper, Locale.ENGLISH, "png");
 	}
 	
-	public Captcha(SpringContextHelper helper, Locale locale, String imageType) {
+	public Captcha(SpringContext helper, Locale locale, String imageType) {
 		this.imageType = imageType;
 		this.locale = locale;
-		this.captchaService = (ImageCaptchaService) helper.getBean(ImageCaptchaService.class);
-		SessionHelper sessionHelper = helper.getBean(SessionHelper.class);
+		this.captchaService = helper.getBean(ImageCaptchaService.class);
+		this.contentService = helper.getBean(ContentService.class);
+		
 		userInput = new TextField();
 		userInput.setWidth(100, Unit.PERCENTAGE);
 		refresh();
 		HorizontalLayout topLayout = new HorizontalLayout();
-		Label capchaLabel = new Label(sessionHelper.getAppRes(this, "signup.captcha"));
+		
+		Label capchaLabel = new Label(this.contentService.getAppResource(this, "signup.captcha"));
 		capchaLabel.setStyleName("capcha");
 		topLayout.addComponent(capchaLabel);
 		topLayout.addComponent(img);

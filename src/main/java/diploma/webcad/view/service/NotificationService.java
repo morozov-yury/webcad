@@ -17,10 +17,11 @@ public class NotificationService {
 	
 	public NotificationService () {
 		fancyNotifications = new FancyNotifications();
-		fancyNotifications.setCloseTimeout(10000);
-		fancyNotifications.setPosition(Position.TOP_LEFT);
+		fancyNotifications.setCloseTimeout(5000);
+		fancyNotifications.setPosition(Position.BOTTOM_RIGHT);
 		fancyNotifications.setClickClose(true);
 		fancyNotifications.setImmediate(true);
+		
 		errorIconResource = new ThemeResource("img/error64x64.png");
 	}
 	

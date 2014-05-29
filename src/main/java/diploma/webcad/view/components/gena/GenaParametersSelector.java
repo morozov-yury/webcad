@@ -15,7 +15,7 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.core.init.SpringContextHelper;
+import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.components.VerticalSeparator;
@@ -25,7 +25,7 @@ public class GenaParametersSelector extends VerticalLayout {
 	
 	private static Logger log = LoggerFactory.getLogger(GenaParametersSelector.class);
 	
-	private SpringContextHelper springContextHelper;
+	private SpringContext springContextHelper;
 
 	private GenaService genaService;
 
@@ -44,7 +44,7 @@ public class GenaParametersSelector extends VerticalLayout {
 	private Component selectedComponent;
 	
 	public GenaParametersSelector () {
-		springContextHelper = WebCadUI.getCurrent().getSessionState().getHelper();
+		springContextHelper = WebCadUI.getCurrent().getSessionState().getContext();
 		genaService = springContextHelper.getBean(GenaService.class);
 		
 		setSizeFull();

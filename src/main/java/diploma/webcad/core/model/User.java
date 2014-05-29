@@ -19,13 +19,20 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -9215483528958346752L;
 
 	private Long id;
+	
 	private String password;
+	
 	private String email;
+	
 	private Language language;
+	
 	private Date registrationDate;
+	
+	private UserRole userRole;
 	
 	public User() {
 		registrationDate = new Date();
+		userRole = UserRole.SLAVE;
 	}
 	
 	public User(@NotNull String email, @NotNull String password) {
@@ -86,6 +93,15 @@ public class User implements Serializable {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+
+	
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 

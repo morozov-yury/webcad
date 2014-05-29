@@ -23,7 +23,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
-import diploma.webcad.core.dao.ApplicationResourceDao;
+import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.data.appconstants.Constants;
@@ -31,8 +31,8 @@ import diploma.webcad.core.data.templates.XmlLocale;
 import diploma.webcad.core.data.templates.XmlTemplate;
 import diploma.webcad.core.data.templates.XmlTemplates;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.ApplicationResource;
-import diploma.webcad.core.model.resource.ApplicationResourceValue;
+import diploma.webcad.core.model.resource.AppResource;
+import diploma.webcad.core.model.resource.AppValue;
 import diploma.webcad.core.model.template.Template;
 import diploma.webcad.core.service.SystemService;
 
@@ -47,7 +47,7 @@ public class StartupListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		servletContext = servletContextEvent.getServletContext();
 		
-		SpringContextHelper helper = new SpringContextHelper(servletContextEvent.getServletContext());
+		SpringContext helper = new SpringContext(servletContextEvent.getServletContext());
 		SessionFactory sessionFactory = helper.getBean(SessionFactory.class);
 		
 		Session session = null;
@@ -94,14 +94,14 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private boolean installed(SpringContextHelper helper) {
+	private boolean installed(SpringContext helper) {
 		String installed = helper.getBean(SystemService.class).getConstantValue("installed");
 		return installed.startsWith("installed");
 	}
 
-	private void loadApplicationResources(SpringContextHelper helper) {
+	private void loadApplicationResources(SpringContext helper) {
 		LanguageDao languageDao = (LanguageDao) helper.getBean(LanguageDao.class);
-		ApplicationResourceDao applicationResourceDao = helper.getBean(ApplicationResourceDao.class);
+		AppResourceDao applicationResourceDao = helper.getBean(AppResourceDao.class);
 		List<Language> languages = languageDao.list();
 		for (Language language : languages) {
 			String iso = language.getIso();
@@ -109,13 +109,13 @@ public class StartupListener implements ServletContextListener {
 			Locale locale = new Locale(iso);
 			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, locale, utf8Control);
 			for (String key : bundle.keySet()) {
-				ApplicationResource appResource = applicationResourceDao.read(key);
+				AppResource appResource = applicationResourceDao.read(key);
 				if (appResource == null) {
-					appResource = new ApplicationResource(key);
+					appResource = new AppResource(key);
 				}
 				if (!appResource.containsLanguage(language)) {
 					String val = bundle.getString(key);
-					ApplicationResourceValue appValue = new ApplicationResourceValue(language, val);
+					AppValue appValue = new AppValue(language, val);
 					appResource.getLangs().add(appValue);
 					try {
 						applicationResourceDao.saveOrUpdate(appResource);
@@ -127,7 +127,7 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private void loadConstants(SpringContextHelper helper) {
+	private void loadConstants(SpringContext helper) {
 		try {
 			final JAXBContext jaxbContext = JAXBContext.newInstance(Constants.class);
 			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -140,7 +140,7 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private void loadTemplates(SpringContextHelper helper) {
+	private void loadTemplates(SpringContext helper) {
 		String[] templateFiles = {
 				"/WEB-INF/classes/templates/templates1.xml", 
 				"/WEB-INF/classes/templates/templates2.xml"
@@ -202,7 +202,7 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private SystemService getSystemManager(SpringContextHelper helper) {
+	private SystemService getSystemManager(SpringContext helper) {
 		return helper.getBean(SystemService.class);
 	}
 

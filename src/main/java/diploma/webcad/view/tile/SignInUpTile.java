@@ -29,10 +29,10 @@ import diploma.webcad.core.exception.NoSuchUserException;
 import diploma.webcad.core.exception.UserAlreadyExistException;
 import diploma.webcad.core.exception.UserAlreadySignedInException;
 import diploma.webcad.core.exception.WrongPasswordException;
+import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.core.service.UserService;
 import diploma.webcad.view.WebCadUI;
-import diploma.webcad.view.components.SessionHelper;
 import diploma.webcad.view.model.SigninCredentials;
 
 @SuppressWarnings("serial")
@@ -50,6 +50,9 @@ public class SignInUpTile extends Panel {
 	private SessionState sessionState;
 	
 	@Autowired
+	private ContentService contentService;
+	
+	@Autowired
 	private UserService userManager;
 	
 	@PropertyId("login")
@@ -61,9 +64,6 @@ public class SignInUpTile extends Panel {
 	private FieldGroup fieldGroup;
 	
 	private Label errorLabel;
-
-	@Autowired
-	private SessionHelper sessionHelper;
 
 	public SignInUpTile() {}
 	
@@ -81,28 +81,28 @@ public class SignInUpTile extends Panel {
 	private Component generateNotSignedView() {
 		VerticalLayout view = new VerticalLayout();
 		
-		Label registerLabel = new Label(sessionHelper.getAppRes(this, "caption.register"));
+		Label registerLabel = new Label(contentService.getAppResource(this, "caption.register"));
 		registerLabel.setStyleName("signin-tile-register-label");
 		
 		HorizontalLayout modeLayout = new HorizontalLayout();
 		
-		final Button btnMerchant = new Button(sessionHelper.getAppRes(this, "button.merchant"));
+		final Button btnMerchant = new Button(contentService.getAppResource(this, "button.merchant"));
 		btnMerchant.setIcon(new ThemeResource("images/factory_active.png"));
 		btnMerchant.setStyleName("signin-tile-mode-company-button-selected");
 		modeLayout.addComponent(btnMerchant);
 		
-		final Button btnSocial = new Button(sessionHelper.getAppRes(this, "button.social"));
+		final Button btnSocial = new Button(contentService.getAppResource(this, "button.social"));
 		btnSocial.setIcon(new ThemeResource("images/person.png"));
 		btnSocial.setStyleName("signin-tile-mode-person-button-unselected");
 		modeLayout.addComponent(btnSocial);
 		
 		setLoginField(new TextField());
-		getLoginField().setInputPrompt(sessionHelper.getAppRes(this, "caption.login"));
+		getLoginField().setInputPrompt(contentService.getAppResource(this, "caption.login"));
 		getLoginField().setStyleName("signin-tile-textfield");
 		getLoginField().setIcon(new ThemeResource("images/dog.png"));
 		
 		setPasswordField(new PasswordField());
-		getPasswordField().setInputPrompt(sessionHelper.getAppRes(this, "caption.password"));
+		getPasswordField().setInputPrompt(contentService.getAppResource(this, "caption.password"));
 		getPasswordField().setStyleName("signin-tile-textfield");
 		getPasswordField().setIcon(new ThemeResource("images/lock.png"));
 		
@@ -116,7 +116,7 @@ public class SignInUpTile extends Panel {
         SigninListener signinListener = new SigninListener("Ok", KeyCode.ENTER, null);
         formLayout.addShortcutListener(signinListener);
         
-        Button btnSignup = new Button(sessionHelper.getAppRes(this, "button.signup"));
+        Button btnSignup = new Button(contentService.getAppResource(this, "button.signup"));
         btnSignup.setStyleName("signin-tile-signup-button");
         btnSignup.setIcon(new ThemeResource("images/on.png"));
         btnSignup.addClickListener(new ClickListener() {
@@ -171,14 +171,14 @@ public class SignInUpTile extends Panel {
 		try {
 			sessionState.signin((String)fieldGroup.getField("login").getValue(), (String)fieldGroup.getField("password").getValue());
 		} catch (UserAlreadySignedInException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (NoSuchUserException e) {
 			performSignup();
-//			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+//			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppRes(e, "error") + "</b></font>");
 //			errorLabel.setVisible(true);
 		} catch (WrongPasswordException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		}
 	}
@@ -191,16 +191,16 @@ public class SignInUpTile extends Panel {
 			sessionState.signin(login, password);
 			WebCadUI.getCurrent().processUri("");
 		} catch (UserAlreadyExistException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (UserAlreadySignedInException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (NoSuchUserException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		} catch (WrongPasswordException e) {
-			errorLabel.setValue("<font color=\"red\"><b>" + sessionHelper.getAppRes(e, "error") + "</b></font>");
+			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);
 		}
 	}

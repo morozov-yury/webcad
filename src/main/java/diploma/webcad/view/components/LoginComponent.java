@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
 import diploma.webcad.core.exception.NoSuchUserException;
 import diploma.webcad.core.exception.UserAlreadySignedInException;
 import diploma.webcad.core.exception.WrongPasswordException;
-import diploma.webcad.core.init.SpringContextHelper;
+import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.service.NotificationService;
@@ -56,7 +56,7 @@ public class LoginComponent extends HorizontalLayout {
 	@Override
 	public void attach() {
 		sessionState = WebCadUI.getCurrent().getSessionState();
-		SpringContextHelper springContextHelper = sessionState.getHelper();
+		SpringContext springContextHelper = sessionState.getContext();
 		notificationService = springContextHelper.getBean(NotificationService.class);
 		super.attach();
 	}
