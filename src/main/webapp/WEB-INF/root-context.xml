@@ -94,7 +94,7 @@
 
 
 <!-- Aspects -->
-	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.ApplicationContextProvider" />
+	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.AppContextProvider" />
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 	<aop:config>
 		<aop:pointcut id="hibernateSessionDependingOperation" expression="@annotation(diploma.webcad.core.annotation.HibernateSessionRequired)" />
