@@ -76,10 +76,10 @@ public class WebCadUI extends UI {
 	protected void init(final VaadinRequest request) {
 		log.info("UI init");
 		
-		SpringContext springContext = (SpringContext) sessionState.getParameter(SessionState.SPRING_CONTEXT);
+		SpringContext springContext = (SpringContext) sessionState.getParameter(SessionState.Param.SPRING_CONTEXT);
 		if (springContext == null) {
 			springContext = new SpringContext(this);
-			sessionState.putParameter(SessionState.SPRING_CONTEXT, springContext);
+			sessionState.putParameter(SessionState.Param.SPRING_CONTEXT, springContext);
 		}
 		initSessionInterlayer(springContext);
 		

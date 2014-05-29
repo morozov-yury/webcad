@@ -29,17 +29,15 @@ public class SessionState {
 	
 	private static Logger log = LoggerFactory.getLogger(SessionState.class);
 	
-	public static enum Parameters {
+	public static enum Param {
+		USER,
 		
+		LANGUAGE,
+		
+		SPRING_CONTEXT;
 	}
 
-	private static final String USER = "com.communicator.quiz.session.state.user";
-
-	private static final String LANGUAGE = "com.communicator.quiz.session.state.language";
-
-	public static final String SPRING_CONTEXT = "com.communicator.quiz.session.state.spring.helper";
-
-	private Map<String, Object> parameters = new HashMap<String, Object>();
+	private Map<SessionState.Param, Object> parameters = new HashMap<SessionState.Param, Object>();
 
 	@Autowired
 	private UserService userManager;
@@ -54,14 +52,14 @@ public class SessionState {
 	@PostConstruct
 	private void init () {
 		log.info("SessionState init");
-		putParameter(LANGUAGE, contentManager.getDefaultLanguage());
+		putParameter(SessionState.Param.LANGUAGE, contentManager.getDefaultLanguage());
 	}
 
-	public Object putParameter(String name, Object value) {
+	public Object putParameter(SessionState.Param name, Object value) {
 		return parameters.put(name, value);
 	}
 
-	public Object getParameter(String name) {
+	public Object getParameter(SessionState.Param name) {
 		return parameters.get(name);
 	}
 
@@ -74,11 +72,11 @@ public class SessionState {
 	}
 
 	public void setUser(User user) {
-		putParameter(USER, user);
+		putParameter(SessionState.Param.USER, user);
 	}
 
 	public User getUser() {
-		return (User) getParameter(USER);
+		return (User) getParameter(SessionState.Param.USER);
 	}
 
 	public void signin(String login, String password) 
@@ -105,7 +103,7 @@ public class SessionState {
 		if (language == null) {
 			language = contentManager.getDefaultLanguage();
 		}
-		putParameter(LANGUAGE, language);
+		putParameter(SessionState.Param.LANGUAGE, language);
 
 		WebCadUI.getCurrent().processUri(Page.getCurrent().getUriFragment());
 	}
@@ -120,11 +118,11 @@ public class SessionState {
 //	}
 
 	public Language getLanguage() {
-		return (Language) getParameter(LANGUAGE);
+		return (Language) getParameter(SessionState.Param.LANGUAGE);
 	}
 
 	public SpringContext getContext() {
-		return (SpringContext) getParameter(SPRING_CONTEXT);
+		return (SpringContext) getParameter(SessionState.Param.SPRING_CONTEXT);
 	}
 
 
