@@ -12,15 +12,15 @@ import javax.persistence.ManyToOne;
 import diploma.webcad.core.model.Language;
 
 @Entity
-public class ApplicationResourceValue {
+public class AppValue {
 	private Long id;
 	private String value;
 	private Language language;
 	
-	public ApplicationResourceValue() {
+	public AppValue() {
 	}
 	
-	public ApplicationResourceValue(Language lang, String value) {
+	public AppValue(Language lang, String value) {
 		this.language = lang;
 		this.value = value;
 	}

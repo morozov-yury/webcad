@@ -9,21 +9,21 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.ui.UI;
 
-public class SpringContextHelper {
+public class SpringContext {
 	
 	private WebApplicationContext context;
 	
 	private UI application;
 	
-	public static SpringContextHelper getInstance(UI application) {
-		return new SpringContextHelper(application);
+	public static SpringContext getInstance(UI application) {
+		return new SpringContext(application);
 	}
 
-	public SpringContextHelper(UI application) {
+	public SpringContext(UI application) {
 		this(((WrappedHttpSession)application.getSession().getSession()).getHttpSession().getServletContext());
 	}
 
-	public SpringContextHelper(ServletContext servletContext) {
+	public SpringContext(ServletContext servletContext) {
 		context = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
 	}
 

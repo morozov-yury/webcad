@@ -1,4 +1,4 @@
-package diploma.webcad.core.view;
+package diploma.webcad.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;

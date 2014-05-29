@@ -1,6 +1,6 @@
 package diploma.webcad.core.model.resource;
 
-public enum ApplicationResourceCategoryPrefix {
+public enum AppCategoryPrefix {
 
 	SERVICE_CONTEST_CATEGORY("s.c.c."),
 	SERVICE_PUBLICATION_BLOG("s.p.b."),
@@ -9,7 +9,7 @@ public enum ApplicationResourceCategoryPrefix {
 	
 	private String prefix ;
 
-	private ApplicationResourceCategoryPrefix(String prefix) {
+	private AppCategoryPrefix(String prefix) {
 		this.prefix = prefix;
 	}
 	

@@ -17,18 +17,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "constants")
-public class ApplicationConstant implements Serializable{
+public class AppConstant implements Serializable{
 
 	private static final long serialVersionUID = 3713200904592128122L;
 	private String id;
 	private String value;
 	private String description;
-	private ApplicationConstantType type;
+	private AppConstantType type;
 	
-	public ApplicationConstant(@NotNull String id, String value, String description, ApplicationConstantType type) {
+	public AppConstant(@NotNull String id, String value, String description, AppConstantType type) {
 		super();
 		if(type == null) {
-			type = ApplicationConstantType.getDefault();
+			type = AppConstantType.getDefault();
 		}
 		this.id = id;
 		this.value = value;
@@ -36,19 +36,19 @@ public class ApplicationConstant implements Serializable{
 		this.type = type;
 	}
 
-	public ApplicationConstant(@NotNull String id, String value, String description) {
-		this(id, value, description, ApplicationConstantType.getDefault());
+	public AppConstant(@NotNull String id, String value, String description) {
+		this(id, value, description, AppConstantType.getDefault());
 	}
 
-	public ApplicationConstant(@NotNull String id, String value) {
+	public AppConstant(@NotNull String id, String value) {
 		this(id, value, null);
 	}
 	
-	public ApplicationConstant(@NotNull String id) {
+	public AppConstant(@NotNull String id) {
 		this(id, null);
 	}
 	
-	public ApplicationConstant() {
+	public AppConstant() {
 		this("");
 	}
 
@@ -82,11 +82,11 @@ public class ApplicationConstant implements Serializable{
 
 	@Column(name = "type")
 	@Enumerated(EnumType.STRING)
-	public ApplicationConstantType getType() {
+	public AppConstantType getType() {
 		return type;
 	}
 
-	public void setType(ApplicationConstantType type) {
+	public void setType(AppConstantType type) {
 		this.type = type;
 	}
 }

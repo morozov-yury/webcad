@@ -21,18 +21,19 @@ import diploma.webcad.core.model.Language;
 
 @Entity
 @Table(name="resources")
-public class ApplicationResource implements Serializable{
+public class AppResource implements Serializable{
 
 	private static final long serialVersionUID = 5260758137083224889L;
 	
 	private String id = null;
-	private List<ApplicationResourceValue> langs;
 	
-	public ApplicationResource() {
-		langs = new ArrayList<ApplicationResourceValue>();
+	private List<AppValue> langs;
+	
+	public AppResource() {
+		langs = new ArrayList<AppValue>();
 	}
 	
-	public ApplicationResource(String id) {
+	public AppResource(String id) {
 		this();
 		this.id = id;
 	}
@@ -47,19 +48,19 @@ public class ApplicationResource implements Serializable{
 		this.id = id;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=false, targetEntity=ApplicationResourceValue.class)
-	public List<ApplicationResourceValue> getLangs() {
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=false, targetEntity=AppValue.class)
+	public List<AppValue> getLangs() {
 		return langs;
 	}
 	
-	public void setLangs(List<ApplicationResourceValue> langs) {
+	public void setLangs(List<AppValue> langs) {
 		this.langs = langs;
 	}
 	
 	@Transient
 	public Map<Language, String> getStringLangMap() {
 		Map<Language, String> result = new HashMap<Language, String>();
-		for(ApplicationResourceValue applicationResourceValue: langs)
+		for(AppValue applicationResourceValue: langs)
 			result.put(applicationResourceValue.getLanguage(), applicationResourceValue.getValue());
 		return result;
 	}
@@ -68,7 +69,7 @@ public class ApplicationResource implements Serializable{
 		this.langs.clear();
 		for(Language lang: langMap.keySet()) {
 			if(!StringUtils.isBlank(langMap.get(lang)))
-				this.langs.add(new ApplicationResourceValue(lang, langMap.get(lang)));
+				this.langs.add(new AppValue(lang, langMap.get(lang)));
 		}
 	}
 
@@ -89,7 +90,7 @@ public class ApplicationResource implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ApplicationResource other = (ApplicationResource) obj;
+		AppResource other = (AppResource) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -99,25 +100,25 @@ public class ApplicationResource implements Serializable{
 	}
 
 	public boolean containsLanguage(Language language) {
-		for(ApplicationResourceValue applicationResourceValue: langs)
+		for(AppValue applicationResourceValue: langs)
 			if(applicationResourceValue.getLanguage().equals(language)) return true;
 		return false;
 	}
 
 	@Transient
 	public String getLangValue(Language language) {
-		for(ApplicationResourceValue applicationResourceValue: langs)
+		for(AppValue applicationResourceValue: langs)
 			if(applicationResourceValue.getLanguage().equals(language)) return applicationResourceValue.getValue();
 		return null;
 	}
 	
 	public void setLangValue(Language language, String value) {
-		for(ApplicationResourceValue applicationResourceValue: langs)
+		for(AppValue applicationResourceValue: langs)
 			if(applicationResourceValue.getLanguage().equals(language)) {
 				applicationResourceValue.setValue(value);
 				return;
 			}
-		ApplicationResourceValue applicationResourceValue = new ApplicationResourceValue(language, value);
+		AppValue applicationResourceValue = new AppValue(language, value);
 		langs.add(applicationResourceValue);
 	}
 }

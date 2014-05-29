@@ -5,10 +5,10 @@ package diploma.webcad.core.model.constant;
  * @author Arktos
  */
 
-public enum ApplicationConstantType {
+public enum AppConstantType {
 	DEFAULT, ABOUT, SYSTEM, VIEW, SECURITY, NAVIGATION, CONNECTORS, SETTINGS;
 	
-	public static ApplicationConstantType getDefault() {
+	public static AppConstantType getDefault() {
 		return DEFAULT;
 	}
 }

@@ -11,21 +11,21 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import diploma.webcad.core.dao.ApplicationResourceDao;
+import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.ApplicationResource;
-import diploma.webcad.core.model.resource.ApplicationResourceCategoryPrefix;
+import diploma.webcad.core.model.resource.AppResource;
+import diploma.webcad.core.model.resource.AppCategoryPrefix;
 
 @Repository
-public class ApplicationResourceDaoImpl extends
-		BaseDaoImpl<ApplicationResource, String> implements ApplicationResourceDao {
+public class AppResourceDaoImpl extends
+		BaseDaoImpl<AppResource, String> implements AppResourceDao {
 
-	public ApplicationResourceDaoImpl() {
-		super(ApplicationResource.class);
+	public AppResourceDaoImpl() {
+		super(AppResource.class);
 	}
 
 	@Override
-	public void saveOrUpdate(ApplicationResource entity) {
+	public void saveOrUpdate(AppResource entity) {
 		if(entity.getId() == null) entity.setId(Long.toString(System.currentTimeMillis()));
 		super.saveOrUpdate(entity);
 	}
@@ -39,7 +39,7 @@ public class ApplicationResourceDaoImpl extends
 		criteria.add(filterDisjunction);
 	}
 	
-	private void addPrefixFilter(Criteria criteria, ApplicationResourceCategoryPrefix prefix) {
+	private void addPrefixFilter(Criteria criteria, AppCategoryPrefix prefix) {
 		criteria.add(Restrictions.like("id", prefix.getPrefix() + "%"));
 	}
 
@@ -51,7 +51,7 @@ public class ApplicationResourceDaoImpl extends
 
 	@Override
 	public String getPrevId(String itemId,
-			ApplicationResourceCategoryPrefix prefix, Language language,
+			AppCategoryPrefix prefix, Language language,
 			List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
@@ -67,7 +67,7 @@ public class ApplicationResourceDaoImpl extends
 
 	@Override
 	public String getNextId(String itemId,
-			ApplicationResourceCategoryPrefix prefix, Language language,
+			AppCategoryPrefix prefix, Language language,
 			List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
@@ -82,7 +82,7 @@ public class ApplicationResourceDaoImpl extends
 	}
 
 	@Override
-	public String getFirstId(ApplicationResourceCategoryPrefix prefix,
+	public String getFirstId(AppCategoryPrefix prefix,
 			Language language, List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
@@ -94,7 +94,7 @@ public class ApplicationResourceDaoImpl extends
 	}
 	
 	@Override
-	public String getLastId(ApplicationResourceCategoryPrefix prefix,
+	public String getLastId(AppCategoryPrefix prefix,
 			Language language, List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
@@ -107,7 +107,7 @@ public class ApplicationResourceDaoImpl extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> listIds(ApplicationResourceCategoryPrefix prefix,
+	public List<String> listIds(AppCategoryPrefix prefix,
 			Language language, List<String> filters, int startIndex,
 			int numberOfItems) {
 		Criteria criteria = makeCriteria();
@@ -121,7 +121,7 @@ public class ApplicationResourceDaoImpl extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<String> listIds(ApplicationResourceCategoryPrefix prefix,
+	public Collection<String> listIds(AppCategoryPrefix prefix,
 			Language language, List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
@@ -131,7 +131,7 @@ public class ApplicationResourceDaoImpl extends
 	}
 
 	@Override
-	public Long getCount(ApplicationResourceCategoryPrefix prefix,
+	public Long getCount(AppCategoryPrefix prefix,
 			Language language, List<String> filters) {
 		Criteria criteria = makeCriteria();
 		addNameFilter(criteria, filters, language);
