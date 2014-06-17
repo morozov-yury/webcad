@@ -68,7 +68,9 @@ public class HttpUtils {
 		}
 		if (valuePairs != null) {
 			for (NameValuePair valuePair : valuePairs) {
-				properties.put(valuePair.getName(), valuePair.getValue());
+				String value = valuePair.getValue();
+				if (value == null) { value = ""; }
+				properties.put(valuePair.getName(), value);
 			}
 		}
 		return properties;
