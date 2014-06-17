@@ -42,17 +42,7 @@
 	  margin-left: .3em;
 	}
 	
-	@include icon(transactions, '\21c4');
-	@include icon(dashboard, '\2302');
-	@include icon(reports, '\e7a2');	
-	@include icon(schedule, '\1f4c5');
-	@include icon(sales, '\1f4c8');
-	@include icon(cog, '\2699');
-	@include icon(cog, '\2699');
-	@include icon(user, '\1f464');
-	@include icon(attention, '\26a0');
-	@include icon(edit, '\270d');
-	@include icon(bell, '\1f514');
-	@include icon(cancel, '\2715');
+	@include icon(home, '\e800');
+	@include icon(gena, '\e81f');
 	
 }
