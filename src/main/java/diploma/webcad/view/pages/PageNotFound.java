@@ -17,13 +17,14 @@ public class PageNotFound extends AbstractPage {
 	public static final String NAME = "404";
 	
 	public PageNotFound () {
-		
+		super("Page not found");
 	}
 
 	@Override
 	public void enter() {
 		Object object = getPageParameters().get("page");
 		Label label = new Label("Page not found: " + object);
+		setContent(label);
 	}
 
 }

@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 
 import ru.xpoft.vaadin.VaadinView;
 
-import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.view.components.gena.GenaParametersSelector;
 import diploma.webcad.view.pages.AbstractPage;
 import diploma.webcad.view.service.NotificationService;
+import diploma.webcad.view.service.ViewFactory;
 
 @Component
 @Scope("prototype")
@@ -33,31 +33,55 @@ public class GenaRun extends AbstractPage {
 	@Autowired 
 	private NotificationService notificationService;
 	
+	@Autowired
+	private ViewFactory viewFactory;
+	
 	private VerticalLayout mainLayout;
 	
+	private TextArea textArea;
+	
 	public GenaRun () {
+		super("Gena");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
 	}
 
 	@Override
 	public void enter() {
-		final GenaParametersSelector parametersSelector = new GenaParametersSelector();
-		mainLayout.addComponent(parametersSelector);
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
 		
-		Button runButton = new Button("Run", new Button.ClickListener() {
-			private static final long serialVersionUID = -1742466051463419737L;
-			@Override
-			public void buttonClick(ClickEvent arg0) {
-				genaService.run(parametersSelector.getParameters());
-			}
-		});
-		runButton.setIcon(new ThemeResource("img/buttons/play12x12.png"));
+        HorizontalLayout row = new HorizontalLayout();
+        row.setSizeFull();
+        row.setMargin(new MarginInfo(true, true, false, true));
+        row.setSpacing(true);
+        content.addComponent(row);
+        content.setExpandRatio(row, 1.5f);    
+        
+        final GenaParametersSelector parametersSelector = new GenaParametersSelector();
+        row.addComponent(viewFactory.wrapComponent(parametersSelector));
+        
+        textArea = new TextArea("Input your xml data here");
+        row.addComponent(viewFactory.wrapTextArea(textArea));
 		
-		HorizontalLayout buttomsHorizontalLayout =  new HorizontalLayout(runButton);
-		buttomsHorizontalLayout.setSpacing(true);
-		mainLayout.addComponent(buttomsHorizontalLayout);
-		mainLayout.setComponentAlignment(buttomsHorizontalLayout, Alignment.MIDDLE_RIGHT);
+//		final GenaParametersSelector parametersSelector = new GenaParametersSelector();
+//		mainLayout.addComponent(parametersSelector);
+//		
+//		Button runButton = new Button("Run", new Button.ClickListener() {
+//			private static final long serialVersionUID = -1742466051463419737L;
+//			@Override
+//			public void buttonClick(ClickEvent arg0) {
+//				genaService.run(parametersSelector.getParameters());
+//			}
+//		});
+//		runButton.setIcon(new ThemeResource("img/buttons/play12x12.png"));
+//		
+//		HorizontalLayout buttomsHorizontalLayout =  new HorizontalLayout(runButton);
+//		buttomsHorizontalLayout.setSpacing(true);
+//		mainLayout.addComponent(buttomsHorizontalLayout);
+//		mainLayout.setComponentAlignment(buttomsHorizontalLayout, Alignment.MIDDLE_RIGHT);
+        
+        setContent(content);
 	}
 
 }

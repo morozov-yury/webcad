@@ -10,6 +10,8 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.NativeButton;
 
 import diploma.webcad.view.WebCadUI;
+import diploma.webcad.view.pages.MainPage;
+import diploma.webcad.view.pages.gena.GenaRun;
 
 public class MainMenu extends CssLayout {
 
@@ -21,20 +23,20 @@ public class MainMenu extends CssLayout {
 		//addStyleName("no-horizontal-drag-hints");
         setHeight("100%");
         
-        addButton("Главная","");
-        addButton("Главная","");
-        addButton("Главная","");
-        addButton("Главная","");
+        addButton("Главная",MainPage.NAME, "icon-home");
+        addButton("Gena",GenaRun.NAME, "icon-gena");
+        addButton("Главная",MainPage.NAME, "icon-home");
+        addButton("Главная",MainPage.NAME, "icon-home");
         
         Component component = iterator().next();
         component.addStyleName("selected");
 	}
 	
-	private void addButton (String name, final String mapping) {
+	private void addButton (String name, final String mapping, String style) {
 		
 		Button button = new NativeButton(name);
 		
-		button.addStyleName("icon-dashboard");
+		button.addStyleName(style);
 		
 		button.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = -3431580378578867080L;

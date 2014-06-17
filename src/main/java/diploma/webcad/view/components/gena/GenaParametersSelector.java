@@ -31,13 +31,13 @@ public class GenaParametersSelector extends VerticalLayout {
 
 	private static final long serialVersionUID = -5697510503372938703L;
 	
-	private GenaMMParamSelector genaMooreParamSelector;
+	private GenaMMParamSelector mooreParamSelector;
 	
-	private GenaMMParamSelector genaMeelyParamSelector;
+	private GenaMMParamSelector meelyParamSelector;
 	
-	private GenaCMParamSelector genaCMParamSelector;
+	private GenaCMParamSelector cMParamSelector;
 	
-	private GenaCSParamSelector genaCSParamSelector;
+	private GenaCSParamSelector cSParamSelector;
 	
 	private Label parametersLabel;
 	
@@ -47,60 +47,17 @@ public class GenaParametersSelector extends VerticalLayout {
 		springContextHelper = WebCadUI.getCurrent().getSessionState().getContext();
 		genaService = springContextHelper.getBean(GenaService.class);
 		
+		setCaption("Choose run parameters");
 		setSizeFull();
-		addStyleName("full-width");
 		setSpacing(true);
+		
+		
 
-		genaMooreParamSelector = new GenaMMParamSelector(MooreMealy.MOORE);
-		genaMeelyParamSelector = new GenaMMParamSelector(MooreMealy.MEELY);
-		genaCMParamSelector = new GenaCMParamSelector();
-		genaCSParamSelector = new GenaCSParamSelector();
 		
-		selectedComponent = genaCMParamSelector;
-		
-		OptionGroup optionGroup = new OptionGroup("Select an run option:");
-		optionGroup.setSizeUndefined();
-		optionGroup.setNullSelectionAllowed(false);
-		optionGroup.setHtmlContentAllowed(true);
-		optionGroup.setImmediate(true);
-		optionGroup.addItem(genaMooreParamSelector);
-		optionGroup.setItemCaption(genaMooreParamSelector, "Moore");
-		optionGroup.addItem(genaMeelyParamSelector);
-		optionGroup.setItemCaption(genaMeelyParamSelector, "Mealy");
-		optionGroup.addItem(genaCMParamSelector);
-		optionGroup.setItemCaption(genaCMParamSelector, "Common memory");
-		optionGroup.addItem(genaCSParamSelector);
-		optionGroup.setItemCaption(genaCSParamSelector, "Code sharing");
-		optionGroup.select(selectedComponent);
-		
-		final VerticalLayout additionalParamLayout = new VerticalLayout();
-		HorizontalLayout paramChoserLayout = new HorizontalLayout(optionGroup, new VerticalSeparator(), additionalParamLayout);
-		paramChoserLayout.setSpacing(true);
-		addComponent(paramChoserLayout);
-		
-		optionGroup.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = -1406584044462575876L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				additionalParamLayout.removeAllComponents();
-				selectedComponent = (Component) event.getProperty().getValue();
-				additionalParamLayout.addComponent(selectedComponent);
-				parametersLabel.setValue(selectedComponent.toString());
-			}
-		});
-		
-		additionalParamLayout.addComponent(selectedComponent);
-		
-		TextArea descrTextArea = new TextArea("Put your XML decription here:");
-		descrTextArea.addStyleName("full-width");
-		addComponent(descrTextArea);
-		
-		parametersLabel =  new Label(selectedComponent.toString());
-		parametersLabel.setImmediate(true);
 	}
 	
 	public String getParameters () {
-		return selectedComponent.toString();
+		return "";
 	}
 
 }

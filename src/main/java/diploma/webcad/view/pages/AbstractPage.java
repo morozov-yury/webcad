@@ -1,14 +1,28 @@
 package diploma.webcad.view.pages;
 
+import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.vaadin.demo.dashboard.TopGrossingMoviesChart;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
@@ -25,16 +39,49 @@ public abstract class AbstractPage extends Panel implements View {
 
 	private PageProperties pageProperties;
 
-	public AbstractPage() {
-		setSizeUndefined();
+	private VerticalLayout content;
+
+	private String caption;
+
+	public AbstractPage(String caption) {
+		this.caption = caption;
+		setSizeFull();
 		addStyleName("webcad-abstract-page");
+		
+		content = new VerticalLayout();
+		super.setContent(content);
+		content.setSizeFull();
+		content.setStyleName("dashboard-view");
+		
+		HorizontalLayout top = new HorizontalLayout();
+        top.setWidth("100%");
+        top.setSpacing(true);
+        top.addStyleName("toolbar");
+        content.addComponent(top);
+        content.setExpandRatio(top, 0);
+        final Label title = new Label(caption);
+        title.setSizeUndefined();
+        title.addStyleName("h1");
+        top.addComponent(title);
+        top.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
+        top.setExpandRatio(title, 1);
+	}
+
+	@Override
+	public void setContent(Component content) {
+		if (content != null) {
+			this.content.addComponent(content);
+			this.content.setExpandRatio(content, 2);
+		}
 	}
 
 	public abstract void enter();
 	
 	@Override
 	final public void enter(ViewChangeEvent event) {
-		pageProperties = new PageProperties(HttpUtils.getUrlProperties(event.getParameters()));
+		String parameters = event.getParameters();
+		Properties urlProperties = HttpUtils.getUrlProperties(parameters);
+		pageProperties = new PageProperties(urlProperties);
 		if (isAccessAvailable()) {
 			enter();
 			notificationService.showInfo(getPageLocation() + getPageParameters());

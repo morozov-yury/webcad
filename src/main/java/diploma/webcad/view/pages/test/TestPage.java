@@ -27,6 +27,7 @@ public class TestPage extends AbstractPage {
 	private VerticalLayout mainLayout;
 	
 	public TestPage () {
+		super("Test page");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
 	}

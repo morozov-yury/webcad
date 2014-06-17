@@ -362,52 +362,12 @@
 	margin-left: 0.3em;
 }
 
-.icon-transactions.v-nativebutton:before, .icon-transactions > .v-button-wrap:before, .icon-transactions.v-label:before, .v-menubar-menuitem-icon-transactions:before {
-	content: "\21c4";
+.icon-home.v-nativebutton:before, .icon-home > .v-button-wrap:before, .icon-home.v-label:before, .v-menubar-menuitem-icon-home:before {
+	content: "\e800";
 }
 
-.icon-dashboard.v-nativebutton:before, .icon-dashboard > .v-button-wrap:before, .icon-dashboard.v-label:before, .v-menubar-menuitem-icon-dashboard:before {
-	content: "\2302";
-}
-
-.icon-reports.v-nativebutton:before, .icon-reports > .v-button-wrap:before, .icon-reports.v-label:before, .v-menubar-menuitem-icon-reports:before {
-	content: "\e7a2";
-}
-
-.icon-schedule.v-nativebutton:before, .icon-schedule > .v-button-wrap:before, .icon-schedule.v-label:before, .v-menubar-menuitem-icon-schedule:before {
-	content: "\1f4c5";
-}
-
-.icon-sales.v-nativebutton:before, .icon-sales > .v-button-wrap:before, .icon-sales.v-label:before, .v-menubar-menuitem-icon-sales:before {
-	content: "\1f4c8";
-}
-
-.icon-cog.v-nativebutton:before, .icon-cog > .v-button-wrap:before, .icon-cog.v-label:before, .v-menubar-menuitem-icon-cog:before {
-	content: "\2699";
-}
-
-.icon-cog.v-nativebutton:before, .icon-cog > .v-button-wrap:before, .icon-cog.v-label:before, .v-menubar-menuitem-icon-cog:before {
-	content: "\2699";
-}
-
-.icon-user.v-nativebutton:before, .icon-user > .v-button-wrap:before, .icon-user.v-label:before, .v-menubar-menuitem-icon-user:before {
-	content: "\1f464";
-}
-
-.icon-attention.v-nativebutton:before, .icon-attention > .v-button-wrap:before, .icon-attention.v-label:before, .v-menubar-menuitem-icon-attention:before {
-	content: "\26a0";
-}
-
-.icon-edit.v-nativebutton:before, .icon-edit > .v-button-wrap:before, .icon-edit.v-label:before, .v-menubar-menuitem-icon-edit:before {
-	content: "\270d";
-}
-
-.icon-bell.v-nativebutton:before, .icon-bell > .v-button-wrap:before, .icon-bell.v-label:before, .v-menubar-menuitem-icon-bell:before {
-	content: "\1f514";
-}
-
-.icon-cancel.v-nativebutton:before, .icon-cancel > .v-button-wrap:before, .icon-cancel.v-label:before, .v-menubar-menuitem-icon-cancel:before {
-	content: "\2715";
+.icon-gena.v-nativebutton:before, .icon-gena > .v-button-wrap:before, .icon-gena.v-label:before, .v-menubar-menuitem-icon-gena:before {
+	content: "\e81f";
 }
 
 @-webkit-keyframes spinner {
@@ -5612,6 +5572,15 @@ body .dashboard.v-app .v-app-loading {
 
 .dashboard .login .login-bg {
 	opacity: 1;
+}
+
+.dashboard .v-slot-sidebar {
+	background: #dfe0e1;
+	background: -moz-linear-gradient(top, #d8d9da 0%, #e6e7e8 10%, #e0e1e2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d8d9da), color-stop(10%, #e6e7e8), color-stop(100%, #e0e1e2));
+	background: -webkit-linear-gradient(top, #d8d9da 0%, #e6e7e8 10%, #e0e1e2 100%);
+	background: -o-linear-gradient(top, #d8d9da 0%, #e6e7e8 10%, #e0e1e2 100%);
+	background: -ms-linear-gradient(top, #d8d9da 0%, #e6e7e8 10%, #e0e1e2 100%);
 }
 
 .dashboard .sidebar {
