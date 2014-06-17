@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>diploma.webcad</groupId>
 	<artifactId>webcad</artifactId>
@@ -20,7 +19,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<tomcat-webapp-dir>C:/programs/apache-tomcat-7.0.47/webapps/ROOT</tomcat-webapp-dir>
+		<tomcat-webapp-dir>C:/dev/apache-tomcat-6.0.35/webapps/ROOT</tomcat-webapp-dir>
 		<spring-social.version>1.0.2.RELEASE</spring-social.version>
 		<spring-social-facebook.version>1.0.3.RELEASE</spring-social-facebook.version>
 		<spring-social-twitter.version>1.0.5.RELEASE</spring-social-twitter.version>
@@ -105,6 +104,11 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		   <groupId>com.vaadin.addon</groupId>
+		   <artifactId>vaadin-charts</artifactId>
+		   <version>1.1.6</version>
 		</dependency>
 
 		<dependency>
@@ -488,6 +492,7 @@
 			<artifactId>telnetd-x</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+			
 	</dependencies>
 
 	<build>
@@ -507,6 +512,7 @@
 		</resources>
 
 		<plugins>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -516,6 +522,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			
 			<!-- As we are doing "inplace" GWT compilation, ensure the widgetset -->
 			<!-- directory is cleaned properly -->
 			<plugin>
@@ -529,6 +536,7 @@
 					</filesets>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -537,9 +545,11 @@
 					<webappDirectory>${tomcat-webapp-dir}</webappDirectory>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 			  <groupId>org.zeroturnaround</groupId>
 			  <artifactId>jrebel-maven-plugin</artifactId>
+			  <version>1.1.5</version>
 			  <executions>
 			    <execution>
 			      <id>generate-rebel-xml</id>
@@ -550,6 +560,7 @@
 			    </execution>
 			  </executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
@@ -580,6 +591,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>com.vaadin</groupId>
 				<artifactId>vaadin-maven-plugin</artifactId>
@@ -616,11 +628,9 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-			</plugin>
+			
 		</plugins>
+		
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
@@ -632,15 +642,12 @@
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
+							
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>com.vaadin</groupId>
-										<artifactId>
-											vaadin-maven-plugin
-										</artifactId>
-										<versionRange>
-											[7.0.5,)
-										</versionRange>
+										<artifactId>vaadin-maven-plugin</artifactId>
+										<versionRange>[7.0.5,)</versionRange>
 										<goals>
 											<goal>resources</goal>
 											<goal>update-widgetset</goal>
@@ -648,9 +655,10 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
+								
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.codehaus.mojo</groupId>
@@ -662,9 +670,10 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
+								
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -672,4 +681,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
 </project>
