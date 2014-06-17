@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.listener.RedirectListener;
@@ -28,11 +27,8 @@ public class TestPage extends AbstractPage {
 	private VerticalLayout mainLayout;
 	
 	public TestPage () {
-		super("Test page");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
-		setContent(this.mainLayout);
-		setPageIcon("img/page/settings-caption.png");
 	}
 	
 	@Override

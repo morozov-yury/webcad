@@ -22,7 +22,7 @@ public class User implements Serializable {
 	
 	private String password;
 	
-	private String email;
+	private String name;
 	
 	private Language language;
 	
@@ -32,13 +32,13 @@ public class User implements Serializable {
 	
 	public User() {
 		registrationDate = new Date();
-		userRole = UserRole.SLAVE;
+		userRole = UserRole.USER;
 	}
 	
-	public User(@NotNull String email, @NotNull String password) {
+	public User(@NotNull String name, @NotNull String password) {
 		this();
 		this.password = password;
-		this.email = email;
+		this.setName(name);
 	}
 	
 	@Id
@@ -60,15 +60,15 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	@Column(name = "email")
-	public String getEmail() {
-		return email;
+	@Column(name = "name")
+	public String getName() {
+		return name;
 	}
-	
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	@ManyToOne
 	public Language getLanguage() {
 		return language;

@@ -35,7 +35,9 @@ public class SystemService {
 	}
 	
 	public void saveApplicationConstant(AppConstant constant) {
-		if(constant == null) return;
+		if(constant == null) {
+			return;
+		}
 		try {
 			applicationConstantDao.saveOrUpdate(constant);
 		} catch (Exception e) {
@@ -52,9 +54,9 @@ public class SystemService {
 				} catch(Exception ex) {
 					type = AppConstantType.getDefault();
 				}
-				saveApplicationConstant(new AppConstant(constant.getKey(), 
-						constant.getValue(), constant.getDescription(), 
-						type));
+				AppConstant appConstant = new AppConstant(
+						constant.getKey(), constant.getValue(), constant.getDescription(),  type);
+				saveApplicationConstant(appConstant);
 			}
 		}
 	}

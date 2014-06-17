@@ -4,7 +4,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import diploma.webcad.core.dao.UserDao;
 import diploma.webcad.core.model.User;
@@ -18,12 +17,12 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao {
 
 	public User getByEmail(String email) {
 		return (User) getSession().createCriteria(type)
-				.add(Restrictions.eq("email", email)).uniqueResult();
+				.add(Restrictions.eq("name", email)).uniqueResult();
 	}
 
 	@Override
 	public boolean isUserExist(String login) {
-		return (Long) makeCriteria().add(Restrictions.eq("email", login))
+		return (Long) makeCriteria().add(Restrictions.eq("name", login))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.setProjection(Projections.rowCount()).uniqueResult() == 1;
 	}

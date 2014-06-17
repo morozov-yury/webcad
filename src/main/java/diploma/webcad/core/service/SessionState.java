@@ -22,6 +22,7 @@ import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.User;
 import diploma.webcad.view.WebCadUI;
+import diploma.webcad.view.pages.MainPage;
 
 @Service
 @Scope("session")
@@ -108,14 +109,12 @@ public class SessionState {
 		WebCadUI.getCurrent().processUri(Page.getCurrent().getUriFragment());
 	}
 
-//	public void signout() {
-//		runtimeRegistrator.removeUser(getUser(), UI.getCurrent());
-//		setUser(null);
-//		Map<String, Object> keepedParameters = new HashMap<String, Object>();
-//		parameters.clear();
-//		parameters.putAll(keepedParameters);
-//		WebCadUI.getCurrent().processUri(Page.getCurrent().getUriFragment());
-//	}
+	public void signout() {
+		//runtimeRegistrator.removeUser(getUser(), UI.getCurrent());
+		setUser(null);
+		parameters.clear();
+		WebCadUI.getCurrent().processUri(MainPage.NAME);
+	}
 
 	public Language getLanguage() {
 		return (Language) getParameter(SessionState.Param.LANGUAGE);

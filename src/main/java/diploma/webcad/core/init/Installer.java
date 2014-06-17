@@ -18,6 +18,7 @@ import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.UserDao;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.model.UserRole;
 import diploma.webcad.core.model.constant.AppConstant;
 import diploma.webcad.core.model.constant.AppConstantType;
 import diploma.webcad.core.model.resource.AppResource;
@@ -38,9 +39,11 @@ public class Installer {
 	public void install() {
 		log.info("initLanguages...");
 		initLanguages();
+		
 		log.info("loadApplicationResources...");
 		loadApplicationResources();
-		log.info("initSystemWallet...");
+		
+		log.info("initSystemAccount...");
 		createSystemAccount();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -53,7 +56,8 @@ public class Installer {
 
 	
 	private void createSystemAccount() {
-		User systemUser = new User("2@2", MD5Helper.getHash("2"));
+		User systemUser = new User("admin", MD5Helper.getHash("admin"));
+		systemUser.setUserRole(UserRole.ADMIN);
 		UserDao userDao = helper.getBean(UserDao.class);
 		userDao.saveOrUpdate(systemUser);
 	}

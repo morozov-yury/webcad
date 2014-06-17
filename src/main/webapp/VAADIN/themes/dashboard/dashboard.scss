@@ -27,7 +27,6 @@
 @import "views/reports.scss";
 @import "views/transactions.scss";
 
-@import "webcad/webcad.scss";
 
 @mixin dashboard {
 	
@@ -49,8 +48,7 @@
 	@include dashboard-sales-view;
 	@include dashboard-reports-view;
 	@include dashboard-transactions-view;
-	
-	@include webcad;
+
 
 	.v-view {
 		overflow: hidden;
@@ -131,8 +129,8 @@
 		font-size: 13px;
 		height: 20px;
 		padding-left: 14px;
+		color: red !important;
 	}
-	
 	
 	.v-animate-reveal {
 		@include reveal;
@@ -175,7 +173,7 @@
 		
 		/* WTH? Why is inline-block forced as an inline style? */
 		display: block !important;
-		padding: .8em .8em 1.2em;
+		padding: .8em .8em .8em 1.2em;
 		
 		//@include box-shadow(inset 0 0 5px 2px rgba(0,0,0,.5));
 	}
@@ -364,7 +362,7 @@
 	.sidebar .user {
 		display: block;
 		
-		border-top: 1px solid #303132;
+		//border-top: 1px solid #303132;
 		background: #3b3c3d;
 		background-color: rgba(0,0,0,.1);
 		
@@ -494,7 +492,7 @@
 		
 		opacity: 0;
 		@include animation-duration(1500ms);
-		@include animation-delay(2000ms);
+		@include animation-delay(1000ms);
 		@include animation-fill-mode(forwards);
 	
 		max-width: 50em;
@@ -702,6 +700,5 @@
 			vertical-align: middle;
 		}
 	}
-
 
 }

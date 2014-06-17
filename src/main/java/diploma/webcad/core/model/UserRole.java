@@ -4,6 +4,6 @@ public enum UserRole {
 	
 	ADMIN,
 	
-	SLAVE;
+	USER;
 
 }

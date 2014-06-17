@@ -14,10 +14,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -38,7 +39,7 @@ import diploma.webcad.core.service.SystemService;
 
 public class StartupListener implements ServletContextListener {
 	
-	private static final Logger log = Logger.getLogger(StartupListener.class);
+	private static Logger log = LoggerFactory.getLogger(StartupListener.class);
 
 	private static final String SESSION_FACTORY_BEAN = "sessionFactory";
 	
@@ -76,10 +77,10 @@ public class StartupListener implements ServletContextListener {
 
 		long currentTimeMillis = System.currentTimeMillis();
 		loadApplicationResources(helper);
-		log.info("  --> loadApplicationResources done. " + (System.currentTimeMillis() - currentTimeMillis));
+		log.info("  --> loadApplicationResources done. {}", (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
 		//loadTemplates(helper);
-		log.info("  --> loadMailTemplates done. " + (System.currentTimeMillis() - currentTimeMillis));
+		log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
 		log.info("--> Startup initialization done.");
 
 		// closing session
@@ -107,7 +108,8 @@ public class StartupListener implements ServletContextListener {
 			String iso = language.getIso();
 			UTF8Control utf8Control = new UTF8Control();
 			Locale locale = new Locale(iso);
-			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, locale, utf8Control);
+			ResourceBundle bundle = ResourceBundle.getBundle
+					(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, locale, utf8Control);
 			for (String key : bundle.keySet()) {
 				AppResource appResource = applicationResourceDao.read(key);
 				if (appResource == null) {
@@ -136,7 +138,7 @@ public class StartupListener implements ServletContextListener {
 			final Constants constants = (Constants) unmarshaller.unmarshal(is);
 			getSystemManager(helper).readConstants(constants);
 		} catch (JAXBException e) {
-			log.error(e);
+			log.info(e.getMessage());
 		}
 	}
 

@@ -32,7 +32,6 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
         this.sessionFactory = sessionFactory;
     }	
 	
-	@Transactional
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -51,7 +50,6 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 		}
 	}
 
-	@Transactional(readOnly = false)
 	@Override
 	public void delete(T persistentObject) {
 		getSession().delete(persistentObject);
@@ -76,7 +74,6 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 		return getSession().createCriteria(type).addOrder(Order.asc(property)).list();
 	}
 
-	@Transactional(readOnly = false)
 	@Override
 	public T merge(T entity) {
 		getSession().merge(entity);
@@ -89,14 +86,12 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 		getSession().refresh(entity);
 	}
 
-	@Transactional(readOnly = false)
 	@Override
 	public void saveOrUpdate(T entity) {
 		getSession().saveOrUpdate(entity);
 		getSession().flush();
 	}
 	
-	@Transactional(readOnly = false)
 	@Override
 	public T create(T entity) {
 		@SuppressWarnings("unchecked")

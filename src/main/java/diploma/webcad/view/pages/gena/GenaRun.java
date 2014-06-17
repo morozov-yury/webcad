@@ -36,10 +36,8 @@ public class GenaRun extends AbstractPage {
 	private VerticalLayout mainLayout;
 	
 	public GenaRun () {
-		super("Gena");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
-		setContent(this.mainLayout);
 	}
 
 	@Override

@@ -35,7 +35,6 @@ import diploma.webcad.core.service.SessionInterlayer;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
-import diploma.webcad.view.service.MappingProcessor;
 
 @Component("webCadUI")
 @Title("WebCad")
@@ -49,9 +48,6 @@ public class WebCadUI extends UI {
 
 	@Autowired
 	private MainLayout landingLayout;
-
-	@Autowired
-	private MappingProcessor mappingProcessor;
 	
 	@Autowired
 	private SessionState sessionState;
@@ -98,6 +94,8 @@ public class WebCadUI extends UI {
 				}
 			}
 		};
+		
+		setNavigator(navigator);
 
 		navigator.addViewChangeListener(new ViewChangeListener() {
 
@@ -121,6 +119,7 @@ public class WebCadUI extends UI {
 				return false;
 			}
 		});
+		
 		if (cookies == null) {
 			cookies = request.getCookies();
 		}
@@ -159,11 +158,14 @@ public class WebCadUI extends UI {
 	}
 
 	public String getCookie(String name) {
-		if (cookies == null)
+		if (cookies == null) {
 			return null;
-		for (Cookie cookie : cookies)
-			if (cookie.getName().equals(name))
+		}
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals(name)) {
 				return cookie.getValue();
+			}
+		}
 		return null;
 	}
 
@@ -172,14 +174,14 @@ public class WebCadUI extends UI {
 	}
 
 	public void processUri(String uri) {
-		mappingProcessor.processMapping(uri);
+		getNavigator().navigateTo(uri);
 	}
 	
 	public void processUri(String uri, PageProperties pageProperties) {
 		if (pageProperties == null) {
-			mappingProcessor.processMapping(uri);
+			getNavigator().navigateTo(uri);
 		}
-		mappingProcessor.processMapping(uri + pageProperties);
+		getNavigator().navigateTo(uri + pageProperties);
 	}
 
 	@Override

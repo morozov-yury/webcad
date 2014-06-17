@@ -16,9 +16,9 @@ public class PageProperties extends Properties {
 
 	@Override
 	public synchronized String toString() {
-		String properies = "/?";
+		StringBuilder properies = new StringBuilder("/?");
 		for (java.util.Map.Entry<Object, Object> entry : entrySet()) {
-			properies += entry.getKey() + "=" + entry.getValue() + "&";
+			properies.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
 		}
 		return properies.substring(0, properies.length() - 1);
 	}
