@@ -3,5 +3,21 @@
 	.webcad-abstract-page {
 		
 	}
+
+	.horizontal-option-group {
+	
+		//display: inline-block !important;
+		
+		.v-horizontallayout {
+			margin: 0 auto;
+		}
+	
+		.v-caption-hog-selected-label {
+			font-weight: 600;
+			color: #349aff;
+			text-transform: uppercase;
+			//line-height: 20px;
+		}
+	}
 	
 }

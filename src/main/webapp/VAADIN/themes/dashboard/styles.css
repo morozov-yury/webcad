@@ -5497,6 +5497,16 @@ body .dashboard.v-app .v-app-loading {
 	border-top: 1px solid #d4d5d5;
 }
 
+.dashboard .horizontal-option-group .v-horizontallayout {
+	margin: 0 auto;
+}
+
+.dashboard .horizontal-option-group .v-caption-hog-selected-label {
+	font-weight: 600;
+	color: #349aff;
+	text-transform: uppercase;
+}
+
 .dashboard .v-view {
 	overflow: hidden;
 }
@@ -5983,13 +5993,13 @@ body .dashboard.v-app .v-app-loading {
 	width: 10px;
 }
 
-.dashboard .dashboard-view .v-csslayout {
+.dashboard .dashboard-view .layout-panel {
 	padding: 50px 20px 0;
 	overflow: auto;
 	position: relative;
 }
 
-.dashboard .dashboard-view .v-caption {
+.dashboard .dashboard-view .v-caption-cute-top-caption {
 	font-weight: 600;
 	font-size: 13px;
 	color: #349aff;
