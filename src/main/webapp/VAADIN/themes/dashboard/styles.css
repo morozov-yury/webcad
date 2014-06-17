@@ -370,6 +370,30 @@
 	content: "\e81f";
 }
 
+.icon-cog.v-nativebutton:before, .icon-cog > .v-button-wrap:before, .icon-cog.v-label:before, .v-menubar-menuitem-icon-cog:before {
+	content: "\e845";
+}
+
+.icon-user.v-nativebutton:before, .icon-user > .v-button-wrap:before, .icon-user.v-label:before, .v-menubar-menuitem-icon-user:before {
+	content: "\e84d";
+}
+
+.icon-attention.v-nativebutton:before, .icon-attention > .v-button-wrap:before, .icon-attention.v-label:before, .v-menubar-menuitem-icon-attention:before {
+	content: "\e811";
+}
+
+.icon-edit.v-nativebutton:before, .icon-edit > .v-button-wrap:before, .icon-edit.v-label:before, .v-menubar-menuitem-icon-edit:before {
+	content: "\e846";
+}
+
+.icon-bell.v-nativebutton:before, .icon-bell > .v-button-wrap:before, .icon-bell.v-label:before, .v-menubar-menuitem-icon-bell:before {
+	content: "\e84b";
+}
+
+.icon-cancel.v-nativebutton:before, .icon-cancel > .v-button-wrap:before, .icon-cancel.v-label:before, .v-menubar-menuitem-icon-cancel:before {
+	content: "\e849";
+}
+
 @-webkit-keyframes spinner {
 		0% {
 		background-position: 0 0;
