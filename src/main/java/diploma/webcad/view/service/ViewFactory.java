@@ -39,6 +39,7 @@ public class ViewFactory {
         	content.setCaption("");
         }
 
+        content.addStyleName("cute-top-caption");
         panel.addComponent(content);
         return panel;
 	}

@@ -12,13 +12,18 @@
 		description="description of test_constant_system"
 		type="SYSTEM"
 		value="test_constant_system_value"/>
+		
+	<constant
+		key="default_language"
+		description="default_language"
+		type="SYSTEM"
+		value="en"/>
 
 	<constant
 		key="test_constant_default"
 		type="DEFAULT"
 		value="test_constant_default_value"/>
 
-		
 	<constant 
 		key="test_constant_settings"
 		type="SETTINGS"

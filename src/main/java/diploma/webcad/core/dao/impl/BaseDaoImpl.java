@@ -13,11 +13,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import diploma.webcad.core.dao.BaseDao;
 
 @Repository
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDao<T, PK> {
 	protected Class<? extends Serializable> type;
 	
@@ -51,6 +53,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void delete(T persistentObject) {
 		getSession().delete(persistentObject);
 		getSession().flush();
@@ -75,6 +78,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public T merge(T entity) {
 		getSession().merge(entity);
 		getSession().flush();
@@ -82,17 +86,20 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void refresh(T entity) {
 		getSession().refresh(entity);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void saveOrUpdate(T entity) {
 		getSession().saveOrUpdate(entity);
 		getSession().flush();
 	}
 	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public T create(T entity) {
 		@SuppressWarnings("unchecked")
 		T e = (T) getSession().save(entity);
@@ -100,6 +107,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 		return e;
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void batchSaveOrUpdate(Collection<T> entities) {
 		int i = 0;
 		Iterator<T> iterator = entities.iterator();

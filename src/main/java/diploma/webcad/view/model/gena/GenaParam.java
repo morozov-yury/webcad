@@ -1,21 +1,20 @@
 package diploma.webcad.view.model.gena;
 
-public abstract class GenaParameters {
-	
-	private String sourceFilePath;
+public abstract class GenaParam {
 
-	public GenaParameters(String sourceFilePath) {
-		this.setSourceFilePath(sourceFilePath);
+	private MachineType paramType;
+
+	public GenaParam (MachineType paramType) {
+		this.setMachineType(paramType);
+		
 	}
 
-	public String getSourceFilePath() {
-		return sourceFilePath;
+	public MachineType getMachineType () {
+		return paramType;
 	}
 
-	public void setSourceFilePath(String sourceFilePath) {
-		this.sourceFilePath = sourceFilePath;
+	public void setMachineType (MachineType paramType) {
+		this.paramType = paramType;
 	}
-	
-	public abstract String toString();
 
 }

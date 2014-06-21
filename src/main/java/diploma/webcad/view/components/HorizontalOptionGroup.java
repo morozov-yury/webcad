@@ -35,9 +35,17 @@ public class HorizontalOptionGroup<T> extends CssLayout {
 		fop.setImmediate(true);	
 		labelsList = new ArrayList<Label>();
 	}
-	
-	@Override
-	public void attach() {
+
+	private void unselecAllLabels () {
+		for (Label label : labelsList) {
+			label.removeStyleName("hog-selected-label");
+		}
+	}
+
+	public void setContainerDataSource(BeanItemContainer<T> container) {
+		fop.setContainerDataSource(container);
+		
+		removeAllComponents();
 		for (Iterator<FlexibleOptionGroupItemComponent> iter = fop.getItemComponentIterator(); 
 				iter.hasNext();) {
 			final FlexibleOptionGroupItemComponent comp = iter.next();
@@ -73,18 +81,6 @@ public class HorizontalOptionGroup<T> extends CssLayout {
 				fop.select(fop.getItemComponentIterator().next().getItemId());
 			}
 		}
-		
-		super.attach();
-	}
-	
-	private void unselecAllLabels () {
-		for (Label label : labelsList) {
-			label.removeStyleName("hog-selected-label");
-		}
-	}
-
-	public void setContainerDataSource(BeanItemContainer<T> container) {
-		fop.setContainerDataSource(container);
 	}
 
 	public void selectItem(T selectedItem) {

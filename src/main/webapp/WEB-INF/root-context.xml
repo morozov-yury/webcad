@@ -20,15 +20,16 @@
 
     <context:component-scan base-package="diploma.webcad.core.dao"/>
     <context:component-scan base-package="diploma.webcad.core.service"/>
-    <context:component-scan base-package="diploma.webcad.core.transaction"/>
     <context:component-scan base-package="diploma.webcad.core.ssh"/>
-    <context:component-scan base-package="diploma.webcad.manager"/>
+    
     <context:component-scan base-package="diploma.webcad.view"/>
+    
     <context:component-scan base-package="diploma.webcad.trigger"/>
+    
     <context:component-scan base-package="diploma.webcad.aop.aspects"/>
     
-    <bean id="diplomaProperties"
-          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <bean id="diplomaProperties" 
+    	class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="location" value="diploma.properties"/>
     </bean>
 
@@ -68,16 +69,15 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <bean id="transactionManager" 
+    	class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="dataSource" ref="dataSource"/>
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-	    <tx:attributes>
-	    	<tx:method name="*"/>
-	   	</tx:attributes>
-   	</tx:advice>
+    <bean class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
 
     <bean id="hibernateStringEncryptor"
           class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
@@ -92,6 +92,11 @@
         </property>
     </bean>
 
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+	    	<tx:method name="*"/>
+	   	</tx:attributes>
+   	</tx:advice>
 
 <!-- Aspects -->
 	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.AppContextProvider" />

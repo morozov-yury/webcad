@@ -5497,14 +5497,24 @@ body .dashboard.v-app .v-app-loading {
 	border-top: 1px solid #d4d5d5;
 }
 
-.dashboard .horizontal-option-group .v-horizontallayout {
-	margin: 0 auto;
-}
-
 .dashboard .horizontal-option-group .v-caption-hog-selected-label {
 	font-weight: 600;
 	color: #349aff;
 	text-transform: uppercase;
+}
+
+.dashboard .v-textfield {
+	padding: 0.3em 1em !important;
+}
+
+.dashboard .v-textfield-error {
+	box-shadow: 0 0 6px rgba(256, 0, 0, 1.5);
+	border: 0 0 6px rgba(256, 0, 0, 0.5);
+}
+
+.dashboard .info-label {
+	font-weight: 1000;
+	color: #349aff;
 }
 
 .dashboard .v-view {

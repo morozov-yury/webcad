@@ -5,19 +5,31 @@
 	}
 
 	.horizontal-option-group {
-	
-		//display: inline-block !important;
 		
 		.v-horizontallayout {
-			margin: 0 auto;
+			
 		}
 	
 		.v-caption-hog-selected-label {
 			font-weight: 600;
 			color: #349aff;
 			text-transform: uppercase;
-			//line-height: 20px;
 		}
+	}
+
+	.v-textfield {
+		padding: 0.3em 1em !important;
+	}
+	
+	.v-textfield-error {
+		box-shadow: 0 0 6px rgba(256, 0, 0, 1.5);
+		border: 0 0 6px rgba(256, 0, 0, .5);
+		
+	}
+	
+	.info-label {
+		font-weight: 1000;
+		color: #349aff;
 	}
 	
 }

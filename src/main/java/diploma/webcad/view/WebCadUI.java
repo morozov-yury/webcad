@@ -48,7 +48,7 @@ public class WebCadUI extends UI {
 	private static Logger log = LoggerFactory.getLogger(WebCadUI.class);
 
 	@Autowired
-	private MainLayout landingLayout;
+	private MainLayout mainLayout;
 	
 	@Autowired
 	private SessionState sessionState;
@@ -80,10 +80,10 @@ public class WebCadUI extends UI {
 		}
 		initSessionInterlayer(springContext);
 		
-		setContent(landingLayout);
+		setContent(mainLayout);
 		setSizeFull();
 
-		navigator = new DiscoveryNavigator(this, new WebCadViewDisplay(landingLayout)) {
+		navigator = new DiscoveryNavigator(this, new WebCadViewDisplay(mainLayout)) {
 			@Override
 			public void navigateTo(String navigationState) {
 				try {

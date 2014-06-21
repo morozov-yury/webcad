@@ -10,24 +10,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import diploma.webcad.core.annotation.NotNull;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+	
 	private static final long serialVersionUID = -9215483528958346752L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
 	
-	private String password;
-	
+	@Column(name = "name", nullable=false, unique=true)
 	private String name;
 	
+	@Column(name = "password", nullable=false)
+	private String password;
+	
+	@ManyToOne(optional=false)
 	private Language language;
 	
+	@Column(name = "date")
 	private Date registrationDate;
 	
+	@Column(name = "userrole", nullable=false)
 	private UserRole userRole;
 	
 	public User() {
@@ -41,9 +50,6 @@ public class User implements Serializable {
 		this.setName(name);
 	}
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -51,16 +57,6 @@ public class User implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name = "password")
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
@@ -68,8 +64,15 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-	@ManyToOne
 	public Language getLanguage() {
 		return language;
 	}
@@ -78,7 +81,6 @@ public class User implements Serializable {
 		this.language = language;
 	}
 	
-	@Column(name = "date")
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
@@ -86,16 +88,7 @@ public class User implements Serializable {
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
 
-	
 	public UserRole getUserRole() {
 		return userRole;
 	}
@@ -103,6 +96,5 @@ public class User implements Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
-
 
 }

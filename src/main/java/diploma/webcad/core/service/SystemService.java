@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vaadin.server.Page;
 
@@ -17,6 +19,7 @@ import diploma.webcad.core.model.constant.AppConstantType;
 
 @Service
 @Scope("singleton")
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemService {
 	
 	@Autowired
@@ -34,6 +37,7 @@ public class SystemService {
 		return applicationConstantDao.read(id);
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void saveApplicationConstant(AppConstant constant) {
 		if(constant == null) {
 			return;

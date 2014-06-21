@@ -49,6 +49,8 @@ public class MainLayout extends CssLayout implements Layout {
         
         mainMenu = new MainMenu();
         content = new CssLayout();
+        content.setSizeFull();
+        content.addStyleName("view-content");
         
         greetingWindow =  new HelpOverlay(
                 "Добро пожаловать в WebCad",
@@ -121,13 +123,11 @@ public class MainLayout extends CssLayout implements Layout {
                 addStyleName("main-view");
                 
                 addComponent(new VerticalLayout() {
-                    // Sidebar
                     {
                         addStyleName("sidebar");
                         setWidth(null);
                         setHeight("100%");
 
-                        // Branding element
                         addComponent(new CssLayout() {
                             {
                                 addStyleName("branding");
@@ -136,20 +136,14 @@ public class MainLayout extends CssLayout implements Layout {
                                 addComponent(logo);
                             }
                         });
-                        
-                        // User menu
-                        addComponent(new UserMenu());
 
-                        // Main menu
+                        addComponent(new UserMenu());
                         addComponent(mainMenu);
                         setExpandRatio(mainMenu, 1);
 
                     }
                 });
-                // Content
                 addComponent(content);
-                content.setSizeFull();
-                content.addStyleName("view-content");
                 setExpandRatio(content, 1);
             }
 

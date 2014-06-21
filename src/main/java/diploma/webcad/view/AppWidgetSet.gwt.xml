@@ -2,9 +2,9 @@
 <module>
 
 
-    <inherits name="org.vaadin.activelink.ActivelinkWidgetset" />
-
     <inherits name="org.vaadin.alump.fancylayouts.gwt.FancyLayoutsWidgetset" />
+
+    <inherits name="org.vaadin.hene.flexibleoptiongroup.widgetset.FlexibleOptionGroupWidgetset" />
 
     <inherits name="com.vaadin.DefaultWidgetSet" />
 

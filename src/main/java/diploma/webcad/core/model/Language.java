@@ -11,10 +11,14 @@ import javax.persistence.Table;
 public class Language implements Serializable, Comparable<Language> {
     
 	private static final long serialVersionUID = -1836521679171955080L;
+	
 	private String iso;
+	
 	private String name;
 
-	public Language() {}
+	public Language() {
+		
+	}
 	
 	public Language(String language, String name) {
 		this.iso = language;
@@ -39,26 +43,21 @@ public class Language implements Serializable, Comparable<Language> {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((iso == null) ? 0 : iso.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
+		}
 		Language other = (Language) obj;
 		if (iso == null) {
-			if (other.iso != null)
+			if (other.iso != null) {
 				return false;
-		} else if (!iso.equals(other.iso))
+			}
+		} else if (!iso.equals(other.iso)) {
 			return false;
+		}
 		return true;
 	}
 	

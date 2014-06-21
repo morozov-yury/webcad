@@ -7,13 +7,17 @@ import org.springframework.stereotype.Component;
 import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 
 import diploma.webcad.core.service.GenaService;
-import diploma.webcad.view.components.gena.GenaParametersSelector;
+import diploma.webcad.view.components.gena.GenaParamSelector;
+import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
 import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.service.ViewFactory;
@@ -58,30 +62,40 @@ public class GenaRun extends AbstractPage {
         content.addComponent(row);
         content.setExpandRatio(row, 1.5f);    
         
-        final GenaParametersSelector parametersSelector = new GenaParametersSelector();
-        row.addComponent(viewFactory.wrapComponent(parametersSelector));
+        final GenaParamSelector parametersSelector = new GenaParamSelector(new MealyGenaParam());
+        
+        VerticalLayout leftLayout = new VerticalLayout();
+        leftLayout.setSizeFull();
+        leftLayout.setSpacing(true);
+        leftLayout.addComponent(viewFactory.wrapComponent(parametersSelector));
+        
+        Table table = new Table("Последние запуски");
+        
+        leftLayout.addComponent(viewFactory.wrapComponent(table));
+        row.addComponent(leftLayout);
+        
+        //row.addComponent(viewFactory.wrapComponent(parametersSelector));
         
         textArea = new TextArea("Input your xml data here");
         row.addComponent(viewFactory.wrapTextArea(textArea));
-		
-//		final GenaParametersSelector parametersSelector = new GenaParametersSelector();
-//		mainLayout.addComponent(parametersSelector);
-//		
-//		Button runButton = new Button("Run", new Button.ClickListener() {
-//			private static final long serialVersionUID = -1742466051463419737L;
-//			@Override
-//			public void buttonClick(ClickEvent arg0) {
-//				genaService.run(parametersSelector.getParameters());
-//			}
-//		});
-//		runButton.setIcon(new ThemeResource("img/buttons/play12x12.png"));
-//		
-//		HorizontalLayout buttomsHorizontalLayout =  new HorizontalLayout(runButton);
-//		buttomsHorizontalLayout.setSpacing(true);
-//		mainLayout.addComponent(buttomsHorizontalLayout);
-//		mainLayout.setComponentAlignment(buttomsHorizontalLayout, Alignment.MIDDLE_RIGHT);
         
         setContent(content);
+        
+        final Label infoLabel = new Label(parametersSelector.getParameters().toString());
+        infoLabel.setSizeUndefined();
+        infoLabel.addStyleName("info-label");
+        
+        Button startButton = new Button("Start", new Button.ClickListener() {
+			private static final long serialVersionUID = 4434872155184459414L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				infoLabel.setValue(parametersSelector.getParameters().toString());
+			}
+		});
+        startButton.addStyleName("default");
+
+        addComponentToTop(infoLabel);
+        addComponentToTop(startButton);
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
@@ -15,11 +17,9 @@ import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppCategoryPrefix;
 
 @Service
-@Scope("session")
+@Scope("singleton")
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class ContentService {
-	
-	//@Autowired 
-	//private SessionInterlayer sessionInterlayer;
 
 	@Autowired
 	private SystemService systemManager;
@@ -40,6 +40,11 @@ public class ContentService {
 	public Language getDefaultLanguage() {
 		String defaultLanguageIso = systemManager.getConstantValue("default_language");
 		return getLanguage(defaultLanguageIso);
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	public void addLanguage (Language language) {
+		languageDao.saveOrUpdate(language);
 	}
 	
 	public Iterable<Language> listLanguageByNameIgnoreCase(String arg) {
@@ -137,6 +142,7 @@ public class ContentService {
 		return applicationResourceDao.getCount(prefix, language, filters);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public synchronized AppResource createNewAppResource(AppCategoryPrefix prefix, Language language,
 			List<String> filters) {
 		if(filters.size() > 0) {
@@ -150,7 +156,8 @@ public class ContentService {
 		return applicationResource;
 	}
 
-	private void saveAppResource(AppResource applicationResource) {
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	public void saveAppResource(AppResource applicationResource) {
 		applicationResourceDao.saveOrUpdate(applicationResource);
 	}
 

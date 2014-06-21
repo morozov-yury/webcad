@@ -25,7 +25,6 @@ public class WebCadViewDisplay implements ViewDisplay {
 	@Override
 	public void showView(View view) {
 		layout.setContent(view);
-		layout.repaint();
 	}
 
 }

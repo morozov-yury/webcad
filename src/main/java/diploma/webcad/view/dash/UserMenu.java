@@ -19,16 +19,10 @@ import diploma.webcad.view.WebCadUI;
 public class UserMenu extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private Label userName;
 
 	public UserMenu () {
 		
-	}
-
-	@Override
-	public void attach() {
-		removeAllComponents();
-		
-		User user = WebCadUI.getCurrent().getSessionState().getUser();
 		
 		setSizeUndefined();
         addStyleName("user");
@@ -38,7 +32,7 @@ public class UserMenu extends VerticalLayout {
         profilePic.setWidth("34px");
         addComponent(profilePic);
         
-        Label userName = new Label(user.getName());
+        userName = new Label();
         userName.setSizeUndefined();
         addComponent(userName);
 
@@ -70,9 +64,15 @@ public class UserMenu extends VerticalLayout {
                 WebCadUI.getCurrent().getSessionState().signout();
             }
         });
+	}
+
+	@Override
+	public void attach() {
+		User user = WebCadUI.getCurrent().getSessionState().getUser();
+		userName.setValue(user.getName());
 		super.attach();
 	}
 	
 	
-	
+
 }

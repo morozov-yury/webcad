@@ -13,27 +13,23 @@ import org.apache.log4j.Logger;
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
 import diploma.webcad.common.security.MD5Helper;
-import diploma.webcad.core.dao.AppResourceDao;
-import diploma.webcad.core.dao.LanguageDao;
-import diploma.webcad.core.dao.UserDao;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.UserRole;
 import diploma.webcad.core.model.constant.AppConstant;
 import diploma.webcad.core.model.constant.AppConstantType;
 import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppValue;
+import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.SystemService;
+import diploma.webcad.core.service.UserService;
 
 public class Installer {
 
 	private static final Logger log = Logger.getLogger(Installer.class);
+	
 	private SpringContext helper;
-	//private ServletContext servletContext; //Not used
 
 	public Installer(SpringContext helper, ServletContext servletContext) {
 		this.helper = helper;
-		//this.servletContext = servletContext;
 	}
 	
 	public void install() {
@@ -49,35 +45,39 @@ public class Installer {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String marker = "installed: " + format.format(new Date());
 		log.info("INSTALLATION FINISH: " + marker);
-		AppConstant constant = new AppConstant("installed", marker, "Installation flag", AppConstantType.SYSTEM);
+		AppConstant constant = new AppConstant("installed", marker, "Installation flag", 
+				AppConstantType.SYSTEM);
 		helper.getBean(SystemService.class).saveApplicationConstant(constant );
 		log.info("INSTALLATION END.");
 	}
 
 	
 	private void createSystemAccount() {
-		User systemUser = new User("admin", MD5Helper.getHash("admin"));
-		systemUser.setUserRole(UserRole.ADMIN);
-		UserDao userDao = helper.getBean(UserDao.class);
-		userDao.saveOrUpdate(systemUser);
+		UserService userService = helper.getBean(UserService.class);
+		ContentService contentService = helper.getBean(ContentService.class);
+		
+		Language language = contentService.getDefaultLanguage();
+
+		userService.createUser("admin", "admin", language);
 	}
 
 	private void initLanguages() {
 		try {
-			LanguageDao languageDao = helper.getBean(LanguageDao.class);
-			Language l = languageDao.read("en");
+			ContentService contentService = helper.getBean(ContentService.class);
+
+			Language l = contentService.getLanguage("en");
 			if (l == null) {
 				l = new Language();
 				l.setIso("en");
 				l.setName("English");
-				languageDao.saveOrUpdate(l);
+				contentService.addLanguage(l);
 			}
-			l = languageDao.read("ru");
+			l = contentService.getLanguage("ru");
 			if (l == null) {
 				l = new Language();
 				l.setIso("ru");
 				l.setName("Russian");
-				languageDao.saveOrUpdate(l);
+				contentService.addLanguage(l);
 			}
 		} catch (Exception e) {
 			log.error(e);
@@ -85,13 +85,13 @@ public class Installer {
 	}
 	
 	private void loadApplicationResources() {
-		LanguageDao languageDao = helper.getBean(LanguageDao.class);
-		AppResourceDao applicationResourceDao = helper.getBean(AppResourceDao.class);
-		List<Language> languages = languageDao.list();
+		ContentService contentService = helper.getBean(ContentService.class);
+		
+		List<Language> languages = contentService.listLanguages();
 		for (Language language : languages) {
 			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, new Locale(language.getIso()), new UTF8Control());
 			for(String key: bundle.keySet()) {
-				AppResource appResource = applicationResourceDao.read(key);
+				AppResource appResource = contentService.getAppResource(key);
 				if (appResource == null) {
 					appResource = new AppResource(key);
 				}
@@ -99,7 +99,7 @@ public class Installer {
 					String val = bundle.getString(key);
 					appResource.getLangs().add(new AppValue(language, val));
 					try {
-						applicationResourceDao.saveOrUpdate(appResource);
+						contentService.saveAppResource(appResource);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
