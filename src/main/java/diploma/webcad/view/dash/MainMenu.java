@@ -11,7 +11,7 @@ import com.vaadin.ui.NativeButton;
 
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.pages.MainPage;
-import diploma.webcad.view.pages.gena.GenaRun;
+import diploma.webcad.view.pages.gena.GenaPage;
 
 public class MainMenu extends CssLayout {
 
@@ -24,7 +24,7 @@ public class MainMenu extends CssLayout {
         setHeight("100%");
         
         addButton("Главная",MainPage.NAME, "icon-home");
-        addButton("Gena",GenaRun.NAME, "icon-gena");
+        addButton("Gena",GenaPage.NAME, "icon-gena");
         addButton("Главная",MainPage.NAME, "icon-home");
         addButton("Главная",MainPage.NAME, "icon-home");
         

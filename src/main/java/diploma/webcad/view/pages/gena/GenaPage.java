@@ -16,6 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 
 import diploma.webcad.core.service.GenaService;
+import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
@@ -24,12 +25,12 @@ import diploma.webcad.view.service.ViewFactory;
 
 @Component
 @Scope("prototype")
-@VaadinView(GenaRun.NAME)
-public class GenaRun extends AbstractPage {
+@VaadinView(GenaPage.NAME)
+public class GenaPage extends AbstractPage {
 
 	private static final long serialVersionUID = 853654161895648186L;
 	
-	public static final String NAME = "genarun";
+	public static final String NAME = "gena";
 	
 	@Autowired
 	private GenaService genaService;
@@ -44,7 +45,7 @@ public class GenaRun extends AbstractPage {
 	
 	private TextArea textArea;
 	
-	public GenaRun () {
+	public GenaPage () {
 		super("Gena");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
@@ -81,20 +82,26 @@ public class GenaRun extends AbstractPage {
         
         setContent(content);
         
-        final Label infoLabel = new Label(parametersSelector.getParameters().toString());
-        infoLabel.setSizeUndefined();
-        infoLabel.addStyleName("info-label");
+        UpdatableLabel label = new UpdatableLabel("", 1000) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getUpdatedText() {
+				return parametersSelector.getParameters().toString();
+			}
+		};
+		label.addStyleName("info-label");
         
         Button startButton = new Button("Start", new Button.ClickListener() {
 			private static final long serialVersionUID = 4434872155184459414L;
 			@Override
 			public void buttonClick(ClickEvent event) {
-				infoLabel.setValue(parametersSelector.getParameters().toString());
+				//infoLabel.setValue(parametersSelector.getParameters().toString());
 			}
 		});
         startButton.addStyleName("default");
 
-        addComponentToTop(infoLabel);
+        addComponentToTop(label);
         addComponentToTop(startButton);
 	}
 
