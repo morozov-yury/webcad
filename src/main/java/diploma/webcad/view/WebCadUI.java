@@ -29,9 +29,7 @@ import com.vaadin.ui.UI;
 
 import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.RuntimeRegistrator;
-import diploma.webcad.core.service.SessionInterlayer;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
@@ -78,7 +76,6 @@ public class WebCadUI extends UI {
 			springContext = new SpringContext(this);
 			sessionState.putParameter(SessionState.Param.SPRING_CONTEXT, springContext);
 		}
-		initSessionInterlayer(springContext);
 		
 		setContent(mainLayout);
 		setSizeFull();
@@ -128,13 +125,6 @@ public class WebCadUI extends UI {
 		
 		getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
 		setPollInterval(1000);
-	}
-	
-	private void initSessionInterlayer (SpringContext springContext) {
-		SessionInterlayer sessionInterlayer = springContext.getBean(SessionInterlayer.class);
-		sessionInterlayer.setRuntimeRegistrator(springContext.getBean(RuntimeRegistrator.class));
-		sessionInterlayer.setSessionState(springContext.getBean(SessionState.class));
-		sessionInterlayer.setContentService(springContext.getBean(ContentService.class));
 	}
 
 	public Map<String, String[]> getRequestParams() {
