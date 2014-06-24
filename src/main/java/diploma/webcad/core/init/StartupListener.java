@@ -14,15 +14,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import diploma.webcad.common.content.Resources;
@@ -44,87 +39,42 @@ public class StartupListener implements ServletContextListener {
 	
 	private static Logger log = LoggerFactory.getLogger(StartupListener.class);
 
-	private static final String SESSION_FACTORY_BEAN = "sessionFactory";
-	
 	private ServletContext servletContext;
 
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		servletContext = servletContextEvent.getServletContext();
 		
 		final SpringContext helper = new SpringContext(servletContextEvent.getServletContext());
-		SessionFactory sessionFactory = helper.getBean(SessionFactory.class);
 		TransactionTemplate transactionTemplate = helper.getBean(TransactionTemplate.class);
-		
-		Session session = null;
-		boolean participate = false;
-		Transaction transaction = null;
-		
-		try {
 
-//			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
-//				// do not modify the Session: just set the participate flag
-//				participate = true;
-//			} else {
-//				if (log.isDebugEnabled()) {
-//					log.debug("Opening temporary Hibernate session in StartupListener");
-//				}
-//				session = sessionFactory.openSession(); // SessionFactoryUtils.getSession(sessionFactory, true);
-//				transaction = session.beginTransaction();
-//				TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
-//			}
+		transactionTemplate.execute(new TransactionCallback<Void>() {
+			@Override
+			public Void doInTransaction(TransactionStatus status) {
+				try {
+					loadConstants(helper);
 			
-			
-			transactionTemplate.execute(new TransactionCallback<Void>() {
-				@Override
-				public Void doInTransaction(TransactionStatus status) {
-					try {
-						
-						
-						
-						loadConstants(helper);
-				
-						if (!installed(helper)) {
-							log.info("INSTALLATION REQUIRED. START.");
-							Installer installer = new Installer(helper, servletContext);
-							installer.install();
-						}
-				
-						long currentTimeMillis = System.currentTimeMillis();
-						loadApplicationResources(helper);
-						log.info("  --> loadApplicationResources done. {}", (System.currentTimeMillis() - currentTimeMillis));
-						currentTimeMillis = System.currentTimeMillis();
-						//loadTemplates(helper);
-						log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
-						log.info("--> Startup initialization done.");
-						
-					} catch (RuntimeException e) {
-						status.setRollbackOnly();
-						throw e;
+					if (!installed(helper)) {
+						log.info("INSTALLATION REQUIRED. START.");
+						Installer installer = new Installer(helper, servletContext);
+						installer.install();
 					}
-					return null;
+			
+					long currentTimeMillis = System.currentTimeMillis();
+					loadApplicationResources(helper);
+					log.info("  --> loadApplicationResources done. {}", (System.currentTimeMillis() - currentTimeMillis));
+					currentTimeMillis = System.currentTimeMillis();
+					//loadTemplates(helper);
+					log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
+					log.info("--> Startup initialization done.");
+					
+				} catch (RuntimeException e) {
+					status.setRollbackOnly();
+					throw e;
 				}
-			});
-			
-	
-		} finally {
-			
-			
-			
-			
-			
-//			// closing session
-//			if (!participate) {
-//				TransactionSynchronizationManager.unbindResource(sessionFactory);
-//				if (log.isDebugEnabled()) {
-//					log.debug("Closing temporary Hibernate session in StartupListener");
-//				}
-//				transaction.commit();
-//				session.close();
-//				// SessionFactoryUtils.releaseSession(session, sessionFactory);
-//			}
-		}
+				return null;
+			}
+		});
 
-		
 	}
 
 	private boolean installed(SpringContext helper) {
