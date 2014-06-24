@@ -1,26 +1,24 @@
 package diploma.webcad.view.client.component;
 
 
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.hibernate.Session;
 
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 
-import diploma.webcad.core.init.SpringContext;
+import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.WebCadUI;
 
 @JavaScript({"updatable_label.js"})
 public abstract class UpdatableLabel extends AbstractJavaScriptComponent {
 
 	private static final long serialVersionUID = -5021110068452141558L;
-	
-	private TransactionTemplate transactionTemplate;
-	
+
 	private Thread thread;
 	
 	private boolean stopped = false;
+
+	private SessionState sessionState;
 
 	public UpdatableLabel(String text, final long inteval) {
 		getState().text = text;
@@ -28,22 +26,15 @@ public abstract class UpdatableLabel extends AbstractJavaScriptComponent {
 			@Override
 			public void run() {
 				while (!stopped) {
-					transactionTemplate.execute(new TransactionCallback<Void>() {
-						@Override
-						public Void doInTransaction(TransactionStatus status) {
-							try {
-					    		getState().text = getUpdatedText();
-					    		Thread.sleep(inteval);
-							} catch (RuntimeException e) {
-								status.setRollbackOnly();
-								throw e;
-							} catch (InterruptedException e) {
-								status.setRollbackOnly();
-								e.printStackTrace();
-							}
-							return null;
-						}
-					});
+					Session openSession = sessionState.openSession();
+			    	try {
+			    			getState().text = getUpdatedText();
+			    			Thread.sleep(inteval);	
+			    	} catch (InterruptedException e) {
+						e.printStackTrace();
+					} finally {
+						sessionState.closeSession(openSession);;
+					}
 				}
 			}
 		});
@@ -52,8 +43,7 @@ public abstract class UpdatableLabel extends AbstractJavaScriptComponent {
 
 	@Override
 	public void attach() {
-		SpringContext context = WebCadUI.getCurrent().getSessionState().getContext();
-		transactionTemplate = context.getBean(TransactionTemplate.class);
+		sessionState = WebCadUI.getCurrent().getSessionState();
 		thread.start();
 		stopped = false;
 		super.attach();
