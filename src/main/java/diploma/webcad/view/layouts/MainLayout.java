@@ -1,5 +1,7 @@
 package diploma.webcad.view.layouts;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
@@ -26,6 +28,8 @@ import diploma.webcad.view.service.NotificationService;
 public class MainLayout extends CssLayout implements Layout {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static Logger log = LoggerFactory.getLogger(MainLayout.class);
 
 	private View currentView = null;
 	
@@ -39,8 +43,11 @@ public class MainLayout extends CssLayout implements Layout {
 
 	private Label bg;
 
-	@Autowired
+	private NotificationService notificationService;
+
+	@Autowired 
 	public MainLayout(NotificationService notificationService) {
+		this.notificationService = notificationService;
 		addStyleName("main-layout");
 		setSizeFull();
 		
@@ -68,13 +75,13 @@ public class MainLayout extends CssLayout implements Layout {
 	
 	@Override
 	public void attach() {
-		WebCadUI.getCurrent().addWindow(greetingWindow);
+		WebCadUI ui = WebCadUI.getCurrent();
+		ui.addWindow(greetingWindow);
         super.attach();
 	}
 
 	@Override
 	public void repaint() {
-		
 		removeAllComponents();
 		
 		addComponent(bg);
@@ -98,7 +105,10 @@ public class MainLayout extends CssLayout implements Layout {
 		
 		if (currentView != null) {
 			content.addComponent((Component)currentView);
+			content.addComponent(notificationService.getNotificatorComponent());
 		}
+		
+		
 	}
 
 	@Override
@@ -121,7 +131,7 @@ public class MainLayout extends CssLayout implements Layout {
             { 
                 setSizeFull();
                 addStyleName("main-view");
-                
+ 
                 addComponent(new VerticalLayout() {
                     {
                         addStyleName("sidebar");
@@ -140,7 +150,6 @@ public class MainLayout extends CssLayout implements Layout {
                         addComponent(new UserMenu());
                         addComponent(mainMenu);
                         setExpandRatio(mainMenu, 1);
-
                     }
                 });
                 addComponent(content);

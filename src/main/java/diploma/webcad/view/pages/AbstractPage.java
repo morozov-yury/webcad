@@ -4,38 +4,26 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.xpoft.vaadin.VaadinView;
 
-import com.vaadin.demo.dashboard.TopGrossingMoviesChart;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
 import diploma.webcad.core.util.http.HttpUtils;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.model.PageProperties;
-import diploma.webcad.view.service.NotificationService;
 
 @SuppressWarnings("serial")
 public abstract class AbstractPage extends Panel implements View {
 	
 	private static Logger log = LoggerFactory.getLogger(AbstractPage.class);
-	
-	@Autowired
-	private NotificationService notificationService;
 
 	private PageProperties pageProperties;
 
@@ -70,6 +58,11 @@ public abstract class AbstractPage extends Panel implements View {
 	}
 
 	@Override
+	public void attach() {
+		super.attach();
+	}
+
+	@Override
 	public void setContent(Component content) {
 		if (content != null) {
 			this.content.addComponent(content);
@@ -91,9 +84,8 @@ public abstract class AbstractPage extends Panel implements View {
 		pageProperties = new PageProperties(urlProperties);
 		if (isAccessAvailable()) {
 			enter();
-			notificationService.showInfo(getPageLocation() + getPageParameters());
 		} else {
-			WebCadUI.getCurrent().processUri("403");
+			WebCadUI.getCurrent().navigateTo("403");
 		}
 	}
 
@@ -114,7 +106,7 @@ public abstract class AbstractPage extends Panel implements View {
 	}
 
 	protected void refreshPage() {
-		WebCadUI.getCurrent().processUri(getPageLocation(), getPageParameters());
+		WebCadUI.getCurrent().navigateTo(getPageLocation(), getPageParameters());
 	}
 	
 }

@@ -13,8 +13,8 @@ import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppCategoryPrefix;
+import diploma.webcad.core.model.resource.AppResource;
 
 @Service
 @Scope("singleton")

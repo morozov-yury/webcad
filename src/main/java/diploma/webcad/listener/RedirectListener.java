@@ -16,7 +16,7 @@ public class RedirectListener implements ClickListener {
 	
 	@Override
 	public void buttonClick(ClickEvent event) {
-		WebCadUI.getCurrent().processUri(uri);
+		WebCadUI.getCurrent().navigateTo(uri);
 	}
 
 }

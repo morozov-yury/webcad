@@ -2,30 +2,31 @@ package diploma.webcad.view.pages.gena;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
+import diploma.webcad.core.model.User;
 import diploma.webcad.core.service.GenaService;
+import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
+import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
 import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.service.ViewFactory;
 
-@Component
 @Scope("prototype")
 @VaadinView(GenaPage.NAME)
+@org.springframework.stereotype.Component
 public class GenaPage extends AbstractPage {
 
 	private static final long serialVersionUID = 853654161895648186L;
@@ -35,12 +36,12 @@ public class GenaPage extends AbstractPage {
 	@Autowired
 	private GenaService genaService;
 	
-	@Autowired 
+	@Autowired
 	private NotificationService notificationService;
 	
 	@Autowired
 	private ViewFactory viewFactory;
-	
+
 	private VerticalLayout mainLayout;
 	
 	private TextArea textArea;
@@ -49,6 +50,11 @@ public class GenaPage extends AbstractPage {
 		super("Gena");
 		this.mainLayout = new VerticalLayout();
 		this.mainLayout.setSpacing(true);
+	}
+	
+	@Override
+	public void attach() {
+		super.attach();
 	}
 
 	@Override
@@ -96,7 +102,22 @@ public class GenaPage extends AbstractPage {
 			private static final long serialVersionUID = 4434872155184459414L;
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//infoLabel.setValue(parametersSelector.getParameters().toString());
+				if (textArea.getValue().isEmpty()) {
+					notificationService.showError("Error", "Укажите описание алгоритма");
+					return;
+				}
+				GenaParam parameters = parametersSelector.getParameters();
+				if (parameters == null) {
+					notificationService.showError("Error", "Некорректно указаны параметры запуска");
+					return;
+				}
+				User user = WebCadUI.getCurrent().getSessionState().getUser();
+				if (user == null) {
+					notificationService.showError("Error", "Вы должны быть залогинены в системе");
+					return;
+				}
+				String xmlDescription = textArea.getValue();
+				genaService.run(user, parameters.toString(), xmlDescription);
 			}
 		});
         startButton.addStyleName("default");

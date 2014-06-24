@@ -22,7 +22,7 @@ public class NavigationPanel extends VerticalLayout {
 			private static final long serialVersionUID = -2879532922301981802L;
 			@Override
 			public void layoutClick(LayoutClickEvent arg0) {
-				WebCadUI.getCurrent().processUri(MainPage.NAME);
+				WebCadUI.getCurrent().navigateTo(MainPage.NAME);
 			}
 		});
 		homeButton.addStyleName("navigation-panel-button-home");
@@ -33,7 +33,7 @@ public class NavigationPanel extends VerticalLayout {
 			private static final long serialVersionUID = 751472024434686956L;
 			@Override
 			public void layoutClick(LayoutClickEvent arg0) {
-				WebCadUI.getCurrent().processUri(TestPage.NAME);
+				WebCadUI.getCurrent().navigateTo(TestPage.NAME);
 			}
 		});
 		settingsButton.addStyleName("navigation-panel-button-settings");

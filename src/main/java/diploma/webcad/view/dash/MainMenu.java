@@ -47,7 +47,7 @@ public class MainMenu extends CssLayout {
 //                if (!nav.getState().equals("/" + view)) {
 //                    nav.navigateTo("/" + view);
 //                }
-                WebCadUI.getCurrent().processUri(mapping);
+                WebCadUI.getCurrent().navigateTo(mapping);
             }
         });
 		

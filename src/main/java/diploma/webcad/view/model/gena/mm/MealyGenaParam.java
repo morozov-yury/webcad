@@ -8,4 +8,9 @@ public class MealyGenaParam extends MMGenaParam {
 		super(MachineType.MEALY);
 	}
 
+	@Override
+	public String toString() {
+		return "--Mealy " + super.toString();
+	}
+	
 }

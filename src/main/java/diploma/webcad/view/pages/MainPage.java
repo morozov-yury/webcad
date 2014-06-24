@@ -21,6 +21,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.service.ViewFactory;
 
 @org.springframework.stereotype.Component
@@ -35,10 +36,22 @@ public class MainPage extends AbstractPage {
 	private static Logger log = LoggerFactory.getLogger(MainPage.class);
 	
 	@Autowired
+	private NotificationService notificationService;
+	
+	@Autowired
 	private ViewFactory viewFactory;
 
 	public MainPage () {
 		super("Welcome to WebCad");
+		
+		setContent(new Button("Test", new Button.ClickListener() {
+			private static final long serialVersionUID = 2101274756535965486L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				notificationService.showError("Error", "Error");
+			}
+		}));
 	}
 
 

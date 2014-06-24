@@ -189,7 +189,7 @@ public class SignInUpTile extends Panel {
 			String password = (String)fieldGroup.getField("password").getValue();
 			userManager.createUser(login, password, sessionState.getLanguage());
 			sessionState.signin(login, password);
-			WebCadUI.getCurrent().processUri("");
+			WebCadUI.getCurrent().navigateTo("");
 		} catch (UserAlreadyExistException e) {
 			errorLabel.setValue("<font color=\"red\"><b>" + contentService.getAppResource(e, "error") + "</b></font>");
 			errorLabel.setVisible(true);

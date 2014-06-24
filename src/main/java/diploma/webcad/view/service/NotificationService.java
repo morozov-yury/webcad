@@ -1,5 +1,7 @@
 package diploma.webcad.view.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.vaadin.alump.fancylayouts.FancyNotifications;
@@ -11,6 +13,8 @@ import com.vaadin.server.ThemeResource;
 @Scope("singleton")
 public class NotificationService {
 	
+	private static Logger log = LoggerFactory.getLogger(NotificationService.class);
+	
 	private FancyNotifications fancyNotifications;
 	
 	private ThemeResource errorIconResource;
@@ -18,14 +22,13 @@ public class NotificationService {
 	public NotificationService () {
 		fancyNotifications = new FancyNotifications();
 		fancyNotifications.setCloseTimeout(5000);
-		fancyNotifications.setPosition(Position.BOTTOM_RIGHT);
+		fancyNotifications.setPosition(Position.BOTTOM_LEFT);
 		fancyNotifications.setClickClose(true);
 		fancyNotifications.setImmediate(true);
-		
 		errorIconResource = new ThemeResource("img/error64x64.png");
 	}
 	
-	public FancyNotifications getFancyNotifications() {
+	public FancyNotifications getNotificatorComponent() {
 		return fancyNotifications;
 	}
 	

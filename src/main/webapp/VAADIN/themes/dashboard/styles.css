@@ -5512,6 +5512,11 @@ body .dashboard.v-app .v-app-loading {
 	border: 0 0 6px rgba(256, 0, 0, 0.5);
 }
 
+.dashboard .field-error {
+	box-shadow: 0 0 6px rgba(256, 0, 0, 1.5);
+	border: 0 0 6px rgba(256, 0, 0, 0.5);
+}
+
 .dashboard .info-label {
 	font-weight: 1000;
 	color: #349aff;

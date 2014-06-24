@@ -1,10 +1,16 @@
 package diploma.webcad.core.init;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
@@ -16,6 +22,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -23,6 +30,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
 import diploma.webcad.core.dao.AppResourceDao;
+import diploma.webcad.core.dao.FileResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.data.appconstants.Constants;
@@ -52,6 +60,8 @@ public class StartupListener implements ServletContextListener {
 			public Void doInTransaction(TransactionStatus status) {
 				try {
 					loadConstants(helper);
+					
+					createFileResourceFolders(helper);
 			
 					if (!installed(helper)) {
 						log.info("INSTALLATION REQUIRED. START.");
@@ -70,6 +80,9 @@ public class StartupListener implements ServletContextListener {
 				} catch (RuntimeException e) {
 					status.setRollbackOnly();
 					throw e;
+				} catch (IOException e) {
+					status.setRollbackOnly();
+					throw new RuntimeException("");
 				}
 				return null;
 			}
@@ -80,6 +93,14 @@ public class StartupListener implements ServletContextListener {
 	private boolean installed(SpringContext helper) {
 		String installed = helper.getBean(SystemService.class).getConstantValue("installed");
 		return installed.startsWith("installed");
+	}
+	
+	private void createFileResourceFolders (SpringContext helper) throws IOException {
+		PropertiesFactoryBean propertiesFactory = helper.getBean(PropertiesFactoryBean.class);
+		Properties properties = propertiesFactory.getObject();
+		
+		String appServPath = properties.getProperty("fileresource.placement.app_server.path");
+		Files.createDirectories(Paths.get(appServPath));
 	}
 
 	private void loadApplicationResources(SpringContext helper) {

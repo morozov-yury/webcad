@@ -79,7 +79,7 @@ public class CSGenaParam extends AddrMicroinstParam {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder(super.toString());
+		StringBuilder sb = new StringBuilder().append("--CS ").append(super.toString());
 		if (elementarizatsiya != null) {
 			sb.append("-e ").append((elementarizatsiya) ? " 1 " : " 0 ");
 		}

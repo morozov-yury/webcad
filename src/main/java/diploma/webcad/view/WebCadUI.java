@@ -34,6 +34,7 @@ import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
 import diploma.webcad.view.pages.PageNotFound;
+import diploma.webcad.view.service.NotificationService;
 
 @Component("webCadUI")
 @Title("WebCad")
@@ -89,7 +90,7 @@ public class WebCadUI extends UI {
 					e.printStackTrace();
 					PageProperties properties = new PageProperties();
 					properties.put("page", navigationState);
-					processUri(PageNotFound.NAME, properties);
+					//WebCadUI.this.navigateTo(PageNotFound.NAME, properties);
 				}
 			}
 		};
@@ -165,11 +166,11 @@ public class WebCadUI extends UI {
 		icePush.push();
 	}
 
-	public void processUri(String uri) {
+	public void navigateTo (String uri) {
 		getNavigator().navigateTo(uri);
 	}
 	
-	public void processUri(String uri, PageProperties pageProperties) {
+	public void navigateTo (String uri, PageProperties pageProperties) {
 		if (pageProperties == null) {
 			getNavigator().navigateTo(uri);
 		}

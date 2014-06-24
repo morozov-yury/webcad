@@ -101,7 +101,7 @@ public class SessionState {
 		try {
 			user = userManager.getUser(login);
 		} catch (UserRetrievingException e) {
-			WebCadUI.getCurrent().processUri("503");
+			WebCadUI.getCurrent().navigateTo("503");
 		}
 		if (user == null || !user.getPassword().equals(passwordHash)) {
 			throw new WrongPasswordException();
@@ -114,14 +114,14 @@ public class SessionState {
 		}
 		putParameter(SessionState.Param.LANGUAGE, language);
 
-		WebCadUI.getCurrent().processUri(Page.getCurrent().getUriFragment());
+		WebCadUI.getCurrent().navigateTo(Page.getCurrent().getUriFragment());
 	}
 
 	public void signout() {
 		//runtimeRegistrator.removeUser(getUser(), UI.getCurrent());
 		setUser(null);
 		parameters.clear();
-		WebCadUI.getCurrent().processUri(MainPage.NAME);
+		WebCadUI.getCurrent().navigateTo(MainPage.NAME);
 	}
 
 	public Language getLanguage() {
