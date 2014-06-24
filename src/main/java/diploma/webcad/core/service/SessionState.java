@@ -5,11 +5,16 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
+import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.vaadin.server.Page;
 
@@ -45,6 +50,9 @@ public class SessionState {
 
 	@Autowired
 	private ContentService contentManager;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	public SessionState() {
 		log.info("SessionState constructor");
@@ -124,5 +132,21 @@ public class SessionState {
 		return (SpringContext) getParameter(SessionState.Param.SPRING_CONTEXT);
 	}
 
+	public Session openSession() {
+		Session session = null;
+		if (!TransactionSynchronizationManager.hasResource(sessionFactory)) {
+			session = sessionFactory.openSession();
+			TransactionSynchronizationManager.bindResource(sessionFactory,
+					new SessionHolder(session));
+		}
+		return session;
+	}
+	
+	public void closeSession(Session session) {
+		if (session != null) {
+			TransactionSynchronizationManager.unbindResource(sessionFactory);
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
 
 }
