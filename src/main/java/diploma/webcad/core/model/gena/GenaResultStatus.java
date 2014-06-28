@@ -6,6 +6,14 @@ public enum GenaResultStatus {
 	
 	PROCESSED,
 	
-	FAILED;
+	FAILED,
+	
+	INCCORECT_XML,
+	
+	INCCORECT_PARAMS,
+	
+	UNEXPECTED_ERROR,
+	
+	RUNTIME_ERROR;
 
 }

@@ -1,6 +1,6 @@
 package diploma.webcad.core.model.resource;
 
-public enum FileResourcePlacement {
+public enum FSResourcePlacement {
 	
 	APP_SERVER,
 	

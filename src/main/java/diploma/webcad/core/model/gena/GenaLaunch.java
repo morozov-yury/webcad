@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.resource.FileResource;
+import diploma.webcad.core.model.resource.FSResource;
 
 @Entity
 @Table(name = "genaLaunches")
@@ -39,8 +39,11 @@ public class GenaLaunch implements Serializable {
 	@Column(name = "genaParams", nullable = false, unique = false, length = 64)
 	private String genaParams;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FileResource.class, optional = true)
-	private FileResource inputData;
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
+	private FSResource inputData;
+	
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
+	private FSResource resultData;
 	
 	public GenaLaunch () {
 		
@@ -86,12 +89,20 @@ public class GenaLaunch implements Serializable {
 		this.genaParams = genaParams;
 	}
 
-	public FileResource getInputData() {
+	public FSResource getInputData() {
 		return inputData;
 	}
 
-	public void setInputData(FileResource inputData) {
+	public void setInputData(FSResource inputData) {
 		this.inputData = inputData;
+	}
+
+	public FSResource getResultData() {
+		return resultData;
+	}
+
+	public void setResultData(FSResource resultData) {
+		this.resultData = resultData;
 	}
 
 }

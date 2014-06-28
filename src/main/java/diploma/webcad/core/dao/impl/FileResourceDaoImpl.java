@@ -3,14 +3,14 @@ package diploma.webcad.core.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.FileResourceDao;
-import diploma.webcad.core.model.resource.FileResource;
+import diploma.webcad.core.model.resource.FSResource;
 
 @Repository
 public class FileResourceDaoImpl extends
-		BaseDaoImpl<FileResource, String> implements FileResourceDao {
+		BaseDaoImpl<FSResource, String> implements FileResourceDao {
 
 	public FileResourceDaoImpl() {
-		super(FileResource.class);
+		super(FSResource.class);
 	}
 
 }

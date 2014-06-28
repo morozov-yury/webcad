@@ -1,6 +1,6 @@
 package diploma.webcad.core.model.resource;
 
-public enum FileResourceType {
+public enum FSResourceType {
 	
 	FILE,
 	

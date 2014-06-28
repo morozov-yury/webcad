@@ -78,7 +78,7 @@ public class AddrMicroinstParam extends GenaParam {
 				sb.append("-y 2 ");
 				break;
 			case UNITARY:
-				sb.append("-y 3 ");
+				sb.append("-y 0 ");
 				break;
 			}
 		}

@@ -117,7 +117,7 @@ public class GenaPage extends AbstractPage {
 					return;
 				}
 				String xmlDescription = textArea.getValue();
-				genaService.run(user, parameters.toString(), xmlDescription);
+				genaService.createGenaLaunch(user, parameters.toString(), xmlDescription);
 			}
 		});
         startButton.addStyleName("default");

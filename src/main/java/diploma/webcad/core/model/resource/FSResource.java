@@ -13,8 +13,15 @@ import javax.persistence.ManyToOne;
 
 import diploma.webcad.core.model.User;
 
+/**
+ * This is entity that describe file system resource.
+ * It can saved on different servers.
+ * 
+ * @author morozov.yury
+ *
+ */
 @Entity
-public class FileResource implements Serializable {
+public class FSResource implements Serializable {
 	private static final long serialVersionUID = -3542499586657600169L;
 	
 	@Id
@@ -24,13 +31,16 @@ public class FileResource implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
 	private User user;
 	
-	@Column(name = "creationDate")
+	@Column(name = "creationDate", nullable = false)
 	private Date creationDate;
 	
-	@Column(name = "placement")
-	private FileResourcePlacement placement;
+	@Column(name = "placement", nullable = false)
+	private FSResourcePlacement placement;
+	
+	@Column(name = "fsResourceType", nullable = false)
+	private FSResourceType fsResourceType;
 
-	public FileResource() {
+	public FSResource() {
 		creationDate = new Date();
 	}
 	
@@ -71,7 +81,7 @@ public class FileResource implements Serializable {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		FileResource other = (FileResource) obj;
+		FSResource other = (FSResource) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;
@@ -82,12 +92,20 @@ public class FileResource implements Serializable {
 		return true;
 	}
 
-	public FileResourcePlacement getPlacement() {
+	public FSResourcePlacement getPlacement() {
 		return placement;
 	}
 
-	public void setPlacement(FileResourcePlacement placement) {
+	public void setPlacement(FSResourcePlacement placement) {
 		this.placement = placement;
+	}
+
+	public FSResourceType getFsResourceType() {
+		return fsResourceType;
+	}
+
+	public void setFsResourceType(FSResourceType fsResourceType) {
+		this.fsResourceType = fsResourceType;
 	}
 
 }
