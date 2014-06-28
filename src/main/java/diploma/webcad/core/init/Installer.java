@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
-import diploma.webcad.common.security.MD5Helper;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.constant.AppConstant;
 import diploma.webcad.core.model.constant.AppConstantType;
@@ -59,6 +58,8 @@ public class Installer {
 		Language language = contentService.getDefaultLanguage();
 
 		userService.createUser("admin", "admin", language);
+		
+		userService.createUser("user", "user", language);
 	}
 
 	private void initLanguages() {

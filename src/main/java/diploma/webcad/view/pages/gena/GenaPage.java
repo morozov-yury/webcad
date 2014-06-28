@@ -1,27 +1,35 @@
 package diploma.webcad.view.pages.gena;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.tepi.filtertable.FilterTable;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.model.gena.GenaLaunch;
+import diploma.webcad.core.model.gena.GenaResult;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.view.WebCadUI;
+import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
-import diploma.webcad.view.service.NotificationService;
 import diploma.webcad.view.service.ViewFactory;
 
 @Scope("prototype")
@@ -33,11 +41,10 @@ public class GenaPage extends AbstractPage {
 	
 	public static final String NAME = "gena";
 	
-	@Autowired
-	private GenaService genaService;
+	private static Logger log = LoggerFactory.getLogger(GenaPage.class);
 	
 	@Autowired
-	private NotificationService notificationService;
+	private GenaService genaService;
 	
 	@Autowired
 	private ViewFactory viewFactory;
@@ -45,6 +52,8 @@ public class GenaPage extends AbstractPage {
 	private VerticalLayout mainLayout;
 	
 	private TextArea textArea;
+
+	private User user;
 	
 	public GenaPage () {
 		super("Gena");
@@ -54,6 +63,7 @@ public class GenaPage extends AbstractPage {
 	
 	@Override
 	public void attach() {
+		user = WebCadUI.getCurrent().getSessionState().getUser();
 		super.attach();
 	}
 
@@ -76,12 +86,19 @@ public class GenaPage extends AbstractPage {
         leftLayout.setSpacing(true);
         leftLayout.addComponent(viewFactory.wrapComponent(parametersSelector));
         
-        Table table = new Table("Последние запуски");
-        
-        leftLayout.addComponent(viewFactory.wrapComponent(table));
+        List<GenaLaunch> allLaunches = genaService.listAllLaunches(user);
+        FilterTable launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
+        launchesTable.setCaption("Last launches");
+        launchesTable.addItemClickListener(new ItemClickListener() {
+			private static final long serialVersionUID = 6592228933748021923L;
+			@Override
+			public void itemClick(ItemClickEvent event) {
+				GenaLaunch genaLaunch = (GenaLaunch) event.getItemId();
+				log.info("Item id = {}", genaLaunch.getId());
+			}
+		});
+        leftLayout.addComponent(viewFactory.wrapComponent(launchesTable));
         row.addComponent(leftLayout);
-        
-        //row.addComponent(viewFactory.wrapComponent(parametersSelector));
         
         textArea = new TextArea("Input your xml data here");
         row.addComponent(viewFactory.wrapTextArea(textArea));
@@ -102,22 +119,27 @@ public class GenaPage extends AbstractPage {
 			private static final long serialVersionUID = 4434872155184459414L;
 			@Override
 			public void buttonClick(ClickEvent event) {
+				Notificator notificator = WebCadUI.getCurrent().getNotificator();
+				
 				if (textArea.getValue().isEmpty()) {
-					notificationService.showError("Error", "Укажите описание алгоритма");
+					notificator.showError("Error", "Укажите описание алгоритма");
 					return;
 				}
 				GenaParam parameters = parametersSelector.getParameters();
 				if (parameters == null) {
-					notificationService.showError("Error", "Некорректно указаны параметры запуска");
+					notificator.showError("Error", "Некорректно указаны параметры запуска");
 					return;
 				}
 				User user = WebCadUI.getCurrent().getSessionState().getUser();
 				if (user == null) {
-					notificationService.showError("Error", "Вы должны быть залогинены в системе");
+					notificator.showError("Error", "Вы должны быть залогинены в системе");
 					return;
 				}
 				String xmlDescription = textArea.getValue();
-				genaService.createGenaLaunch(user, parameters.toString(), xmlDescription);
+				GenaLaunch genaLaunch = genaService.createGenaLaunch(user, parameters.toString(), 
+						xmlDescription);
+				GenaResult genaResult = genaLaunch.getGenaResult();
+				notificator.showInfo("Launch result: " + genaResult.getGenaResultStatus());
 			}
 		});
         startButton.addStyleName("default");

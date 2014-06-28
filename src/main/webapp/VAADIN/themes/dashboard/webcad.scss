@@ -38,4 +38,17 @@
 		color: #349aff;
 	}
 	
+	.v-table-body {
+		//overflow: hidden !important;
+	}
+	
+	.filter-table {
+		height: 100% !important;
+	}
+	
+	.v-table-body::-webkit-scrollbar {
+    	width: 0px;
+    	height: 0px;
+	}
+
 }

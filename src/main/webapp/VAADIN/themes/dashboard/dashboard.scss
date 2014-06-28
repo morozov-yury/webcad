@@ -565,8 +565,9 @@
 	}
 	
 	.dashboard-view .layout-panel {
-		padding: 50px 20px 0;
-		overflow: auto;
+		//padding: 50px 20px 0;
+		padding: 40px 0 0 0;
+		overflow: hidden;
 		position: relative;
 	}
 	

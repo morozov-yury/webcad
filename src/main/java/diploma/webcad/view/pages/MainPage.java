@@ -7,21 +7,10 @@ import org.springframework.context.annotation.Scope;
 
 import ru.xpoft.vaadin.VaadinView;
 
-import com.vaadin.demo.dashboard.TopGrossingMoviesChart;
-import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
-import diploma.webcad.view.service.NotificationService;
+import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.service.ViewFactory;
 
 @org.springframework.stereotype.Component
@@ -36,9 +25,6 @@ public class MainPage extends AbstractPage {
 	private static Logger log = LoggerFactory.getLogger(MainPage.class);
 	
 	@Autowired
-	private NotificationService notificationService;
-	
-	@Autowired
 	private ViewFactory viewFactory;
 
 	public MainPage () {
@@ -49,7 +35,7 @@ public class MainPage extends AbstractPage {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				notificationService.showError("Error", "Error");
+				WebCadUI.getCurrent().getNotificator().showError("Error", "Error");
 			}
 		}));
 	}

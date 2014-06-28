@@ -5522,6 +5522,15 @@ body .dashboard.v-app .v-app-loading {
 	color: #349aff;
 }
 
+.dashboard .filter-table {
+	height: 100% !important;
+}
+
+.dashboard .v-table-body::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+}
+
 .dashboard .v-view {
 	overflow: hidden;
 }
@@ -6009,8 +6018,8 @@ body .dashboard.v-app .v-app-loading {
 }
 
 .dashboard .dashboard-view .layout-panel {
-	padding: 50px 20px 0;
-	overflow: auto;
+	padding: 40px 0 0 0;
+	overflow: hidden;
 	position: relative;
 }
 

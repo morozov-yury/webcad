@@ -1,9 +1,7 @@
 package diploma.webcad.core.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +55,7 @@ public class GenaService {
 			return genaLaunch;
 		}
 
-		genaLaunch.setInputData(fileResource);
+		genaLaunch.setInputResource(fileResource);
 
 		GenaResultStatus genaResultStatus = runExecutable(genaLaunch);
 		genaResult.setGenaResultStatus(genaResultStatus);
@@ -85,7 +83,7 @@ public class GenaService {
 			return null;
 		}
 
-		String sourcePath = fsManager.getFSResourcePath(genaLaunch.getInputData());
+		String sourcePath = fsManager.getFSResourcePath(genaLaunch.getInputResource());
 		String genaParams = genaLaunch.getGenaParams();
 		String resultFolderPath =  fsManager.getFSResourcePath(resultFolder);
 		String cmd = new StringBuilder(genaIntPath).append(" ").append(sourcePath).append(" ")
@@ -95,7 +93,7 @@ public class GenaService {
 			Process process = Runtime.getRuntime().exec(cmd);
 			switch (process.waitFor()) {
 			case 0:
-				genaLaunch.setResultData(resultFolder);
+				genaLaunch.setResultResource(resultFolder);
 				resultStatus = GenaResultStatus.SUCCESSFUL;
 				break;
 			case 1:
@@ -117,6 +115,10 @@ public class GenaService {
 		genaLaunch.getGenaResult().setGenaResultStatus(resultStatus);
 		
 		return resultStatus;
+	}
+	
+	public List<GenaLaunch> listAllLaunches (User user) {
+		return genaLaunchDao.list("user", user);
 	}
 
 }

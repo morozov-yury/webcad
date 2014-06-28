@@ -23,4 +23,14 @@
     <inherits name="com.wcs.wcslib.vaadin.widget.multifileupload.MultiFileUploadWidgetSet" />
 
     <inherits name="com.vaadin.addon.timeline.gwt.TimelineWidgetSet" />
+
+    <inherits name="src.main.resources.com.vaadin.demo.dashboard.DashboardWidgetSet" />
+
+    <inherits name="src.main.java.diploma.webcad.view.AppWidgetSet" />
+
+    <inherits name="target.classes.com.vaadin.demo.dashboard.DashboardWidgetSet" />
+
+    <inherits name="org.vaadin.hene.popupbutton.widgetset.PopupbuttonWidgetset" />
+
+    <inherits name="org.tepi.filtertable.gwt.FilterTableWidgetset" />
 </module>

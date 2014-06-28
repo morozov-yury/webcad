@@ -416,6 +416,12 @@
 			<version>1.0.0-beta1</version>
 		</dependency>
 		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>filteringtable</artifactId>
+		   <version>0.9.9.v7</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.wcs.wcslib</groupId>
 			<artifactId>
 				wcslib-vaadin-widget-multifileupload

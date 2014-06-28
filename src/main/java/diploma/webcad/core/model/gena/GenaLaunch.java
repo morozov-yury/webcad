@@ -1,6 +1,7 @@
 package diploma.webcad.core.model.gena;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,6 +30,9 @@ public class GenaLaunch implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
 	private User user;
 	
+	@Column(name = "creationDate", nullable = false, unique = false)
+	private Date creationDate;
+	
 	@Column(name = "genaPlacement", nullable = false, unique = false)
 	private GenaPlacement genaPlacement;
 	
@@ -40,13 +44,13 @@ public class GenaLaunch implements Serializable {
 	private String genaParams;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
-	private FSResource inputData;
+	private FSResource inputResource;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
-	private FSResource resultData;
+	private FSResource resultResource;
 	
 	public GenaLaunch () {
-		
+		setCreationDate(new Date());
 	}
 
 	public Long getId() {
@@ -89,20 +93,28 @@ public class GenaLaunch implements Serializable {
 		this.genaParams = genaParams;
 	}
 
-	public FSResource getInputData() {
-		return inputData;
+	public FSResource getInputResource() {
+		return inputResource;
 	}
 
-	public void setInputData(FSResource inputData) {
-		this.inputData = inputData;
+	public void setInputResource(FSResource inputData) {
+		this.inputResource = inputData;
 	}
 
-	public FSResource getResultData() {
-		return resultData;
+	public FSResource getResultResource() {
+		return resultResource;
 	}
 
-	public void setResultData(FSResource resultData) {
-		this.resultData = resultData;
+	public void setResultResource(FSResource resultData) {
+		this.resultResource = resultData;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }
