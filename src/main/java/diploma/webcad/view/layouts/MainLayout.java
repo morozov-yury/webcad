@@ -2,7 +2,6 @@ package diploma.webcad.view.layouts;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import com.vaadin.navigator.View;
@@ -21,7 +20,6 @@ import diploma.webcad.view.dash.HelpOverlay;
 import diploma.webcad.view.dash.LoginLayout;
 import diploma.webcad.view.dash.MainMenu;
 import diploma.webcad.view.dash.UserMenu;
-import diploma.webcad.view.service.NotificationService;
 
 @org.springframework.stereotype.Component	
 @Scope("prototype")
@@ -43,11 +41,7 @@ public class MainLayout extends CssLayout implements Layout {
 
 	private Label bg;
 
-	private NotificationService notificationService;
-
-	@Autowired 
-	public MainLayout(NotificationService notificationService) {
-		this.notificationService = notificationService;
+	public MainLayout() {
 		addStyleName("main-layout");
 		setSizeFull();
 		
@@ -77,6 +71,9 @@ public class MainLayout extends CssLayout implements Layout {
 	public void attach() {
 		WebCadUI ui = WebCadUI.getCurrent();
 		ui.addWindow(greetingWindow);
+		
+		
+		
         super.attach();
 	}
 
@@ -105,7 +102,7 @@ public class MainLayout extends CssLayout implements Layout {
 		
 		if (currentView != null) {
 			content.addComponent((Component)currentView);
-			content.addComponent(notificationService.getNotificatorComponent());
+			content.addComponent(WebCadUI.getCurrent().getNotificator());
 		}
 		
 		
