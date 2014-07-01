@@ -15,6 +15,7 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
@@ -27,6 +28,7 @@ import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
+import diploma.webcad.view.components.gena.MachineParamsFactory;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
@@ -81,10 +83,11 @@ public class GenaPage extends AbstractPage {
         
         final GenaParamSelector parametersSelector = new GenaParamSelector(new MealyGenaParam());
         
-        VerticalLayout leftLayout = new VerticalLayout();
+        final VerticalLayout leftLayout = new VerticalLayout();
         leftLayout.setSizeFull();
         leftLayout.setSpacing(true);
-        leftLayout.addComponent(viewFactory.wrapComponent(parametersSelector));
+        Component wrapperParamelector = viewFactory.wrapComponent(parametersSelector);
+        leftLayout.addComponent(wrapperParamelector);
         
         List<GenaLaunch> allLaunches = genaService.listAllLaunches(user);
         FilterTable launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
@@ -95,6 +98,13 @@ public class GenaPage extends AbstractPage {
 			public void itemClick(ItemClickEvent event) {
 				GenaLaunch genaLaunch = (GenaLaunch) event.getItemId();
 				log.info("Item id = {}", genaLaunch.getId());
+				GenaParam genaParamByToken = MachineParamsFactory.getGenaParamByToken(
+						genaLaunch.getGenaParams());
+				
+				GenaParamSelector genaParamSelector = new GenaParamSelector(genaParamByToken);
+				Component wrappedComponent = viewFactory.wrapComponent(genaParamSelector);
+				leftLayout.removeComponent(leftLayout.getComponent(0));
+				leftLayout.addComponent(wrappedComponent, 0);
 			}
 		});
         leftLayout.addComponent(viewFactory.wrapComponent(launchesTable));

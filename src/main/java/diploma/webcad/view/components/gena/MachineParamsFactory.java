@@ -8,6 +8,7 @@ import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.MachineType;
 import diploma.webcad.view.model.gena.cmcs.CMGenaParam;
 import diploma.webcad.view.model.gena.cmcs.CSGenaParam;
+import diploma.webcad.view.model.gena.mm.MMGenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.model.gena.mm.MooreGenaParam;
 
@@ -39,6 +40,45 @@ public class MachineParamsFactory {
 		default:
 			return new MooreMParamSelector(new MooreGenaParam());
 		}
+	}
+	
+	public static GenaParam getGenaParamByToken (String token) {
+		if (token.startsWith("--Mealy") || token.startsWith("--Moore")) {
+			return parseMMParams(token);
+		}
+		if (token.startsWith("--CM")) {
+			return parseCMParams(token);
+		}
+		if (token.startsWith("--CS")) {
+			return parseCSParams(token);
+		}
+		throw new IllegalStateException("Token [" + token + "] is inccorect.");
+	}
+	
+	private static GenaParam parseMMParams (String tpken) {
+		MMGenaParam mmGenaParam = null;
+		
+		if (tpken.startsWith("--Mealy")) {
+			mmGenaParam = new MealyGenaParam();
+		} else if (tpken.startsWith("--Moore")) {
+			mmGenaParam = new MooreGenaParam();
+		}
+
+		return mmGenaParam;
+	}
+	
+	private static GenaParam parseCMParams (String tpken) {
+		MMGenaParam mmGenaParam = null;
+
+
+		return mmGenaParam;
+	}
+	
+	private static GenaParam parseCSParams (String tpken) {
+		MMGenaParam mmGenaParam = null;
+
+
+		return mmGenaParam;
 	}
 
 }
