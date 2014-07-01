@@ -13,7 +13,5 @@ public class CMGenaParam extends AddrMicroinstParam {
 		// TODO Auto-generated method stub
 		return "--CM " + super.toString();
 	}
-	
-	
 
 }

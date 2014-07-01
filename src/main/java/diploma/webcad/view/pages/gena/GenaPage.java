@@ -15,6 +15,7 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
@@ -22,11 +23,14 @@ import com.vaadin.ui.VerticalLayout;
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.gena.GenaLaunch;
 import diploma.webcad.core.model.gena.GenaResult;
+import diploma.webcad.core.model.resource.FSResource;
+import diploma.webcad.core.service.FSResourceService;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
+import diploma.webcad.view.components.gena.MachineParamsFactory;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
@@ -48,12 +52,17 @@ public class GenaPage extends AbstractPage {
 	
 	@Autowired
 	private ViewFactory viewFactory;
+	
+	@Autowired
+	private FSResourceService fsrService;
 
 	private VerticalLayout mainLayout;
 	
 	private TextArea textArea;
 
 	private User user;
+
+	private GenaParamSelector parametersSelector;
 	
 	public GenaPage () {
 		super("Gena");
@@ -79,12 +88,13 @@ public class GenaPage extends AbstractPage {
         content.addComponent(row);
         content.setExpandRatio(row, 1.5f);    
         
-        final GenaParamSelector parametersSelector = new GenaParamSelector(new MealyGenaParam());
+        parametersSelector = new GenaParamSelector(new MealyGenaParam());
         
-        VerticalLayout leftLayout = new VerticalLayout();
+        final VerticalLayout leftLayout = new VerticalLayout();
         leftLayout.setSizeFull();
         leftLayout.setSpacing(true);
-        leftLayout.addComponent(viewFactory.wrapComponent(parametersSelector));
+        Component wrapperParamelector = viewFactory.wrapComponent(parametersSelector);
+        leftLayout.addComponent(wrapperParamelector);
         
         List<GenaLaunch> allLaunches = genaService.listAllLaunches(user);
         FilterTable launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
@@ -94,7 +104,20 @@ public class GenaPage extends AbstractPage {
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				GenaLaunch genaLaunch = (GenaLaunch) event.getItemId();
-				log.info("Item id = {}", genaLaunch.getId());
+				GenaParam genaParamByToken = MachineParamsFactory.getGenaParamByToken(
+						genaLaunch.getGenaParams());
+				parametersSelector = new GenaParamSelector(genaParamByToken);
+				parametersSelector.setGenaParam(genaParamByToken);
+				Component wrappedComponent = viewFactory.wrapComponent(parametersSelector);
+				leftLayout.removeComponent(leftLayout.getComponent(0));
+				leftLayout.addComponent(wrappedComponent, 0);
+				
+				FSResource inputResource = genaLaunch.getInputResource();
+				byte[] data = fsrService.getData(inputResource);
+				if (data != null) {
+					String xmlDescription = new String(data);
+					textArea.setValue(xmlDescription);
+				}
 			}
 		});
         leftLayout.addComponent(viewFactory.wrapComponent(launchesTable));
@@ -110,7 +133,10 @@ public class GenaPage extends AbstractPage {
 
 			@Override
 			public String getUpdatedText() {
-				return parametersSelector.getParameters().toString();
+				if (getGenaParam() == null) {
+					return "null";
+				}
+				return getGenaParam().toString();
 			}
 		};
 		label.addStyleName("info-label");
@@ -125,7 +151,7 @@ public class GenaPage extends AbstractPage {
 					notificator.showError("Error", "Укажите описание алгоритма");
 					return;
 				}
-				GenaParam parameters = parametersSelector.getParameters();
+				GenaParam parameters = getGenaParam();
 				if (parameters == null) {
 					notificator.showError("Error", "Некорректно указаны параметры запуска");
 					return;
@@ -146,6 +172,10 @@ public class GenaPage extends AbstractPage {
 
         addComponentToTop(label);
         addComponentToTop(startButton);
+	}
+	
+	private GenaParam getGenaParam () {
+		return parametersSelector.getParameters();
 	}
 
 }

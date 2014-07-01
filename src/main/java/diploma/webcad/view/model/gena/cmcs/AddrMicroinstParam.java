@@ -67,7 +67,7 @@ public class AddrMicroinstParam extends GenaParam {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if (codLogConditions != null) {
-			sb.append("-x ").append((codLogConditions) ? " 1 " : " 0 ");
+			sb.append("-x").append((codLogConditions) ? " 1 " : " 0 ");
 		}
 		if (encodingMC != null) {
 			switch (encodingMC) {

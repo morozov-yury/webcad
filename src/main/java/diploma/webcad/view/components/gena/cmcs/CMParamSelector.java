@@ -44,17 +44,18 @@ public class CMParamSelector extends MachineParamsSelector {
 		codLogConditionsComp.addValidator(new BeanValidator(CMGenaParam.class, "codLogConditions"));
 		
 		encodingMCComp = new ComboBox("Кодирование микрокоманд");
-		encodingMCComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
+		//encodingMCComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
 		encodingMCComp.setImmediate(true);
 		encodingMCComp.addValidator(new BeanValidator(CMGenaParam.class, "encodingMC"));
 		encodingMCComp.setContainerDataSource(getEncodingMCContainer());
+		encodingMCComp.setValue(genaParam.getEncodingMC());
 
 		wordWodthRestrictionComp = new TextField("Ограничение ширины слова памяти в битах");
-		wordWodthRestrictionComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
+		wordWodthRestrictionComp.setPropertyDataSource(beanItem.getItemProperty("wordWodthRestriction"));
 		wordWodthRestrictionComp.setImmediate(true);
 		wordWodthRestrictionComp.setWidth("5em");
 		wordWodthRestrictionComp.setNullRepresentation("");
-		wordWodthRestrictionComp.addValidator(new BeanValidator(CMGenaParam.class, "encodingMC"));
+		wordWodthRestrictionComp.addValidator(new BeanValidator(CMGenaParam.class, "wordWodthRestriction"));
 		
 		FormLayout formLayout = new FormLayout(codLogConditionsComp, encodingMCComp, 
 				wordWodthRestrictionComp);

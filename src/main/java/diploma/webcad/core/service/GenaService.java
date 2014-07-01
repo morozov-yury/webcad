@@ -34,7 +34,7 @@ public class GenaService {
 	private GenaLaunchDao genaLaunchDao;
 	
 	@Autowired
-	private FSResourceManager fsManager;
+	private FSResourceService fsManager;
 
 	public GenaLaunch createGenaLaunch (User user, String  genaParams, String xmlDecription) {
 		GenaResult genaResult = new GenaResult();

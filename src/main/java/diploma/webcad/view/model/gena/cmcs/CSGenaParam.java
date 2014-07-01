@@ -81,15 +81,15 @@ public class CSGenaParam extends AddrMicroinstParam {
 	public String toString() {
 		StringBuilder sb = new StringBuilder().append("--CS ").append(super.toString());
 		if (elementarizatsiya != null) {
-			sb.append("-e ").append((elementarizatsiya) ? " 1 " : " 0 ");
+			sb.append("-e").append((elementarizatsiya) ? " 1 " : " 0 ");
 		}
 		if (codePlacemet != null) {
 			switch (codePlacemet) {
 			case NEXT_MO:
-				sb.append("-p 0 ");
+				sb.append("-p 1 ");
 				break;
 			case THIS_MO:
-				sb.append("-p 1 ");
+				sb.append("-p 0 ");
 				break;
 			}
 		}

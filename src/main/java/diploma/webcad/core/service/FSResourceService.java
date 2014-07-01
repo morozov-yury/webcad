@@ -1,12 +1,16 @@
 package diploma.webcad.core.service;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +26,9 @@ import diploma.webcad.core.model.resource.FSResourceType;
 
 @Service
 @Scope("singleton")
-public class FSResourceManager {
+public class FSResourceService {
 	
-	private static Logger log = LoggerFactory.getLogger(FSResourceManager.class);
+	private static Logger log = LoggerFactory.getLogger(FSResourceService.class);
 	
 	@Value("${fileresource.placement.app_server.path}")
 	private String appServPlacementPath;
@@ -151,6 +155,27 @@ public class FSResourceManager {
 	
 	private FSResourcePlacement getDefPlacement () {
 		return FSResourcePlacement.valueOf(defFilesPlacement.toUpperCase());
+	}
+	
+	public byte[] getData (FSResource inputResource) {
+		if (inputResource == null) {
+			throw new IllegalStateException("FSResource can't be null");
+		}
+		if (inputResource.getFsResourceType() != FSResourceType.FILE) {
+			throw new IllegalStateException("You can get byte data only from file");
+		}
+		
+		String path = this.getFSResourcePath(inputResource);
+		File file = new File(path);
+		try {
+			return IOUtils.toByteArray(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }

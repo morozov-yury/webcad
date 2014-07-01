@@ -1,23 +1,20 @@
 package diploma.webcad.view.components.gena.cmcs;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.validator.BeanValidator;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
 import diploma.webcad.view.components.gena.MachineParamsSelector;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.MachineType;
 import diploma.webcad.view.model.gena.cmcs.CSGenaParam;
-import diploma.webcad.view.model.gena.cmcs.CSGenaParam;
-import diploma.webcad.view.model.gena.cmcs.AddrMicroinstParam.EncodingMC;
 import diploma.webcad.view.model.gena.cmcs.CSGenaParam.CodePlacement;
 import diploma.webcad.view.model.gena.cmcs.CSGenaParam.ExtCodeConverter;
 
@@ -56,36 +53,44 @@ public class CSParamSelector extends MachineParamsSelector {
 		codLogConditionsComp.setPropertyDataSource(beanItem.getItemProperty("codLogConditions"));
 		codLogConditionsComp.setImmediate(true);
 		codLogConditionsComp.addValidator(new BeanValidator(CSGenaParam.class, "codLogConditions"));
+		codLogConditionsComp.setValue(genaParam.getCodLogConditions());
 		
 		encodingMCComp = new ComboBox("Кодирование микрокоманд");
-		encodingMCComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
+		//encodingMCComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
 		encodingMCComp.setImmediate(true);
 		encodingMCComp.addValidator(new BeanValidator(CSGenaParam.class, "encodingMC"));
 		encodingMCComp.setContainerDataSource(getEncodingMCContainer());
+		encodingMCComp.setValue(genaParam.getEncodingMC());
 
 		wordWodthRestrictionComp = new TextField("Ограничение ширины слова памяти в битах");
-		wordWodthRestrictionComp.setPropertyDataSource(beanItem.getItemProperty("encodingMC"));
+		wordWodthRestrictionComp.setPropertyDataSource(beanItem.getItemProperty("wordWodthRestriction"));
 		wordWodthRestrictionComp.setImmediate(true);
 		wordWodthRestrictionComp.setWidth("5em");
 		wordWodthRestrictionComp.setNullRepresentation("");
-		wordWodthRestrictionComp.addValidator(new BeanValidator(CSGenaParam.class, "encodingMC"));
+		wordWodthRestrictionComp.addValidator(new BeanValidator(CSGenaParam.class, "wordWodthRestriction"));
+		if (genaParam.getWordWodthRestriction() != null) {
+			wordWodthRestrictionComp.setValue(genaParam.getWordWodthRestriction().toString());
+		}
 		
 		eltsiyaComp = new CheckBox("Элементаризация ОЛЦ");
 		eltsiyaComp.setPropertyDataSource(beanItem.getItemProperty("elementarizatsiya"));
 		eltsiyaComp.setImmediate(true);
 		eltsiyaComp.addValidator(new BeanValidator(CSGenaParam.class, "elementarizatsiya"));
+		eltsiyaComp.setValue(genaParam.getElementarizatsiya());
 		
 		codePlacemetComp = new ComboBox("Размещение кода");
-		codePlacemetComp.setPropertyDataSource(beanItem.getItemProperty("codePlacemet"));
+		//codePlacemetComp.setPropertyDataSource(beanItem.getItemProperty("codePlacemet"));
 		codePlacemetComp.setImmediate(true);
 		codePlacemetComp.addValidator(new BeanValidator(CSGenaParam.class, "codePlacemet"));
 		codePlacemetComp.setContainerDataSource(getCodePlacementContainer());
+		codePlacemetComp.setValue(genaParam.getCodePlacemet());
 		
 		extCodeConverterComp = new ComboBox("Использование внешнего преобразователя кодов");
-		extCodeConverterComp.setPropertyDataSource(beanItem.getItemProperty("extCodeConverter"));
+		//extCodeConverterComp.setPropertyDataSource(beanItem.getItemProperty("extCodeConverter"));
 		extCodeConverterComp.setImmediate(true);
 		extCodeConverterComp.addValidator(new BeanValidator(CSGenaParam.class, "extCodeConverter"));
 		extCodeConverterComp.setContainerDataSource(getExtCodeConverterContainer());
+		extCodeConverterComp.setValue(genaParam.getExtCodeConverter());
 		
 		FormLayout formLayout = new FormLayout(codLogConditionsComp, encodingMCComp, 
 				wordWodthRestrictionComp, eltsiyaComp, codePlacemetComp, extCodeConverterComp);
