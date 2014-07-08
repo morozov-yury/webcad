@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,12 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.zeroturnaround.zip.ZipUtil;
 
 import diploma.webcad.core.dao.FileResourceDao;
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.model.resource.FSResourcePlacement;
 import diploma.webcad.core.model.resource.FSResourceType;
+import diploma.webcad.core.util.date.DateUtils;
 
 @Service
 @Scope("singleton")
@@ -176,6 +179,29 @@ public class FSResourceService {
 		}
 		
 		return null;
+	}
+	
+	private String getFSResourceZipPath (FSResource fsResource) {
+		String fsResourcePath = getFSResourcePath(fsResource);
+		return fsResourcePath + ".zip";
+	}
+	
+	public InputStream zipFSResource (FSResource fsResource) {
+		FSResourcePlacement placement = fsResource.getPlacement();
+		String fsResourcePath = getFSResourcePath(fsResource);
+		String fsResourceZipPath = getFSResourceZipPath(fsResource);
+		if (placement == FSResourcePlacement.APP_SERVER) {
+			File data = new File(fsResourcePath);
+			File zip = new File(fsResourceZipPath);
+			ZipUtil.pack(data, zip);
+			try {
+				return new FileInputStream(zip);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		throw new IllegalStateException("Only APP_SERVER file placement allowed");
 	}
 
 }

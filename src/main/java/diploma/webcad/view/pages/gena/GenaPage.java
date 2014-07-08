@@ -1,5 +1,6 @@
 package diploma.webcad.view.pages.gena;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import ru.xpoft.vaadin.VaadinView;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.server.FileDownloader;
+import com.vaadin.server.StreamResource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -23,9 +26,11 @@ import com.vaadin.ui.VerticalLayout;
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.gena.GenaLaunch;
 import diploma.webcad.core.model.gena.GenaResult;
+import diploma.webcad.core.model.gena.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.service.FSResourceService;
 import diploma.webcad.core.service.GenaService;
+import diploma.webcad.core.util.date.DateUtils;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
@@ -34,6 +39,7 @@ import diploma.webcad.view.components.gena.MachineParamsFactory;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
+import diploma.webcad.view.service.UIUtils;
 import diploma.webcad.view.service.ViewFactory;
 
 @Scope("prototype")
@@ -63,6 +69,10 @@ public class GenaPage extends AbstractPage {
 	private User user;
 
 	private GenaParamSelector parametersSelector;
+	
+	private GenaLaunch genaLaunch;
+	
+	private FileDownloader fileDownloader;
 	
 	public GenaPage () {
 		super("Gena");
@@ -140,7 +150,22 @@ public class GenaPage extends AbstractPage {
 			}
 		};
 		label.addStyleName("info-label");
-        
+		
+		final Button downloadButton = new Button("Download", new Button.ClickListener() {
+			private static final long serialVersionUID = 4972579964941549591L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
+				fileName = genaLaunch.getId() + "_" + fileName + ".zip";
+				InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
+				StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
+				fileDownloader.setFileDownloadResource(sResource);
+			}
+		});
+		downloadButton.setVisible(false);
+		//downloadButton.addStyleName("default");
+		
+
         Button startButton = new Button("Start", new Button.ClickListener() {
 			private static final long serialVersionUID = 4434872155184459414L;
 			@Override
@@ -162,15 +187,31 @@ public class GenaPage extends AbstractPage {
 					return;
 				}
 				String xmlDescription = textArea.getValue();
-				GenaLaunch genaLaunch = genaService.createGenaLaunch(user, parameters.toString(), 
+				genaLaunch = genaService.createGenaLaunch(user, parameters.toString(), 
 						xmlDescription);
 				GenaResult genaResult = genaLaunch.getGenaResult();
-				notificator.showInfo("Launch result: " + genaResult.getGenaResultStatus());
+				
+				GenaResultStatus genaResultStatus = genaResult.getGenaResultStatus();
+				notificator.showInfo("Launch result: " + genaResultStatus);
+				
+				if (genaResultStatus == GenaResultStatus.SUCCESSFUL) {
+					downloadButton.setVisible(true);
+					String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
+					fileName = genaLaunch.getId() + "_" + fileName + ".zip";
+					
+					InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
+					StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
+			        fileDownloader = new FileDownloader(sResource);
+			        fileDownloader.extend(downloadButton);
+				} else {
+					downloadButton.setVisible(false);
+				}
 			}
 		});
         startButton.addStyleName("default");
 
         addComponentToTop(label);
+        addComponentToTop(downloadButton);
         addComponentToTop(startButton);
 	}
 	
