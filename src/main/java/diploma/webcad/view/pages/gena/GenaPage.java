@@ -11,6 +11,7 @@ import org.tepi.filtertable.FilterTable;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.FileDownloader;
@@ -72,6 +73,10 @@ public class GenaPage extends AbstractPage {
 	private GenaLaunch genaLaunch;
 	
 	private FileDownloader fileDownloader;
+
+	private FilterTable launchesTable;
+	
+	private Button downloadButton;
 	
 	public GenaPage () {
 		super("Gena");
@@ -105,14 +110,14 @@ public class GenaPage extends AbstractPage {
         Component wrapperParamelector = viewFactory.wrapComponent(parametersSelector);
         leftLayout.addComponent(wrapperParamelector);
         
-        List<GenaLaunch> allLaunches = genaService.listAllLaunches(user);
-        FilterTable launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
+        List<GenaLaunch> allLaunches = genaService.listLastUserLauches(user, 15);
+        launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
         launchesTable.setCaption("Last launches");
         launchesTable.addItemClickListener(new ItemClickListener() {
 			private static final long serialVersionUID = 6592228933748021923L;
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				GenaLaunch genaLaunch = (GenaLaunch) event.getItemId();
+				genaLaunch = (GenaLaunch) event.getItemId();
 				GenaParam genaParamByToken = MachineParamsFactory.getGenaParamByToken(
 						genaLaunch.getGenaParams());
 				parametersSelector = new GenaParamSelector(genaParamByToken);
@@ -126,6 +131,22 @@ public class GenaPage extends AbstractPage {
 				if (data != null) {
 					String xmlDescription = new String(data);
 					textArea.setValue(xmlDescription);
+				}
+				
+				if (genaLaunch.getGenaResultStatus() == GenaResultStatus.SUCCESSFUL) {
+					downloadButton.setVisible(true);
+					String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
+					fileName = genaLaunch.getId() + "_" + fileName + ".zip";
+					InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
+					StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
+					if (fileDownloader == null) {
+						fileDownloader = new FileDownloader(sResource);
+						fileDownloader.extend(downloadButton);
+					} else {
+						fileDownloader.setFileDownloadResource(sResource);
+					}
+				} else {
+					downloadButton.setVisible(false);
 				}
 			}
 		});
@@ -150,7 +171,7 @@ public class GenaPage extends AbstractPage {
 		};
 		label.addStyleName("info-label");
 		
-		final Button downloadButton = new Button("Download", new Button.ClickListener() {
+		downloadButton = new Button("Download", new Button.ClickListener() {
 			private static final long serialVersionUID = 4972579964941549591L;
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -158,7 +179,12 @@ public class GenaPage extends AbstractPage {
 				fileName = genaLaunch.getId() + "_" + fileName + ".zip";
 				InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
 				StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
-				fileDownloader.setFileDownloadResource(sResource);
+				if (fileDownloader == null) {
+					fileDownloader = new FileDownloader(sResource);
+					fileDownloader.extend(downloadButton);
+				} else {
+					fileDownloader.setFileDownloadResource(sResource);
+				}
 			}
 		});
 		downloadButton.setVisible(false);
@@ -199,11 +225,19 @@ public class GenaPage extends AbstractPage {
 					
 					InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
 					StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
-			        fileDownloader = new FileDownloader(sResource);
-			        fileDownloader.extend(downloadButton);
+					if (fileDownloader == null) {
+						fileDownloader = new FileDownloader(sResource);
+						fileDownloader.extend(downloadButton);
+					} else {
+						fileDownloader.setFileDownloadResource(sResource);
+					}
 				} else {
 					downloadButton.setVisible(false);
 				}
+				//launchesTable.removeAllItems();
+				List<GenaLaunch> userLauches = genaService.listLastUserLauches(user, 15);
+				Container container = viewFactory.getTableContainer(userLauches);
+				launchesTable.setContainerDataSource(container);
 			}
 		});
         startButton.addStyleName("default");

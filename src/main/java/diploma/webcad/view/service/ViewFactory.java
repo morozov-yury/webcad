@@ -79,11 +79,13 @@ public class ViewFactory {
         filterTable.setContainerDataSource(getTableContainer(genaLaunches));
         filterTable.setColumnCollapsed("state", true);
         filterTable.setVisibleColumns("id", "placement", "genaParams", "creationDate", "status");
+        filterTable.setSortContainerPropertyId("creationDate");
+        filterTable.setSortAscending(false);
 
         return filterTable;
 	}
 	
-	private Container getTableContainer (List<GenaLaunch> genaLaunches) {
+	public Container getTableContainer (List<GenaLaunch> genaLaunches) {
 		IndexedContainer cont = new IndexedContainer();
 		
 		cont.addContainerProperty("id", Long.class, null);

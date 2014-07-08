@@ -18,6 +18,8 @@ public class LanguageDaoImpl extends BaseDaoImpl<Language, String> implements La
 
 	@SuppressWarnings("unchecked")
 	public List<Language> listByNameIgnoreCase(String name) {
-		return makeCriteria().add(Restrictions.ilike("name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return makeCriteria()
+				.add(Restrictions.ilike("name", name))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 }

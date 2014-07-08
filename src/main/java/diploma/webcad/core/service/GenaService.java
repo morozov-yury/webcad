@@ -116,5 +116,9 @@ public class GenaService {
 	public List<GenaLaunch> listAllLaunches (User user) {
 		return genaLaunchDao.list("user", user);
 	}
+	
+	public List<GenaLaunch> listLastUserLauches(User user, int count) {
+		return genaLaunchDao.listLastUserLauches(user, count);
+	}
 
 }
