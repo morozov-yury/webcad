@@ -25,7 +25,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.gena.GenaLaunch;
-import diploma.webcad.core.model.gena.GenaResult;
 import diploma.webcad.core.model.gena.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.service.FSResourceService;
@@ -189,9 +188,8 @@ public class GenaPage extends AbstractPage {
 				String xmlDescription = textArea.getValue();
 				genaLaunch = genaService.createGenaLaunch(user, parameters.toString(), 
 						xmlDescription);
-				GenaResult genaResult = genaLaunch.getGenaResult();
 				
-				GenaResultStatus genaResultStatus = genaResult.getGenaResultStatus();
+				GenaResultStatus genaResultStatus = genaLaunch.getGenaResultStatus();
 				notificator.showInfo("Launch result: " + genaResultStatus);
 				
 				if (genaResultStatus == GenaResultStatus.SUCCESSFUL) {

@@ -14,7 +14,6 @@ import diploma.webcad.core.dao.GenaLaunchDao;
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.gena.GenaLaunch;
 import diploma.webcad.core.model.gena.GenaPlacement;
-import diploma.webcad.core.model.gena.GenaResult;
 import diploma.webcad.core.model.gena.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
 
@@ -37,16 +36,13 @@ public class GenaService {
 	private FSResourceService fsManager;
 
 	public GenaLaunch createGenaLaunch (User user, String  genaParams, String xmlDecription) {
-		GenaResult genaResult = new GenaResult();
-		genaResult.setGenaResultStatus(GenaResultStatus.FAILED);
-		
 		FSResource fileResource = fsManager.createFileResByContent(
 				user, xmlDecription.getBytes());
 		
 		GenaLaunch genaLaunch =  new GenaLaunch();
+		genaLaunch.setGenaResultStatus(GenaResultStatus.FAILED);
 		genaLaunch.setGenaParams(genaParams);
 		genaLaunch.setGenaPlacement(GenaPlacement.INTERNAL);
-		genaLaunch.setGenaResult(genaResult);
 		genaLaunch.setUser(user);
 		genaLaunchDao.saveOrUpdate(genaLaunch);
 		
@@ -58,7 +54,7 @@ public class GenaService {
 		genaLaunch.setInputResource(fileResource);
 
 		GenaResultStatus genaResultStatus = runExecutable(genaLaunch);
-		genaResult.setGenaResultStatus(genaResultStatus);
+		genaLaunch.setGenaResultStatus(genaResultStatus);
 
 		genaLaunchDao.saveOrUpdate(genaLaunch);
 		return genaLaunch;
@@ -112,7 +108,7 @@ public class GenaService {
 			return GenaResultStatus.RUNTIME_ERROR;
 		}
 		
-		genaLaunch.getGenaResult().setGenaResultStatus(resultStatus);
+		genaLaunch.setGenaResultStatus(resultStatus);
 		
 		return resultStatus;
 	}

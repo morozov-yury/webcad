@@ -5,25 +5,20 @@ import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.tepi.filtertable.FilterTable;
-import org.tepi.filtertable.paged.PagedFilterTable;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.server.PaintException;
-import com.vaadin.server.PaintTarget;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomTable.RowHeaderMode;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
 import diploma.webcad.core.model.gena.GenaLaunch;
 import diploma.webcad.core.model.gena.GenaPlacement;
-import diploma.webcad.core.model.gena.GenaResult;
 import diploma.webcad.core.model.gena.GenaResultStatus;
 
 @org.springframework.stereotype.Component
@@ -71,34 +66,24 @@ public class ViewFactory {
 		FilterTable filterTable = new FilterTable();
         filterTable.setSizeFull();
 
-        //filterTable.setFilterDecorator(new DemoFilterDecorator());
-        //filterTable.setFilterGenerator(new DemoFilterGenerator());
-
         filterTable.setFilterBarVisible(true);
 
         filterTable.setSelectable(true);
         filterTable.setImmediate(true);
-        filterTable.setMultiSelect(true);
-        
+        filterTable.setMultiSelect(true);        
         
         filterTable.setPageLength(5);
-
         filterTable.setRowHeaderMode(RowHeaderMode.INDEX);
-
         filterTable.setColumnCollapsingAllowed(true);
-
         filterTable.setColumnReorderingAllowed(true);
-
-        filterTable.setContainerDataSource(getContainer(genaLaunches));
-
+        filterTable.setContainerDataSource(getTableContainer(genaLaunches));
         filterTable.setColumnCollapsed("state", true);
-
         filterTable.setVisibleColumns("id", "placement", "genaParams", "creationDate", "status");
 
         return filterTable;
 	}
 	
-	private Container getContainer (List<GenaLaunch> genaLaunches) {
+	private Container getTableContainer (List<GenaLaunch> genaLaunches) {
 		IndexedContainer cont = new IndexedContainer();
 		
 		cont.addContainerProperty("id", Long.class, null);
@@ -113,11 +98,7 @@ public class ViewFactory {
         	cont.getContainerProperty(launch, "placement").setValue(launch.getGenaPlacement());
         	cont.getContainerProperty(launch, "genaParams").setValue(launch.getGenaParams());
         	cont.getContainerProperty(launch, "creationDate").setValue(launch.getCreationDate());
-        	GenaResult genaResult = launch.getGenaResult();
-        	if (genaResult != null) {
-        		cont.getContainerProperty(launch, "status").setValue(
-        				genaResult.getGenaResultStatus());
-        	}
+        	cont.getContainerProperty(launch, "status").setValue(launch.getGenaResultStatus());
         }
 		
 		return cont;

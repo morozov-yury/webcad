@@ -6,12 +6,10 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import diploma.webcad.core.model.User;
@@ -36,10 +34,6 @@ public class GenaLaunch implements Serializable {
 	@Column(name = "genaPlacement", nullable = false, unique = false)
 	private GenaPlacement genaPlacement;
 	
-	@OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER, 
-			orphanRemoval = true, targetEntity = GenaResult.class)
-	private GenaResult genaResult;
-	
 	@Column(name = "genaParams", nullable = false, unique = false, length = 64)
 	private String genaParams;
 	
@@ -48,6 +42,9 @@ public class GenaLaunch implements Serializable {
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
 	private FSResource resultResource;
+	
+	@Column(name = "genaResultStatus", nullable = false, unique = false)
+	private GenaResultStatus genaResultStatus;
 	
 	public GenaLaunch () {
 		setCreationDate(new Date());
@@ -75,14 +72,6 @@ public class GenaLaunch implements Serializable {
 
 	public void setGenaPlacement(GenaPlacement genaPlacement) {
 		this.genaPlacement = genaPlacement;
-	}
-
-	public GenaResult getGenaResult() {
-		return genaResult;
-	}
-
-	public void setGenaResult(GenaResult genaResult) {
-		this.genaResult = genaResult;
 	}
 
 	public String getGenaParams() {
@@ -115,6 +104,14 @@ public class GenaLaunch implements Serializable {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public GenaResultStatus getGenaResultStatus() {
+		return genaResultStatus;
+	}
+
+	public void setGenaResultStatus(GenaResultStatus genaResultStatus) {
+		this.genaResultStatus = genaResultStatus;
 	}
 
 }
