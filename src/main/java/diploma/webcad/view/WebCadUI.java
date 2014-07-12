@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.vaadin.alump.fancylayouts.FancyNotifications;
-import org.vaadin.alump.fancylayouts.gwt.client.shared.FancyNotificationsState.Position;
 import org.vaadin.artur.icepush.ICEPush;
 
 import ru.xpoft.vaadin.DiscoveryNavigator;
@@ -34,6 +32,7 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.client.component.Notificator;
+import diploma.webcad.view.dash.MainMenu;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
 
@@ -62,6 +61,8 @@ public class WebCadUI extends UI {
 	private ICEPush icePush = new ICEPush();
 	
 	private Notificator notificator;
+	
+	private MainMenu mainMenu = new MainMenu();
 
 	public static WebCadUI getCurrent() {
 		return (WebCadUI) UI.getCurrent();
@@ -171,10 +172,12 @@ public class WebCadUI extends UI {
 	}
 
 	public void navigateTo (String uri) {
+		getMainMenu().selectTab(uri);
 		getNavigator().navigateTo(uri);
 	}
 	
 	public void navigateTo (String uri, PageProperties pageProperties) {
+		getMainMenu().selectTab(uri);
 		if (pageProperties == null) {
 			getNavigator().navigateTo(uri);
 		}
@@ -198,5 +201,9 @@ public class WebCadUI extends UI {
 	public Notificator getNotificator () {
 		return notificator;
 	}
-	
+
+	public MainMenu getMainMenu() {
+		return mainMenu;
+	}
+
 }

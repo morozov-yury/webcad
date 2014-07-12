@@ -33,11 +33,11 @@ public class MainLayout extends CssLayout implements Layout {
 	
 	HelpOverlay greetingWindow;
 	
-	private MainMenu mainMenu;
-	
 	private CssLayout content;
 
 	private Component contentLayout;
+	
+	private VerticalLayout mainMenuWrapper;
 
 	private Label bg;
 
@@ -48,7 +48,6 @@ public class MainLayout extends CssLayout implements Layout {
 		addStyleName("root");
         setSizeFull();
         
-        mainMenu = new MainMenu();
         content = new CssLayout();
         content.setSizeFull();
         content.addStyleName("view-content");
@@ -72,8 +71,7 @@ public class MainLayout extends CssLayout implements Layout {
 		WebCadUI ui = WebCadUI.getCurrent();
 		ui.addWindow(greetingWindow);
 		
-		
-		
+		mainMenuWrapper.addComponent(ui.getMainMenu());
         super.attach();
 	}
 
@@ -145,8 +143,9 @@ public class MainLayout extends CssLayout implements Layout {
                         });
 
                         addComponent(new UserMenu());
-                        addComponent(mainMenu);
-                        setExpandRatio(mainMenu, 1);
+                        mainMenuWrapper = new VerticalLayout();
+                        addComponent(mainMenuWrapper);
+                        setExpandRatio(mainMenuWrapper, 1);
                     }
                 });
                 addComponent(content);
