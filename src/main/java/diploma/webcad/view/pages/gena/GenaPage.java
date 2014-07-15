@@ -188,8 +188,6 @@ public class GenaPage extends AbstractPage {
 			}
 		});
 		downloadButton.setVisible(false);
-		//downloadButton.addStyleName("default");
-		
 
         Button startButton = new Button("Start", new Button.ClickListener() {
 			private static final long serialVersionUID = 4434872155184459414L;

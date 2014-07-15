@@ -1,4 +1,4 @@
-package diploma.webcad.view.dash;
+package diploma.webcad.view.components;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.CssLayout;

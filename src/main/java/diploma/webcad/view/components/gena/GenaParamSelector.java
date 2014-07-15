@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.view.components.HorizontalOptionGroup;

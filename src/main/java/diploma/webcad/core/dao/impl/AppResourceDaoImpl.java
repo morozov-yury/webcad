@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppCategoryPrefix;
+import diploma.webcad.core.model.resource.AppResource;
 
 @Repository
 public class AppResourceDaoImpl extends

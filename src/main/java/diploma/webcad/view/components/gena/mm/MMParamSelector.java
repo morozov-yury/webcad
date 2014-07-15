@@ -7,7 +7,6 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.validator.BeanValidator;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.view.components.gena.MachineParamsSelector;
 import diploma.webcad.view.model.gena.GenaParam;

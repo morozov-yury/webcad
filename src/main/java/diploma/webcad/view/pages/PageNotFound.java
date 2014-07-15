@@ -3,9 +3,9 @@ package diploma.webcad.view.pages;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.vaadin.ui.Label;
-
 import ru.xpoft.vaadin.VaadinView;
+
+import com.vaadin.ui.Label;
 
 @Component
 @Scope("prototype")

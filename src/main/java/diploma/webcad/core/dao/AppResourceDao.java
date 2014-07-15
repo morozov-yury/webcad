@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppCategoryPrefix;
+import diploma.webcad.core.model.resource.AppResource;
 
 
 /**

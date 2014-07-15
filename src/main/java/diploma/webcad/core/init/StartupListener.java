@@ -1,10 +1,8 @@
 package diploma.webcad.core.init;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
 import diploma.webcad.core.dao.AppResourceDao;
-import diploma.webcad.core.dao.FileResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.data.appconstants.Constants;

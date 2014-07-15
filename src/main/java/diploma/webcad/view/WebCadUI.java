@@ -32,9 +32,10 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.service.RuntimeRegistrator;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.client.component.Notificator;
-import diploma.webcad.view.dash.MainMenu;
+import diploma.webcad.view.components.MainMenu;
 import diploma.webcad.view.layouts.MainLayout;
 import diploma.webcad.view.model.PageProperties;
+import diploma.webcad.view.pages.MainPage;
 
 @Component("webCadUI")
 @Title("WebCad")
@@ -62,7 +63,7 @@ public class WebCadUI extends UI {
 	
 	private Notificator notificator;
 	
-	private MainMenu mainMenu = new MainMenu();
+	private MainMenu mainMenu;
 
 	public static WebCadUI getCurrent() {
 		return (WebCadUI) UI.getCurrent();
@@ -71,6 +72,7 @@ public class WebCadUI extends UI {
 	public WebCadUI() {
 		addExtension(icePush);
 		notificator = new Notificator();
+		mainMenu = new MainMenu();
 	}
 
 	@Override
@@ -131,6 +133,8 @@ public class WebCadUI extends UI {
 		
 		getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
 		setPollInterval(1000);
+		
+		navigateTo(MainPage.NAME);
 	}
 
 	public Map<String, String[]> getRequestParams() {

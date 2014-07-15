@@ -1,4 +1,4 @@
-package diploma.webcad.view.dash;
+package diploma.webcad.view.layouts;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,7 +22,6 @@ import diploma.webcad.core.exception.UserAlreadySignedInException;
 import diploma.webcad.core.exception.WrongPasswordException;
 import diploma.webcad.core.service.SessionState;
 import diploma.webcad.view.WebCadUI;
-import diploma.webcad.view.layouts.MainLayout;
 
 @org.springframework.stereotype.Component	
 @Scope("prototype")

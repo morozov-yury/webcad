@@ -16,9 +16,7 @@ import diploma.webcad.core.init.SpringContext;
 import diploma.webcad.core.model.User;
 import diploma.webcad.view.Layout;
 import diploma.webcad.view.WebCadUI;
-import diploma.webcad.view.dash.HelpOverlay;
-import diploma.webcad.view.dash.LoginLayout;
-import diploma.webcad.view.dash.MainMenu;
+import diploma.webcad.view.components.HelpOverlay;
 import diploma.webcad.view.dash.UserMenu;
 
 @org.springframework.stereotype.Component	

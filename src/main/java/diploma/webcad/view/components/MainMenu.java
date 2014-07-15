@@ -1,4 +1,4 @@
-package diploma.webcad.view.dash;
+package diploma.webcad.view.components;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,8 +35,6 @@ public class MainMenu extends CssLayout {
         
         addButton("Главная", MainPage.NAME, "icon-home");
         addButton("Gena", GenaPage.NAME, "icon-gena");
-        addButton("Главная", MainPage.NAME, "icon-home");
-        addButton("Главная", MainPage.NAME, "icon-home");
         
         Component component = iterator().next();
         component.addStyleName("selected");
@@ -76,7 +74,7 @@ public class MainMenu extends CssLayout {
 	public void selectTab (String mapping) {
 		clearMenuSelection();
 		if (mapping == null) {
-			return;
+			mapping = "";
 		}
 		if (mapping.isEmpty()) {
 			iterator().next().addStyleName("selected");

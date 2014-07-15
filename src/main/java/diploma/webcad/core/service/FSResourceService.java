@@ -25,7 +25,6 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.model.resource.FSResourcePlacement;
 import diploma.webcad.core.model.resource.FSResourceType;
-import diploma.webcad.core.util.date.DateUtils;
 
 @Service
 @Scope("singleton")

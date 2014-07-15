@@ -2,8 +2,6 @@ package diploma.webcad.view.components.navigation;
 
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.view.WebCadUI;
