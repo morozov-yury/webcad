@@ -38,19 +38,16 @@ public class SshProperties implements UserInfo {
 
 	@Override
 	public boolean promptPassphrase(String arg0) {
-		log.info(arg0);
 		return true;
 	}
 
 	@Override
 	public boolean promptPassword(String arg0) {
-		//log.info(arg0);
 		return true;
 	}
 
 	@Override
 	public boolean promptYesNo(String arg0) {
-		//log.info(arg0);
 		return true;
 	}
 

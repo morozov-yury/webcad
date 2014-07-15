@@ -1,5 +1,7 @@
 package diploma.webcad.view.pages;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.context.annotation.Scope;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.jcraft.jsch.JSchException;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 
+import diploma.webcad.core.service.SshService;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.service.ViewFactory;
 
@@ -26,6 +30,9 @@ public class MainPage extends AbstractPage {
 	
 	@Autowired
 	private ViewFactory viewFactory;
+	
+	@Autowired
+	private SshService sshService;
 
 	public MainPage () {
 		super("Welcome to WebCad");
@@ -35,7 +42,22 @@ public class MainPage extends AbstractPage {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				WebCadUI.getCurrent().getNotificator().showError("Error", "Error");
+				
+				
+				try {
+					sshService.test();
+				} catch (JSchException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				//WebCadUI.getCurrent().getNotificator().showError("Error", "Error");
 			}
 		}));
 	}
