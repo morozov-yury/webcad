@@ -8,7 +8,7 @@ public class ExecResult {
 	private byte[] data;
 
 	public ExecResult() {
-		
+		exitStatus = 0;
 	}
 
 	public ExecResult(int exitStatus, byte[] data) {

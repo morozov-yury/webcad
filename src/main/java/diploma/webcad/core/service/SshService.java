@@ -1,13 +1,17 @@
 package diploma.webcad.core.service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.poi.hwpf.model.FSPADocumentPart;
 import org.apache.poi.util.ArrayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,8 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import diploma.webcad.core.model.ExecResult;
+import diploma.webcad.core.model.resource.FSResource;
+import diploma.webcad.core.model.resource.FSResourcePlacement;
 
 @Service
 @Scope("singleton")
@@ -35,6 +41,9 @@ public class SshService implements InitializingBean, DisposableBean   {
 	
 	@Autowired
 	private SshProperties sshProperties;
+	
+	@Autowired
+	private FSResourceService fsResourceService;
 
 	private Session session;
 
@@ -112,6 +121,105 @@ public class SshService implements InitializingBean, DisposableBean   {
 		execResult.setData(baos.toByteArray());
 
 		return execResult;
+	}
+	
+	public ExecResult transferResToNeclus (FSResource fsResource) throws Exception {
+		if (fsResource.getPlacement() != FSResourcePlacement.APP_SERVER) {
+			throw new IllegalStateException("FSResource must settle on app server");
+		}
+		
+		if (!session.isConnected()) {
+			session.connect();
+		}
+		
+		ExecResult execResult = null;
+		
+		String fsLocalPath = fsResourceService.getFSResourcePath(fsResource);
+		File file = new File(fsResourceService.getFSResourcePath(fsResource));
+		fsResource.setPlacement(FSResourcePlacement.NECLUS);
+		String fsRemotePath = fsResourceService.getFSResourcePath(fsResource);
+		
+		execResult = makeRemoteDir(fsResourceService.getFSResourceDirPath(fsResource));
+		if (execResult.getExitStatus() != 0) {
+			return execResult;
+		}
+		
+		String command = "scp -r -t " + fsRemotePath;
+		ChannelExec channel = (ChannelExec) session.openChannel("exec");
+		channel.setCommand(command);
+		
+		OutputStream out = channel.getOutputStream();
+		InputStream in = channel.getInputStream();
+		
+		channel.connect();
+		execResult = checkExexResult(in);
+		if (execResult.getExitStatus() != 0) {
+			return execResult;
+		}
+		
+		long filesize = file.length();
+		command = "C0644 " + filesize + " ";
+		
+		if (fsLocalPath.lastIndexOf('/') > 0 ){
+			command += fsLocalPath.substring(fsLocalPath.lastIndexOf('/') + 1);
+		} else{
+			command += fsLocalPath;
+		}
+		command += "\n";
+		
+		out.write(command.getBytes()); 
+		out.flush();
+		
+		execResult = checkExexResult(in);
+		if (execResult.getExitStatus() != 0) {
+			return execResult;
+		}
+		
+		FileInputStream  fis = new FileInputStream(fsLocalPath);
+		byte[] buf = new byte[1024];
+		while (true) {
+			int len = fis.read(buf, 0, buf.length);
+			if (len <= 0) break;
+			out.write(buf, 0, len); //out.flush();
+		}
+		fis.close();
+		
+		out.write(0);
+		out.flush();
+		
+		execResult = checkExexResult(in);
+		if (execResult.getExitStatus() != 0) {
+			return execResult;
+		}
+		
+		out.close();
+		channel.disconnect();
+		
+		fsResourceService.saveFSResource(fsResource);
+		
+		execResult.setExitStatus(0);
+		execResult.setData("Transfer was successful".getBytes());
+		return execResult;
+	}
+	
+	private ExecResult checkExexResult (InputStream in) throws IOException {
+		ExecResult execResult = new ExecResult();
+		if (in.read() != 0) {
+			StringBuffer sb = new StringBuffer();
+			int c;
+			do {
+				c=in.read();
+				sb.append((char)c);
+			}
+			while(c!='\n');
+			execResult.setData(sb.toString().getBytes());
+		}
+		return execResult;
+	}
+	
+	public ExecResult makeRemoteDir (String dirPath) throws Exception {
+		String command = "mkdir -p " + dirPath;
+		return exec(command);
 	}
 
 }

@@ -33,10 +33,10 @@ public class FSResourceService {
 	private static Logger log = LoggerFactory.getLogger(FSResourceService.class);
 	
 	@Value("${fileresource.placement.app_server.path}")
-	private String appServPlacementPath;
+	private String appServResPlacementPath;
 	
 	@Value("${fileresource.placement.neclus.path}")
-	private String neclusPlacementPath;
+	private String neclusResPlacementPath;
 	
 	@Value("${fileresource.placement.type}")
 	private String defFilesPlacement;
@@ -105,12 +105,32 @@ public class FSResourceService {
 		
 		switch (fsResource.getPlacement()) {
 		case APP_SERVER:
-			filePath.append(appServPlacementPath);
+			filePath.append(appServResPlacementPath);
 			filePath.append("/").append(userId).append("/").append(fileResourceId);
 			return filePath.toString();
 		case NECLUS:
-			filePath.append(neclusPlacementPath);
+			filePath.append(neclusResPlacementPath);
 			filePath.append("/").append(userId).append("/").append(fileResourceId);
+			return filePath.toString();
+		}
+		
+		throw new IllegalStateException("FileResourcePlacement " + fsResource.getPlacement() 
+				+ " isn't implemented");
+	}
+	
+	public String getFSResourceDirPath (FSResource fsResource) {
+		Long userId = fsResource.getUser().getId();
+		Long fileResourceId = fsResource.getId();
+		StringBuilder filePath = new StringBuilder();
+		
+		switch (fsResource.getPlacement()) {
+		case APP_SERVER:
+			filePath.append(appServResPlacementPath);
+			filePath.append("/").append(userId).append("/").append(fileResourceId);
+			return filePath.toString();
+		case NECLUS:
+			filePath.append(neclusResPlacementPath);
+			filePath.append("/").append(userId);
 			return filePath.toString();
 		}
 		
@@ -201,6 +221,10 @@ public class FSResourceService {
 			}
 		}
 		throw new IllegalStateException("Only APP_SERVER file placement allowed");
+	}
+	
+	public void saveFSResource (FSResource fsResource) {
+		fileResourceDao.saveOrUpdate(fsResource);
 	}
 
 }
