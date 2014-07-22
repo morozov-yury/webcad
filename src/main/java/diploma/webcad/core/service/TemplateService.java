@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import diploma.webcad.core.dao.TemplateDao;
-import diploma.webcad.core.model.template.Template;
+import diploma.webcad.core.model.Template;
 
 @Service
 @Scope("singleton")

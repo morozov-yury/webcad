@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.GenaLaunchDao;
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.gena.GenaLaunch;
+import diploma.webcad.core.model.modelling.GenaLaunch;
 
 @Repository
 public class GenaLaunchDaoImpl extends BaseDaoImpl<GenaLaunch, Long> implements

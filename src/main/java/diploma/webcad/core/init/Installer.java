@@ -12,9 +12,9 @@ import org.apache.log4j.Logger;
 
 import diploma.webcad.common.content.Resources;
 import diploma.webcad.common.content.UTF8Control;
+import diploma.webcad.core.model.AppConstant;
+import diploma.webcad.core.model.AppConstantType;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.constant.AppConstant;
-import diploma.webcad.core.model.constant.AppConstantType;
 import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppValue;
 import diploma.webcad.core.service.ContentService;

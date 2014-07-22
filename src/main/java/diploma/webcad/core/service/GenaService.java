@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import diploma.webcad.core.dao.GenaLaunchDao;
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.gena.GenaLaunch;
-import diploma.webcad.core.model.gena.GenaPlacement;
-import diploma.webcad.core.model.gena.GenaResultStatus;
+import diploma.webcad.core.model.modelling.GenaLaunch;
+import diploma.webcad.core.model.modelling.GenaPlacement;
+import diploma.webcad.core.model.modelling.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
 
 @Service

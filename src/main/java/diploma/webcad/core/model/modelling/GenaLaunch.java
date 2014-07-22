@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.gena;
+package diploma.webcad.core.model.modelling;
 
 import java.io.Serializable;
 import java.util.Date;

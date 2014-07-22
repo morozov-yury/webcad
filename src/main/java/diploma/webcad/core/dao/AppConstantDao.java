@@ -1,6 +1,6 @@
 package diploma.webcad.core.dao;
 
-import diploma.webcad.core.model.constant.AppConstant;
+import diploma.webcad.core.model.AppConstant;
 
 /**
  * @author Arktos

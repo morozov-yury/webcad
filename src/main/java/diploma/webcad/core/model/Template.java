@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.template;
+package diploma.webcad.core.model;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -13,16 +13,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyColumn;
 
-import diploma.webcad.core.model.Language;
-
 @Entity
 public class Template implements Serializable {
 	
 	private static final long serialVersionUID = -9215483508114784752L;
 
+	@Id
+    @Column(name = "id")
     private String id;
+    
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "TemplatesTitles", joinColumns = @JoinColumn(name = "id"))
+	@MapKeyColumn(name = "locale")
+	@Column(name = "value", length = 1024)
     private Map<Language, String> titles;
+    
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "TemplatesBody", joinColumns = @JoinColumn(name = "id"))
+	@MapKeyColumn(name = "locale")
+	@Column(name = "value", length = 1024)
     private Map<Language, String> bodies;
+    
     private TemplateAccessType templateAccessType;
     
     public Template() {
@@ -34,9 +45,7 @@ public class Template implements Serializable {
 		this();
 		setId(id);
 	}
-
-	@Id
-    @Column(name = "id")
+	
 	public String getId() {
 		return id;
 	}
@@ -45,10 +54,6 @@ public class Template implements Serializable {
 		this.id = id;
 	}
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinTable(name = "TemplatesTitles", joinColumns = @JoinColumn(name = "id"))
-	@MapKeyColumn(name = "locale")
-	@Column(name = "value", length = 1024)
 	public Map<Language, String> getTitles() {
 		return titles;
 	}
@@ -57,10 +62,6 @@ public class Template implements Serializable {
 		this.titles = titles;
 	}
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinTable(name = "TemplatesBody", joinColumns = @JoinColumn(name = "id"))
-	@MapKeyColumn(name = "locale")
-	@Column(name = "value", length = 1024)
 	public Map<Language, String> getBodies() {
 		return bodies;
 	}

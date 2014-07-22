@@ -17,9 +17,9 @@ import com.vaadin.ui.CustomTable.RowHeaderMode;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 
-import diploma.webcad.core.model.gena.GenaLaunch;
-import diploma.webcad.core.model.gena.GenaPlacement;
-import diploma.webcad.core.model.gena.GenaResultStatus;
+import diploma.webcad.core.model.modelling.GenaLaunch;
+import diploma.webcad.core.model.modelling.GenaPlacement;
+import diploma.webcad.core.model.modelling.GenaResultStatus;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")

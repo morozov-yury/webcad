@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.constant;
+package diploma.webcad.core.model;
 
 import java.io.Serializable;
 

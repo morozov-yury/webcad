@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.gena;
+package diploma.webcad.core.model.modelling;
 
 public enum GenaResultStatus {
 	
