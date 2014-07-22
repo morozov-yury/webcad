@@ -43,25 +43,6 @@ public class Language implements Serializable, Comparable<Language> {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		Language other = (Language) obj;
-		if (iso == null) {
-			if (other.iso != null) {
-				return false;
-			}
-		} else if (!iso.equals(other.iso)) {
-			return false;
-		}
-		return true;
-	}
-	
-	@Override
 	public String toString() {
 		return name;
 	}
@@ -70,4 +51,36 @@ public class Language implements Serializable, Comparable<Language> {
 	public int compareTo(Language o) {
 		return iso.compareTo(o.iso);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getIso() == null) ? 0 : getIso().hashCode());
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Language other = (Language) obj;
+		if (getIso() == null) {
+			if (other.getIso() != null)
+				return false;
+		} else if (!getIso().equals(other.getIso()))
+			return false;
+		if (getName() == null) {
+			if (other.getName() != null)
+				return false;
+		} else if (!getName().equals(other.getName()))
+			return false;
+		return true;
+	}
+	
 }

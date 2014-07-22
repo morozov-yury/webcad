@@ -96,4 +96,61 @@ public class User implements Serializable {
 		this.userRole = userRole;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result
+				+ ((getLanguage() == null) ? 0 : getLanguage().hashCode());
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+		result = prime * result
+				+ ((getPassword() == null) ? 0 : getPassword().hashCode());
+		result = prime
+				* result
+				+ ((getRegistrationDate() == null) ? 0 : getRegistrationDate().hashCode());
+		result = prime * result
+				+ ((getUserRole() == null) ? 0 : getUserRole().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		if (getLanguage() == null) {
+			if (other.getLanguage() != null)
+				return false;
+		} else if (!getLanguage().equals(other.getLanguage()))
+			return false;
+		if (getName() == null) {
+			if (other.getName() != null)
+				return false;
+		} else if (!getName().equals(other.getName()))
+			return false;
+		if (getPassword() == null) {
+			if (other.getPassword() != null)
+				return false;
+		} else if (!getPassword().equals(other.getPassword()))
+			return false;
+		if (getRegistrationDate() == null) {
+			if (other.getRegistrationDate() != null)
+				return false;
+		} else if (!getRegistrationDate().equals(other.getRegistrationDate()))
+			return false;
+		if (getUserRole() != other.getUserRole())
+			return false;
+		return true;
+	}
+
 }

@@ -39,5 +39,4 @@ public class ExecResult {
 				+ new String(data) + "]";
 	}
 
-	
 }
