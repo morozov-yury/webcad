@@ -1,0 +1,420 @@
+<families>
+
+	<family name="aartix7" description="Automotive Artix7">
+		<device name="xa7a100t"></device>
+	</family>
+	
+	<family name="acr2" description="Automotive CoolRunner2">
+		<device name="xa2c32a"></device>
+		<device name="xa2c64a"></device>
+		<device name="xa2c128"></device>
+		<device name="xa2c256"></device>
+		<device name="xa2c384"></device>
+	</family>
+	
+
+	<family name="artix7" description="Artix7">
+		<device name="xc7a100t"></device>
+		<device name="xc7a200t"></device>
+	</family>
+	
+	<family name="artix7l" description="Artix7 Low Voltage">
+		<device name="xc7a100tl"></device>
+		<device name="xc7a200tl"></device>
+	</family>
+	
+	<family name="aspartan3" description="Automotive Spartan3">
+		<device name="xa3s50"></device>
+		<device name="xa3s200"></device>
+		<device name="xa3s400"></device>
+		<device name="xa3s1000"></device>
+		<device name="xa3s1500"></device>
+	</family>
+	
+	<family name="aspartan3a" description="Automotive Spartan3A">
+		<device name="xa3s200a"></device>
+		<device name="xa3s400a"></device>
+		<device name="xa3s700a"></device>
+		<device name="xa3s1400a"></device>
+	</family>
+	
+	<family name="aspartan3adsp" description="Automotive Spartan-3A DSP">
+		<device name="xa3sd1800a"></device>
+		<device name="xa3sd3400a"></device>
+	</family>
+	
+	<family name="aspartan3e" description="Automotive Spartan3E">
+		<device name="xa3s100e"></device>
+		<device name="xa3s250e"></device>
+		<device name="xa3s500e"></device>
+		<device name="xa3s1200e"></device>
+		<device name="xa3s1600e"></device>
+	</family>
+	
+	<family name="aspartan6" description="Automotive Spartan6">
+		<device name="xa6slx4"></device>
+		<device name="xa6slx9"></device>
+		<device name="xa6slx16"></device>
+		<device name="xa6slx25"></device>
+		<device name="xa6slx25t"></device>
+		<device name="xa6slx45"></device>
+		<device name="xa6slx45t"></device>
+		<device name="xa6slx75"></device>
+		<device name="xa6slx75t"></device>
+		<device name="xa6slx100"></device>
+	</family>
+
+	<family name="azynq" description="Automotive Zynq">
+		<device name="xa7z010"></device>
+		<device name="xa7z020"></device>
+	</family>
+	
+	<family name="kintex7" description="">
+		<device name="xc7k70t"></device>
+		<device name="xc7k160t"></device>
+		<device name="xc7k325t"></device>
+		<device name="xc7k355t"></device>
+		<device name="xc7k410t"></device>
+		<device name="xc7k420t"></device>
+		<device name="xc7k480t"></device>
+	</family>
+	
+	<family name="kintex7l" description="Kintex7 Low Voltage">
+		<device name="xc7k70tl"></device>
+		<device name="xc7k160tl"></device>
+		<device name="xc7k325tl"></device>
+		<device name="xc7k355tl"></device>
+		<device name="xc7k410tl"></device>
+		<device name="xc7k420tl"></device>
+		<device name="xc7k480tl"></device>
+	</family>
+	
+	<family name="qartix7" description="Defense-Grade Artix7">
+		<device name="xq7a100t"></device>
+		<device name="xq7a200t"></device>
+	</family>
+	
+	<family name="qartix7l" description="Defense-Grade Artix7 Low Voltag">
+		<device name="xq7a100tl"></device>
+		<device name="xq7a200tl"></device>
+	</family>
+	
+	<family name="qkintex7" description="Defense-Grade Kintex7">
+		<device name="xq7k325t"></device>
+		<device name="xq7k410t"></device>
+	</family>
+	
+	<family name="qkintex7l" description="Defense-Grade Kintex7 Low Voltage">
+		<device name="xq7k325tl"></device>
+		<device name="xq7k410tl"></device>
+	</family>
+	
+	<family name="qrvirtex4" description="Space-Grade Virtex-4QV">
+		<device name="xqr4vsx55"></device>
+		<device name="xqr4vfx60"></device>
+		<device name="xqr4vfx140"></device>
+		<device name="xqr4vlx200"></device>
+	</family>
+	
+	<family name="qspartan6" description="Defense-Grade Spartan-6Q">
+		<device name="xq6slx75"></device>
+		<device name="xq6slx75t"></device>
+		<device name="xq6slx150"></device>
+		<device name="xq6slx150t"></device>
+	</family>
+	
+	<family name="qspartan6l" description="Defense-Grade Spartan-6Q Lower Power">
+		<device name="xq6slx75l"></device>
+		<device name="xq6slx150l"></device>
+	</family>
+	
+	<family name="qvirtex4" description="Defense-Grade Virtex-4Q">
+		<device name="xq4vlx25"></device>
+		<device name="xq4vlx40"></device>
+		<device name="xq4vsx55"></device>
+		<device name="xq4vfx60"></device>
+		<device name="xq4vlx60"></device>
+		<device name="xq4vfx100"></device>
+		<device name="xq4vlx100"></device>
+		<device name="xq4vlx160"></device>
+	</family>
+	
+	<family name="qvirtex5" description="Defense-Grade Virtex-5Q">
+		<device name="xq5vlx30t"></device>
+		<device name="xq5vsx50t"></device>
+		<device name="xq5vfx70t"></device>
+		<device name="xq5vlx85"></device>
+		<device name="xq5vsx95t"></device>
+		<device name="xq5vfx100t"></device>
+		<device name="xq5vlx110"></device>
+		<device name="xq5vlx110t"></device>
+		<device name="xq5vfx130t"></device>
+		<device name="xq5vlx155t"></device>
+		<device name="xq5vfx200t"></device>
+		<device name="xq5vlx220t"></device>
+		<device name="xq5vsx240t"></device>
+		<device name="xq5vlx330t"></device>
+	</family>
+	
+	<family name="qvirtex6" description="Defense-Grade Virtex-6Q">
+		<device name="xq6vlx130t"></device>
+		<device name="xq6vlx240t"></device>
+		<device name="xq6vsx315t"></device>
+		<device name="xq6vsx475t"></device>
+		<device name="xq6vlx550t"></device>
+	</family>
+	
+	<family name="qvirtex6l" description="Defense-Grade Virtex-6Q Lower Power">
+		<device name="xq6vlx130tl"></device>
+		<device name="xq6vlx240tl"></device>
+		<device name="xq6vsx315tl"></device>
+		<device name="xq6vsx475tl"></device>
+		<device name="xq6vlx550tl"></device>
+	</family>
+	
+	<family name="qvirtex7" description="Defense-Grade Virtex7">
+		<device name="xq7vx330t"></device>
+		<device name="xq7vx485t"></device>
+		<device name="xq7v585t"></device>
+		<device name="xq7vx690t"></device>
+		<device name="xq7vx980t"></device>
+	</family>
+	
+	<family name="qvirtex7l" description="Defense-Grade Virtex7 Low Voltage">
+		<device name="xq7vx330tl"></device>
+		<device name="xq7vx485tl"></device>
+		<device name="xq7v585tl"></device>
+		<device name="xq7vx690tl"></device>
+		<device name="xq7vx980tl"></device>
+	</family>
+	
+	<family name="qzynq" description="Defense-Grade Zynq">
+		<device name="xq7z020"></device>
+		<device name="xq7z030"></device>
+		<device name="xq7z045"></device>
+	</family>
+	
+	<family name="spartan3" description="Spartan3">
+		<device name="xc3s50"></device>
+		<device name="xc3s200"></device>
+		<device name="xc3s400"></device>
+		<device name="xc3s1000"></device>
+		<device name="xc3s1000l"></device>
+		<device name="xc3s1500"></device>
+		<device name="xc3s1500l"></device>
+		<device name="xc3s2000"></device>
+		<device name="xc3s4000"></device>
+		<device name="xc3s4000l"></device>
+		<device name="xc3s5000"></device>
+	</family>
+	
+	<family name="spartan3a" description="Spartan3A and Spartan3AN">
+		<device name="xc3s50a"></device>
+		<device name="xc3s50an"></device>
+		<device name="xc3s200a"></device>
+		<device name="xc3s200an"></device>
+		<device name="xc3s400a"></device>
+		<device name="xc3s400an"></device>
+		<device name="xc3s700a"></device>
+		<device name="xc3s700an"></device>
+		<device name="xc3s1400a"></device>
+		<device name="xc3s1400an"></device>
+	</family>
+	
+	<family name="spartan3adsp" description="Spartan-3A DSP">
+		<device name="xc3sd1800a"></device>
+		<device name="xc3sd3400a"></device>
+	</family>
+	
+	<family name="spartan3e" description="">
+		<device name="xc3s100e"></device>
+		<device name="xc3s250e"></device>
+		<device name="xc3s500e"></device>
+		<device name="xc3s1200e"></device>
+		<device name="xc3s1600e"></device>
+	</family>
+	
+	<family name="spartan6" description="Spartan6">
+		<device name="xc6slx4"></device>
+		<device name="xc6slx9"></device>
+		<device name="xc6slx16"></device>
+		<device name="xc6slx25"></device>
+		<device name="xc6slx25t"></device>
+		<device name="xc6slx45"></device>
+		<device name="xc6slx45t"></device>
+		<device name="xc6slx75"></device>
+		<device name="xc6slx75t"></device>
+		<device name="xc6slx100"></device>
+		<device name="xc6slx100t"></device>
+		<device name="xc6slx150"></device>
+		<device name="xc6slx150t"></device>
+	</family>
+	
+	<family name="spartan6l" description="Spartan6 Lower Power">
+		<device name="xc6slx4l"></device>
+		<device name="xc6slx9l"></device>
+		<device name="xc6slx16l"></device>
+		<device name="xc6slx25l"></device>
+		<device name="xc6slx45l"></device>
+		<device name="xc6slx75l"></device>
+		<device name="xc6slx100l"></device>
+		<device name="xc6slx150l"></device>
+	</family>
+	
+	<family name="virtex4" description="Virtex4">
+		<device name="xc4vfx12"></device>
+		<device name="xc4vlx15"></device>
+		<device name="xc4vfx20"></device>
+		<device name="xc4vlx25"></device>
+		<device name="xc4vsx25"></device>
+		<device name="xc4vsx35"></device>
+		<device name="xc4vfx40"></device>
+		<device name="xc4vlx40"></device>
+		<device name="xc4vsx55"></device>
+		<device name="xc4vfx60"></device>
+		<device name="xc4vlx60"></device>
+		<device name="xc4vlx80"></device>
+		<device name="xc4vfx100"></device>
+		<device name="xc4vlx100"></device>
+		<device name="xc4vfx140"></device>
+		<device name="xc4vlx160"></device>
+		<device name="xc4vlx200"></device>
+	</family>
+	
+	<family name="virtex5" description="Virtex5">
+		<device name="xc5vlx20t"></device>
+		<device name="xc5vlx30"></device>
+		<device name="xc5vfx30t"></device>
+		<device name="xc5vlx30t"></device>
+		<device name="xc5vsx35t"></device>
+		<device name="xc5vlx50"></device>
+		<device name="xc5vlx50t"></device>
+		<device name="xc5vsx50t"></device>
+		<device name="xc5vfx70t"></device>
+		<device name="xc5vlx85"></device>
+		<device name="xc5vlx85t"></device>
+		<device name="xc5vsx95t"></device>
+		<device name="xc5vfx100t"></device>
+		<device name="xc5vlx110"></device>
+		<device name="xc5vlx110t"></device>
+		<device name="xc5vfx130t"></device>
+		<device name="xc5vtx150t"></device>
+		<device name="xc5vlx155"></device>
+		<device name="xc5vlx155t"></device>
+		<device name="xc5vfx200t"></device>
+		<device name="xc5vlx220"></device>
+		<device name="xc5vlx220t"></device>
+		<device name="xc5vsx240t"></device>
+		<device name="xc5vtx240t"></device>
+		<device name="xc5vlx330"></device>
+		<device name="xc5vlx330t"></device>
+	</family>
+	
+	<family name="virtex6" description="Virtex6">
+		<device name="xc6vcx75t"></device>
+		<device name="xc6vlx75t"></device>
+		<device name="xc6vcx130t"></device>
+		<device name="xc6vlx130t"></device>
+		<device name="xc6vcx195t"></device>
+		<device name="xc6vlx195t"></device>
+		<device name="xc6vcx240t"></device>
+		<device name="xc6vlx240t"></device>
+		<device name="xc6vhx250t"></device>
+		<device name="xc6vhx255t"></device>
+		<device name="xc6vsx315t"></device>
+		<device name="xc6vlx365t"></device>
+		<device name="xc6vhx380t"></device>
+		<device name="xc6vsx475t"></device>
+		<device name="xc6vlx550t"></device>
+		<device name="xc6vhx565t"></device>
+		<device name="xc6vlx760"></device>
+	</family>
+	
+	<family name="virtex6l" description="Virtex6 Lower Power">
+		<device name="xc6vlx75tl"></device>
+		<device name="xc6vlx130tl"></device>
+		<device name="xc6vlx195tl"></device>
+		<device name="xc6vlx240tl"></device>
+		<device name="xc6vsx315tl"></device>
+		<device name="xc6vlx365tl"></device>
+		<device name="xc6vsx475tl"></device>
+		<device name="xc6vlx550tl"></device>
+		<device name="xc6vlx760l"></device>
+	</family>
+	
+	<family name="virtex7" description="Virtex7">
+		<device name="xc7vx330t"></device>
+		<device name="xc7vx415t"></device>
+		<device name="xc7vx485t"></device>
+		<device name="xc7vx550t"></device>
+		<device name="xc7vh580t"></device>
+		<device name="xc7v585t"></device>
+		<device name="xc7vx690t"></device>
+		<device name="xc7vh870t"></device>
+		<device name="xc7vx980t"></device>
+		<device name="xc7vx1140t"></device>
+		<device name="xc7v2000t"></device>
+	</family>
+	
+	<family name="virtex7l" description="Virtex7 Low Voltage">
+		<device name="xc7vx330tl"></device>
+		<device name="xc7vx415tl"></device>
+		<device name="xc7vx485tl"></device>
+		<device name="xc7vx550tl"></device>
+		<device name="xc7v585tl"></device>
+		<device name="xc7vx690tl"></device>
+		<device name="xc7vx980tl"></device>
+		<device name="xc7vx1140tl"></device>
+		<device name="xc7v2000tl"></device>
+	</family>
+	
+	<family name="xa9500xl" description="Automotive 9500XL">
+		<device name="xa9536xl"></device>
+		<device name="xa9572xl"></device>
+		<device name="xa95144xl"></device>
+	</family>
+	
+	<family name="xbr" description="CoolRunner2 CPLDS">
+		<device name="xc2c32"></device>
+		<device name="xc2c32a"></device>
+		<device name="xc2c64"></device>
+		<device name="xc2c64a"></device>
+		<device name="xc2c128"></device>
+		<device name="xc2c256"></device>
+		<device name="xc2c384"></device>
+		<device name="xc2c512"></device>
+	</family>
+	
+	<family name="xc9500" description="XC9500 CPLD">
+		<device name="xc9536"></device>
+		<device name="xc9572"></device>
+		<device name="xc95108"></device>
+		<device name="xc95144"></device>
+		<device name="xc95216"></device>
+		<device name="xc95288"></device>
+	</family>
+	
+	<family name="xc9500xl" description="XC9500XL CPLDs">
+		<device name="xc9536xl"></device>
+		<device name="xc9572xl"></device>
+		<device name="xc95144xl"></device>
+		<device name="xc95288xl"></device>
+	</family>
+	
+	<family name="xpla3" description="CoolRunner XPLA3 CPLDS">
+		<device name="xcr3032xl"></device>
+		<device name="xcr3064xl"></device>
+		<device name="xcr3128xl"></device>
+		<device name="xcr3256xl"></device>
+		<device name="xcr3384xl"></device>
+		<device name="xcr3512xl"></device>
+	</family>
+	
+	<family name="zynq" description="Zynq">
+		<device name="xc7z010"></device>
+		<device name="xc7z020"></device>
+		<device name="xc7z030"></device>
+		<device name="xc7z045"></device>
+	</family>
+	
+</families>
