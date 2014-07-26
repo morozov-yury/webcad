@@ -6,7 +6,11 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.tepi.filtertable.FilterTable;
 
+import scala.annotation.meta.setter;
+
 import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -17,6 +21,7 @@ import com.vaadin.ui.CustomTable.RowHeaderMode;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 
+import diploma.webcad.core.model.modelling.Device;
 import diploma.webcad.core.model.modelling.GenaLaunch;
 import diploma.webcad.core.model.modelling.GenaPlacement;
 import diploma.webcad.core.model.modelling.GenaResultStatus;
@@ -76,7 +81,7 @@ public class ViewFactory {
         filterTable.setRowHeaderMode(RowHeaderMode.INDEX);
         filterTable.setColumnCollapsingAllowed(true);
         filterTable.setColumnReorderingAllowed(true);
-        filterTable.setContainerDataSource(getTableContainer(genaLaunches));
+        filterTable.setContainerDataSource(getLaunchesContainer(genaLaunches));
         filterTable.setColumnCollapsed("state", true);
         filterTable.setVisibleColumns("id", "placement", "genaParams", "creationDate", "status");
         filterTable.setSortContainerPropertyId("creationDate");
@@ -85,7 +90,7 @@ public class ViewFactory {
         return filterTable;
 	}
 	
-	public Container getTableContainer (List<GenaLaunch> genaLaunches) {
+	public Container getLaunchesContainer (List<GenaLaunch> genaLaunches) {
 		IndexedContainer cont = new IndexedContainer();
 		
 		cont.addContainerProperty("id", Long.class, null);
@@ -104,6 +109,27 @@ public class ViewFactory {
         }
 		
 		return cont;
+	}
+	
+	public HierarchicalContainer getDevicesContainer (List<Device> devices) {
+		HierarchicalContainer container = new HierarchicalContainer();
+		
+		container.addContainerProperty("name", String.class, "");
+		
+		for (Device device : devices) {
+			String familyName = device.getDeviceFamily().getName();
+			if (container.getItem(familyName) == null) {
+				Item parent = container.addItem(familyName);
+				parent.getItemProperty("name").setValue(device.getDeviceFamily().getDescription());
+			}
+			
+			Item item = container.addItem(device.getName());
+			container.setChildrenAllowed(device.getName(), false);
+			container.setParent(device.getName(), familyName);
+			item.getItemProperty("name").setValue(device.getName());
+		}
+		
+		return container;
 	}
 
 }

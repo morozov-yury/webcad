@@ -1,4 +1,12 @@
 @mixin webcad {
+
+	.device-selector-tree-wrapper {
+		border: 1px solid rgb(108, 115, 122);
+		overflow-y: auto;
+		overflow-x: hidden;
+		background-color: #ffffff;
+		padding: 5px;
+	}
 	
 	.webcad-abstract-page {
 		

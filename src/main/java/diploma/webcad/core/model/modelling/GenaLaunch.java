@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.resource.FSResource;
@@ -22,16 +24,16 @@ public class GenaLaunch implements Serializable {
 	private static final long serialVersionUID = 1900655406665158287L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, optional = false)
+	@ManyToOne(targetEntity = User.class, optional = false)
 	private User user;
 	
-	@Column(name = "creationDate", nullable = false, unique = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@Column(name = "genaPlacement", nullable = false, unique = false)
+	@Column(name = "genaPlacement", nullable = false)
 	private GenaPlacement genaPlacement;
 	
 	@Column(name = "genaParams", nullable = false, unique = false, length = 64)
@@ -43,7 +45,7 @@ public class GenaLaunch implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
 	private FSResource resultResource;
 	
-	@Column(name = "genaResultStatus", nullable = false, unique = false)
+	@Column(name = "genaResultStatus", nullable = false)
 	private GenaResultStatus genaResultStatus;
 	
 	public GenaLaunch () {
@@ -112,6 +114,74 @@ public class GenaLaunch implements Serializable {
 
 	public void setGenaResultStatus(GenaResultStatus genaResultStatus) {
 		this.genaResultStatus = genaResultStatus;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+		result = prime * result
+				+ ((getGenaParams() == null) ? 0 : getGenaParams().hashCode());
+		result = prime * result
+				+ ((getGenaPlacement() == null) ? 0 : getGenaPlacement().hashCode());
+		result = prime
+				* result
+				+ ((getGenaResultStatus() == null) ? 0 : getGenaResultStatus().hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result
+				+ ((getInputResource() == null) ? 0 : getInputResource().hashCode());
+		result = prime * result
+				+ ((getResultResource() == null) ? 0 : getResultResource().hashCode());
+		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GenaLaunch other = (GenaLaunch) obj;
+		if (getCreationDate() == null) {
+			if (other.getCreationDate() != null)
+				return false;
+		} else if (!getCreationDate().equals(other.getCreationDate()))
+			return false;
+		if (getGenaParams() == null) {
+			if (other.getGenaParams() != null)
+				return false;
+		} else if (!getGenaParams().equals(other.getGenaParams()))
+			return false;
+		if (getGenaPlacement() != other.getGenaPlacement())
+			return false;
+		if (getGenaResultStatus() != other.getGenaResultStatus())
+			return false;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		if (getInputResource() == null) {
+			if (other.getInputResource() != null)
+				return false;
+		} else if (!getInputResource().equals(other.getInputResource()))
+			return false;
+		if (getResultResource() == null) {
+			if (other.getResultResource() != null)
+				return false;
+		} else if (!getResultResource().equals(other.getResultResource()))
+			return false;
+		if (getUser() == null) {
+			if (other.getUser() != null)
+				return false;
+		} else if (!getUser().equals(other.getUser()))
+			return false;
+		return true;
 	}
 
 }

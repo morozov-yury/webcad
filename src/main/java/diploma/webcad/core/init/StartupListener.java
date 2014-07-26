@@ -36,63 +36,73 @@ import diploma.webcad.core.data.templates.XmlTemplate;
 import diploma.webcad.core.data.templates.XmlTemplates;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.Template;
+import diploma.webcad.core.model.modelling.Device;
+import diploma.webcad.core.model.modelling.DeviceFamilies;
+import diploma.webcad.core.model.modelling.DeviceFamily;
 import diploma.webcad.core.model.resource.AppResource;
 import diploma.webcad.core.model.resource.AppValue;
 import diploma.webcad.core.service.SystemService;
+import diploma.webcad.core.service.XilinxService;
 
 public class StartupListener implements ServletContextListener {
 	
 	private static Logger log = LoggerFactory.getLogger(StartupListener.class);
+	
+	private static String familyDevicesFilePath = "/WEB-INF/classes/families_devices.xml";
+	
+	private static String tamplatesFilePath = "/WEB-INF/classes/templates/templates.xml";
+	
+	private static String constantFilePath = "/WEB-INF/classes/constants.xml";
 
 	private ServletContext servletContext;
+
+	private SpringContext helper;
 
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		servletContext = servletContextEvent.getServletContext();
 		
-		final SpringContext helper = new SpringContext(servletContextEvent.getServletContext());
+		helper = new SpringContext(servletContextEvent.getServletContext());
 		TransactionTemplate transactionTemplate = helper.getBean(TransactionTemplate.class);
 
 		transactionTemplate.execute(new TransactionCallback<Void>() {
 			@Override
 			public Void doInTransaction(TransactionStatus status) {
 				try {
-					loadConstants(helper);
-					
-					createFileResourceFolders(helper);
+					loadConstants();
+					loadFamilyDevices();
+					createFileResourceFolders();
 			
-					if (!installed(helper)) {
+					if (!installed()) {
 						log.info("INSTALLATION REQUIRED. START.");
 						Installer installer = new Installer(helper, servletContext);
 						installer.install();
 					}
 			
 					long currentTimeMillis = System.currentTimeMillis();
-					loadApplicationResources(helper);
+					loadApplicationResources();
 					log.info("  --> loadApplicationResources done. {}", (System.currentTimeMillis() - currentTimeMillis));
 					currentTimeMillis = System.currentTimeMillis();
 					//loadTemplates(helper);
 					log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
 					log.info("--> Startup initialization done.");
 					
-				} catch (RuntimeException e) {
+				} catch (Exception e) {
+					log.info("{}", e);
 					status.setRollbackOnly();
-					throw e;
-				} catch (IOException e) {
-					status.setRollbackOnly();
-					throw new RuntimeException("");
-				}
+					throw new RuntimeException(e.getMessage());
+				} 
 				return null;
 			}
 		});
 
 	}
 
-	private boolean installed(SpringContext helper) {
+	private boolean installed() {
 		String installed = helper.getBean(SystemService.class).getConstantValue("installed");
 		return installed.startsWith("installed");
 	}
 	
-	private void createFileResourceFolders (SpringContext helper) throws IOException {
+	private void createFileResourceFolders () throws IOException {
 		PropertiesFactoryBean propertiesFactory = helper.getBean(PropertiesFactoryBean.class);
 		Properties properties = propertiesFactory.getObject();
 		
@@ -100,7 +110,7 @@ public class StartupListener implements ServletContextListener {
 		Files.createDirectories(Paths.get(appServPath));
 	}
 
-	private void loadApplicationResources(SpringContext helper) {
+	private void loadApplicationResources() {
 		LanguageDao languageDao = (LanguageDao) helper.getBean(LanguageDao.class);
 		AppResourceDao applicationResourceDao = helper.getBean(AppResourceDao.class);
 		List<Language> languages = languageDao.list();
@@ -129,23 +139,55 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private void loadConstants(SpringContext helper) {
+	private void loadConstants() {
 		try {
-			final JAXBContext jaxbContext = JAXBContext.newInstance(Constants.class);
-			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			servletContext.getResourceAsStream("constants.xml");
-			final InputStream is = servletContext.getResourceAsStream("/WEB-INF/classes/constants.xml");
-			final Constants constants = (Constants) unmarshaller.unmarshal(is);
-			getSystemManager(helper).readConstants(constants);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Constants.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			InputStream is = servletContext.getResourceAsStream(constantFilePath);
+			Constants constants = (Constants) unmarshaller.unmarshal(is);
+			helper.getBean(SystemService.class).readConstants(constants);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadFamilyDevices () {
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(DeviceFamilies.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			InputStream is = servletContext.getResourceAsStream(familyDevicesFilePath);
+			DeviceFamilies xmlDeviceFamilies = (DeviceFamilies) unmarshaller.unmarshal(is);
+			if (xmlDeviceFamilies != null) {
+				XilinxService xilinxService = helper.getBean(XilinxService.class);
+				for (DeviceFamily xmlDeviceFamily : xmlDeviceFamilies.getDeviceFamilies()) {
+					log.info("{}", xmlDeviceFamily.getName());
+					DeviceFamily persDeviceFamily = xilinxService.getDeviceFamily(
+							xmlDeviceFamily.getName());
+					if (persDeviceFamily == null) {
+						persDeviceFamily = new DeviceFamily();
+						persDeviceFamily.setName(xmlDeviceFamily.getName());
+						persDeviceFamily.setDescription(xmlDeviceFamily.getDescription());
+						xilinxService.saveDeviceFamily(persDeviceFamily);
+					}
+					for (Device xmlDevice : xmlDeviceFamily.getDevices()) {
+						log.info("--{}", xmlDevice.getName());
+						if (!xilinxService.isDeviceExist(xmlDevice.getName())) {
+							xmlDevice.setDeviceFamily(persDeviceFamily);
+							xilinxService.saveDevice(xmlDevice);
+							persDeviceFamily.getDevices().add(xmlDevice);
+						}
+					}
+					xilinxService.saveDeviceFamily(persDeviceFamily);
+				}
+			}
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void loadTemplates(SpringContext helper) {
+	private void loadTemplates() {
 		String[] templateFiles = {
-				"/WEB-INF/classes/templates/templates1.xml", 
-				"/WEB-INF/classes/templates/templates2.xml"
+				tamplatesFilePath
 				};
 		JAXBContext jaxbContext;
 		
@@ -194,7 +236,8 @@ public class StartupListener implements ServletContextListener {
 							template.setBodies(bodies);
 							templateDao.saveOrUpdate(template);
 						} else {
-							log.error("No language with id \"" + locale.getLanguage() + "\" in system");
+							log.error("No language with id \"" + locale.getLanguage() 
+									+ "\" in system");
 						}
 					}
 				}	
@@ -204,13 +247,9 @@ public class StartupListener implements ServletContextListener {
 		}
 	}
 
-	private SystemService getSystemManager(SpringContext helper) {
-		return helper.getBean(SystemService.class);
-	}
-
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-
+		
 	}
 
 }

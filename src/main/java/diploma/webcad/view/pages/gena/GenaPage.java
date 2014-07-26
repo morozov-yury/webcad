@@ -234,7 +234,7 @@ public class GenaPage extends AbstractPage {
 				}
 				//launchesTable.removeAllItems();
 				List<GenaLaunch> userLauches = genaService.listLastUserLauches(user, 15);
-				Container container = viewFactory.getTableContainer(userLauches);
+				Container container = viewFactory.getLaunchesContainer(userLauches);
 				launchesTable.setContainerDataSource(container);
 			}
 		});

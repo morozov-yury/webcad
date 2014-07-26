@@ -5497,6 +5497,14 @@ body .dashboard.v-app .v-app-loading {
 	border-top: 1px solid #d4d5d5;
 }
 
+.dashboard .device-selector-tree-wrapper {
+	border: 1px solid rgb(108, 115, 122);
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: #ffffff;
+	padding: 5px;
+}
+
 .dashboard .horizontal-option-group .v-caption-hog-selected-label {
 	font-weight: 600;
 	color: #349aff;
