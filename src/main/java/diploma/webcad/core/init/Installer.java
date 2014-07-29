@@ -15,8 +15,6 @@ import diploma.webcad.common.content.UTF8Control;
 import diploma.webcad.core.model.AppConstant;
 import diploma.webcad.core.model.AppConstantType;
 import diploma.webcad.core.model.Language;
-import diploma.webcad.core.model.resource.AppResource;
-import diploma.webcad.core.model.resource.AppValue;
 import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.SystemService;
 import diploma.webcad.core.service.UserService;
@@ -34,9 +32,6 @@ public class Installer {
 	public void install() {
 		log.info("initLanguages...");
 		initLanguages();
-		
-		log.info("loadApplicationResources...");
-		loadApplicationResources();
 		
 		log.info("initSystemAccount...");
 		createSystemAccount();
@@ -82,30 +77,6 @@ public class Installer {
 			}
 		} catch (Exception e) {
 			log.error(e);
-		}
-	}
-	
-	private void loadApplicationResources() {
-		ContentService contentService = helper.getBean(ContentService.class);
-		
-		List<Language> languages = contentService.listLanguages();
-		for (Language language : languages) {
-			ResourceBundle bundle = ResourceBundle.getBundle(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, new Locale(language.getIso()), new UTF8Control());
-			for(String key: bundle.keySet()) {
-				AppResource appResource = contentService.getAppResource(key);
-				if (appResource == null) {
-					appResource = new AppResource(key);
-				}
-				if (!appResource.containsLanguage(language)) {
-					String val = bundle.getString(key);
-					appResource.getLangs().add(new AppValue(language, val));
-					try {
-						contentService.saveAppResource(appResource);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
 		}
 	}
 

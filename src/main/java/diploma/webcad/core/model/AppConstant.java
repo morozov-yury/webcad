@@ -2,27 +2,25 @@ package diploma.webcad.core.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- * model for constants
- * @author Arktos
- */
-
 @Entity
-@Table(name = "constants")
 public class AppConstant implements Serializable{
 
-	private static final long serialVersionUID = 3713200904592128122L;
+	private static final long serialVersionUID = 2806776118731481814L;
+
+	@Id
 	private String id;
+	
 	private String value;
+	
 	private String description;
+	
+	@Enumerated(EnumType.STRING)
 	private AppConstantType type;
 	
 	public AppConstant(@NotNull String id, String value, String description, AppConstantType type) {
@@ -35,25 +33,11 @@ public class AppConstant implements Serializable{
 		this.description = description;
 		this.type = type;
 	}
-
-	public AppConstant(@NotNull String id, String value, String description) {
-		this(id, value, description, AppConstantType.getDefault());
-	}
-
-	public AppConstant(@NotNull String id, String value) {
-		this(id, value, null);
-	}
-	
-	public AppConstant(@NotNull String id) {
-		this(id, null);
-	}
 	
 	public AppConstant() {
-		this("");
+		
 	}
-
-	@Id
-	@Column(name = "id")
+	
 	public String getId() {
 		return id;
 	}
@@ -62,7 +46,6 @@ public class AppConstant implements Serializable{
 		this.id = id;
 	}
 
-	@Column(name = "value")
 	public String getValue() {
 		return value;
 	}
@@ -71,7 +54,6 @@ public class AppConstant implements Serializable{
 		this.value = value;
 	}
 	
-	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
@@ -80,8 +62,6 @@ public class AppConstant implements Serializable{
 		this.description = description;
 	}
 
-	@Column(name = "type")
-	@Enumerated(EnumType.STRING)
 	public AppConstantType getType() {
 		return type;
 	}
@@ -89,4 +69,56 @@ public class AppConstant implements Serializable{
 	public void setType(AppConstantType type) {
 		this.type = type;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((getDescription() == null) ? 0 : getDescription().hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+		result = prime * result + ((getValue() == null) ? 0 : getValue().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		AppConstant other = (AppConstant) obj;
+		if (getId() == null) {
+			if (other.getId() != null) {
+				return false;
+			}
+		} else if (!getId().equals(other.getId())) {
+			return false;
+		}
+		if (getDescription() == null) {
+			if (other.getDescription() != null) {
+				return false;
+			}
+		} else if (!getDescription().equals(other.getDescription())) {
+			return false;
+		}
+		if (getType() != other.getType()) {
+			return false;
+		}
+		if (getValue() == null) {
+			if (other.getValue() != null) {
+				return false;
+			}
+		} else if (!getValue().equals(other.getValue())) {
+			return false;
+		}
+		return true;
+	}
+	
 }

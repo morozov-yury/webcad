@@ -6,10 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -25,9 +23,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import diploma.webcad.common.content.Resources;
-import diploma.webcad.common.content.UTF8Control;
-import diploma.webcad.core.dao.AppResourceDao;
 import diploma.webcad.core.dao.LanguageDao;
 import diploma.webcad.core.dao.TemplateDao;
 import diploma.webcad.core.data.appconstants.Constants;
@@ -39,8 +34,6 @@ import diploma.webcad.core.model.Template;
 import diploma.webcad.core.model.modelling.Device;
 import diploma.webcad.core.model.modelling.DeviceFamilies;
 import diploma.webcad.core.model.modelling.DeviceFamily;
-import diploma.webcad.core.model.resource.AppResource;
-import diploma.webcad.core.model.resource.AppValue;
 import diploma.webcad.core.service.SystemService;
 import diploma.webcad.core.service.XilinxService;
 
@@ -78,12 +71,10 @@ public class StartupListener implements ServletContextListener {
 						installer.install();
 					}
 			
-					long currentTimeMillis = System.currentTimeMillis();
-					loadApplicationResources();
-					log.info("  --> loadApplicationResources done. {}", (System.currentTimeMillis() - currentTimeMillis));
-					currentTimeMillis = System.currentTimeMillis();
+					//long currentTimeMillis = System.currentTimeMillis();
+					//currentTimeMillis = System.currentTimeMillis();
 					//loadTemplates(helper);
-					log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
+					//log.info("  --> loadMailTemplates done. {}", (System.currentTimeMillis() - currentTimeMillis));
 					log.info("--> Startup initialization done.");
 					
 				} catch (Exception e) {
@@ -108,35 +99,6 @@ public class StartupListener implements ServletContextListener {
 		
 		String appServPath = properties.getProperty("fileresource.placement.app_server.path");
 		Files.createDirectories(Paths.get(appServPath));
-	}
-
-	private void loadApplicationResources() {
-		LanguageDao languageDao = (LanguageDao) helper.getBean(LanguageDao.class);
-		AppResourceDao applicationResourceDao = helper.getBean(AppResourceDao.class);
-		List<Language> languages = languageDao.list();
-		for (Language language : languages) {
-			String iso = language.getIso();
-			UTF8Control utf8Control = new UTF8Control();
-			Locale locale = new Locale(iso);
-			ResourceBundle bundle = ResourceBundle.getBundle
-					(Resources.APPLICATION_RESOURCE_BUNDLE_BASE, locale, utf8Control);
-			for (String key : bundle.keySet()) {
-				AppResource appResource = applicationResourceDao.read(key);
-				if (appResource == null) {
-					appResource = new AppResource(key);
-				}
-				if (!appResource.containsLanguage(language)) {
-					String val = bundle.getString(key);
-					AppValue appValue = new AppValue(language, val);
-					appResource.getLangs().add(appValue);
-					try {
-						applicationResourceDao.saveOrUpdate(appResource);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
 	}
 
 	private void loadConstants() {
