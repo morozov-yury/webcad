@@ -1,11 +1,11 @@
 package diploma.webcad.view.components;
 
 import java.util.Collection;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.dd.DragAndDropEvent;
@@ -19,8 +19,8 @@ import com.vaadin.ui.Tree.TreeDragMode;
 
 public class DeviceSelector extends HorizontalLayout {
 
-	private static final long serialVersionUID = -4705175330103187871L;
-	
+	private static final long serialVersionUID = 2544545306323219448L;
+
 	private static Logger log = LoggerFactory.getLogger(DeviceSelector.class);
 
 	private HierarchicalContainer leftContainer;
@@ -47,6 +47,7 @@ public class DeviceSelector extends HorizontalLayout {
 		leftTree.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		leftTree.setItemCaptionPropertyId("name");
 		leftTree.setDragMode(TreeDragMode.NODE);
+		leftTree.setDropHandler(getDropHandler(rightContainer, leftContainer));
 		
 		rightTree = new Tree("Selected devices");
 		rightTree.setWidth("100%");
@@ -57,8 +58,13 @@ public class DeviceSelector extends HorizontalLayout {
 		rightTree.setItemCaptionMode(ItemCaptionMode.PROPERTY);
 		rightTree.setItemCaptionPropertyId("name");
 		rightTree.setDragMode(TreeDragMode.NODE);
-		
-		rightTree.setDropHandler(new DropHandler() {
+		rightTree.setDropHandler(getDropHandler(leftContainer, rightContainer));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private DropHandler getDropHandler (final HierarchicalContainer sourceContainer, 
+			final HierarchicalContainer receiverContainer) {
+		return new DropHandler() {
 			
 			private static final long serialVersionUID = -474340733164598731L;
 			
@@ -73,38 +79,42 @@ public class DeviceSelector extends HorizontalLayout {
 				// TODO Auto-generated method stub
 				Object itemId = event.getTransferable().getData("itemId");
 				
-				Item item = leftContainer.getItem(itemId);
+				Item item = sourceContainer.getItem(itemId);
 				
-				if (rightContainer.getItem(itemId) == null) {
-					Item newItem = rightContainer.addItem(itemId);
-					newItem.getItemProperty("name").setValue(itemId);
+				if (receiverContainer.getItem(itemId) == null) {
+					Item newItem = receiverContainer.addItem(itemId);
+					newItem.getItemProperty("name").setValue(
+							item.getItemProperty("name").getValue());
 				}
 				
-				Collection<?> children = leftContainer.getChildren(itemId);
+				Collection<?> children = sourceContainer.getChildren(itemId);
 				if (children != null) {
 					rightTree.expandItemsRecursively(itemId);
+					children = new ConcurrentLinkedQueue<Object>(
+							sourceContainer.getChildren(itemId));
 					for (Object childId : children) {
-						Item childItem = rightContainer.addItem(childId);
+						Item childItem = receiverContainer.addItem(childId);
 						childItem.getItemProperty("name").setValue(childId);
-						rightContainer.setChildrenAllowed(childId, false);
-						rightContainer.setParent(childId, itemId);
+						receiverContainer.setChildrenAllowed(childId, false);
+						receiverContainer.setParent(childId, itemId);
+						sourceContainer.removeItem(childId);
 					}
 				} else {
-					rightContainer.setChildrenAllowed(itemId, false);
-					Object parent = leftContainer.getParent(itemId);
-					Item parentItem = rightContainer.getItem(parent);
+					receiverContainer.setChildrenAllowed(itemId, false);
+					Object parent = sourceContainer.getParent(itemId);
+					Item parentItem = receiverContainer.getItem(parent);
 					if (parentItem == null) {
-						parentItem = rightContainer.addItem(parent);
+						parentItem = receiverContainer.addItem(parent);
 						parentItem.getItemProperty("name").setValue(
-								leftContainer.getItem(parent).getItemProperty("name").getValue());
+								sourceContainer.getItem(parent).getItemProperty("name").getValue());
 						rightTree.expandItemsRecursively(parent);
 					}
-					rightContainer.setParent(itemId, parent);
+					receiverContainer.setParent(itemId, parent);
 				}
 				
-				leftContainer.removeItem(itemId);
+				sourceContainer.removeItem(itemId);
 			}
-		});
+		};
 	}
 
 }
