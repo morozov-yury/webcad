@@ -1,4 +1,4 @@
-package diploma.webcad.view.pages.gena;
+package diploma.webcad.view.pages.modelling;
 
 import java.io.InputStream;
 import java.util.List;
@@ -16,11 +16,13 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Link;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
@@ -30,7 +32,6 @@ import diploma.webcad.core.model.modelling.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.service.FSResourceService;
 import diploma.webcad.core.service.GenaService;
-import diploma.webcad.core.util.date.DateUtils;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
@@ -39,7 +40,6 @@ import diploma.webcad.view.components.gena.MachineParamsFactory;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
-import diploma.webcad.view.service.UIUtils;
 import diploma.webcad.view.service.ViewFactory;
 
 @Scope("prototype")
@@ -71,12 +71,12 @@ public class GenaPage extends AbstractPage {
 	private GenaParamSelector parametersSelector;
 	
 	private GenaLaunch genaLaunch;
-	
-	private FileDownloader fileDownloader;
 
 	private FilterTable launchesTable;
 	
 	private Button downloadButton;
+
+	private FileDownloader downloader;
 	
 	public GenaPage () {
 		super("Gena");
@@ -119,35 +119,21 @@ public class GenaPage extends AbstractPage {
 			public void itemClick(ItemClickEvent event) {
 				genaLaunch = (GenaLaunch) event.getItemId();
 				GenaParam genaParamByToken = MachineParamsFactory.getGenaParamByToken(
-						genaLaunch.getGenaParams());
+						genaLaunch.getParams());
 				parametersSelector = new GenaParamSelector(genaParamByToken);
 				parametersSelector.setGenaParam(genaParamByToken);
 				Component wrappedComponent = viewFactory.wrapComponent(parametersSelector);
 				leftLayout.removeComponent(leftLayout.getComponent(0));
 				leftLayout.addComponent(wrappedComponent, 0);
 				
-				FSResource inputResource = genaLaunch.getInputResource();
+				FSResource inputResource = genaLaunch.getData();
 				byte[] data = fsrService.getData(inputResource);
 				if (data != null) {
 					String xmlDescription = new String(data);
 					textArea.setValue(xmlDescription);
 				}
 				
-				if (genaLaunch.getGenaResultStatus() == GenaResultStatus.SUCCESSFUL) {
-					downloadButton.setVisible(true);
-					String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
-					fileName = genaLaunch.getId() + "_" + fileName + ".zip";
-					InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
-					StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
-					if (fileDownloader == null) {
-						fileDownloader = new FileDownloader(sResource);
-						fileDownloader.extend(downloadButton);
-					} else {
-						fileDownloader.setFileDownloadResource(sResource);
-					}
-				} else {
-					downloadButton.setVisible(false);
-				}
+				downloadButton.setVisible(genaLaunch.getStatus() == GenaResultStatus.SUCCESSFUL);
 			}
 		});
         leftLayout.addComponent(viewFactory.wrapComponent(launchesTable));
@@ -171,23 +157,18 @@ public class GenaPage extends AbstractPage {
 		};
 		label.addStyleName("info-label");
 		
-		downloadButton = new Button("Download", new Button.ClickListener() {
-			private static final long serialVersionUID = 4972579964941549591L;
-			@Override
-			public void buttonClick(ClickEvent event) {
-				String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
-				fileName = genaLaunch.getId() + "_" + fileName + ".zip";
-				InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
-				StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
-				if (fileDownloader == null) {
-					fileDownloader = new FileDownloader(sResource);
-					fileDownloader.extend(downloadButton);
-				} else {
-					fileDownloader.setFileDownloadResource(sResource);
-				}
-			}
-		});
+		StreamSource source = new StreamSource() {
+            private static final long serialVersionUID = -49124535237215809L;
+            public InputStream getStream() {
+            	((StreamResource)downloader.getFileDownloadResource()).setFilename(
+            			genaLaunch.getId().toString() + ".zip");
+                return fsrService.zipFSResource(genaLaunch.getResult());
+            }
+        };
+		downloadButton = new Button("Download");
 		downloadButton.setVisible(false);
+		downloader = new FileDownloader(new StreamResource(source, "qwe"));
+		downloader.extend(downloadButton);
 
         Button startButton = new Button("Start", new Button.ClickListener() {
 			private static final long serialVersionUID = 4434872155184459414L;
@@ -213,26 +194,11 @@ public class GenaPage extends AbstractPage {
 				genaLaunch = genaService.createGenaLaunch(user, parameters.toString(), 
 						xmlDescription);
 				
-				GenaResultStatus genaResultStatus = genaLaunch.getGenaResultStatus();
+				GenaResultStatus genaResultStatus = genaLaunch.getStatus();
 				notificator.showInfo("Launch result: " + genaResultStatus);
+
+				downloadButton.setVisible(genaLaunch.getStatus() == GenaResultStatus.SUCCESSFUL);
 				
-				if (genaResultStatus == GenaResultStatus.SUCCESSFUL) {
-					downloadButton.setVisible(true);
-					String fileName = DateUtils.formatDateTime(genaLaunch.getCreationDate());
-					fileName = genaLaunch.getId() + "_" + fileName + ".zip";
-					
-					InputStream zipFSResource = fsrService.zipFSResource(genaLaunch.getResultResource());
-					StreamResource sResource = UIUtils.createResource(zipFSResource, fileName);
-					if (fileDownloader == null) {
-						fileDownloader = new FileDownloader(sResource);
-						fileDownloader.extend(downloadButton);
-					} else {
-						fileDownloader.setFileDownloadResource(sResource);
-					}
-				} else {
-					downloadButton.setVisible(false);
-				}
-				//launchesTable.removeAllItems();
 				List<GenaLaunch> userLauches = genaService.listLastUserLauches(user, 15);
 				Container container = viewFactory.getLaunchesContainer(userLauches);
 				launchesTable.setContainerDataSource(container);

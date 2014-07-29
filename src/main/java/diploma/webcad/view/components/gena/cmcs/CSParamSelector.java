@@ -61,6 +61,7 @@ public class CSParamSelector extends MachineParamsSelector {
 		encodingMCComp.addValidator(new BeanValidator(CSGenaParam.class, "encodingMC"));
 		encodingMCComp.setContainerDataSource(getEncodingMCContainer());
 		encodingMCComp.setValue(genaParam.getEncodingMC());
+		encodingMCComp.setNullSelectionAllowed(false);
 
 		wordWodthRestrictionComp = new TextField("Ограничение ширины слова памяти в битах");
 		wordWodthRestrictionComp.setPropertyDataSource(beanItem.getItemProperty("wordWodthRestriction"));
@@ -84,6 +85,7 @@ public class CSParamSelector extends MachineParamsSelector {
 		codePlacemetComp.addValidator(new BeanValidator(CSGenaParam.class, "codePlacemet"));
 		codePlacemetComp.setContainerDataSource(getCodePlacementContainer());
 		codePlacemetComp.setValue(genaParam.getCodePlacemet());
+		codePlacemetComp.setNullSelectionAllowed(false);
 		
 		extCodeConverterComp = new ComboBox("Использование внешнего преобразователя кодов");
 		//extCodeConverterComp.setPropertyDataSource(beanItem.getItemProperty("extCodeConverter"));
@@ -91,6 +93,7 @@ public class CSParamSelector extends MachineParamsSelector {
 		extCodeConverterComp.addValidator(new BeanValidator(CSGenaParam.class, "extCodeConverter"));
 		extCodeConverterComp.setContainerDataSource(getExtCodeConverterContainer());
 		extCodeConverterComp.setValue(genaParam.getExtCodeConverter());
+		extCodeConverterComp.setNullSelectionAllowed(false);
 		
 		FormLayout formLayout = new FormLayout(codLogConditionsComp, encodingMCComp, 
 				wordWodthRestrictionComp, eltsiyaComp, codePlacemetComp, extCodeConverterComp);
@@ -129,7 +132,6 @@ public class CSParamSelector extends MachineParamsSelector {
 	private BeanItemContainer<ExtCodeConverter> getExtCodeConverterContainer () {
 		BeanItemContainer<ExtCodeConverter> types = new BeanItemContainer<ExtCodeConverter>(
 				ExtCodeConverter.class);
-		types.addBean(ExtCodeConverter.IN_NEED);
 		types.addBean(ExtCodeConverter.MUST_NOT);
 		types.addBean(ExtCodeConverter.NECESSARY);
 		return types;

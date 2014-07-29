@@ -37,6 +37,8 @@ public class AddrMicroinstParam extends GenaParam {
 
 	public AddrMicroinstParam(MachineType paramType) {
 		super(paramType);
+		encodingMC = EncodingMC.UNITARY;
+		codLogConditions = false;
 	}
 
 	public Boolean getCodLogConditions() {

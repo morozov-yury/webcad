@@ -13,6 +13,7 @@ import com.vaadin.ui.TextField;
 import diploma.webcad.view.components.gena.MachineParamsSelector;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.MachineType;
+import diploma.webcad.view.model.gena.cmcs.AddrMicroinstParam.EncodingMC;
 import diploma.webcad.view.model.gena.cmcs.CMGenaParam;
 
 public class CMParamSelector extends MachineParamsSelector {
@@ -48,6 +49,7 @@ public class CMParamSelector extends MachineParamsSelector {
 		encodingMCComp.setImmediate(true);
 		encodingMCComp.addValidator(new BeanValidator(CMGenaParam.class, "encodingMC"));
 		encodingMCComp.setContainerDataSource(getEncodingMCContainer());
+		encodingMCComp.setNullSelectionAllowed(false);
 		encodingMCComp.setValue(genaParam.getEncodingMC());
 
 		wordWodthRestrictionComp = new TextField("Ограничение ширины слова памяти в битах");

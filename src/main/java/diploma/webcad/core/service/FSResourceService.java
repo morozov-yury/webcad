@@ -212,8 +212,11 @@ public class FSResourceService {
 		if (placement == FSResourcePlacement.APP_SERVER) {
 			File data = new File(fsResourcePath);
 			File zip = new File(fsResourceZipPath);
-			ZipUtil.pack(data, zip);
 			try {
+				if (zip.exists()) {
+					return new FileInputStream(zip);
+				}
+				ZipUtil.pack(data, zip);
 				return new FileInputStream(zip);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

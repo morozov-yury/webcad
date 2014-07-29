@@ -128,8 +128,6 @@ public class MachineParamsFactory {
 				String c = strings[i + 1];
 				if (c.equals("0")) {
 					csGenaParam.setExtCodeConverter(ExtCodeConverter.MUST_NOT);
-				} else if (c.equals("1")) {
-					csGenaParam.setExtCodeConverter(ExtCodeConverter.IN_NEED);
 				} else if (c.equals("2")) {
 					csGenaParam.setExtCodeConverter(ExtCodeConverter.NECESSARY);
 				}

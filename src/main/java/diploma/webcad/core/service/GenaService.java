@@ -39,29 +39,28 @@ public class GenaService {
 		FSResource fileResource = fsManager.createFileResByContent(
 				user, xmlDecription.getBytes());
 		
-		GenaLaunch genaLaunch =  new GenaLaunch();
-		genaLaunch.setGenaResultStatus(GenaResultStatus.FAILED);
-		genaLaunch.setGenaParams(genaParams);
-		genaLaunch.setGenaPlacement(GenaPlacement.INTERNAL);
-		genaLaunch.setUser(user);
-		genaLaunchDao.saveOrUpdate(genaLaunch);
-		
 		if (fileResource == null) {
-			genaLaunchDao.saveOrUpdate(genaLaunch);
-			return genaLaunch;
+			return null;
 		}
-
-		genaLaunch.setInputResource(fileResource);
+		
+		GenaLaunch genaLaunch =  new GenaLaunch();
+		genaLaunch.setStatus(GenaResultStatus.FAILED);
+		genaLaunch.setParams(genaParams);
+		genaLaunch.setPlacement(GenaPlacement.INTERNAL);
+		genaLaunch.setUser(user);
+		genaLaunch.setData(fileResource);
+		
+		genaLaunchDao.saveOrUpdate(genaLaunch);
 
 		GenaResultStatus genaResultStatus = runExecutable(genaLaunch);
-		genaLaunch.setGenaResultStatus(genaResultStatus);
+		genaLaunch.setStatus(genaResultStatus);
 
 		genaLaunchDao.saveOrUpdate(genaLaunch);
 		return genaLaunch;
 	}
 	
 	private GenaResultStatus runExecutable (GenaLaunch genaLaunch) {
-		switch (genaLaunch.getGenaPlacement()) {
+		switch (genaLaunch.getPlacement()) {
 		case EXTERNAL:
 			return null;
 		case INTERNAL:
@@ -79,8 +78,8 @@ public class GenaService {
 			return null;
 		}
 
-		String sourcePath = fsManager.getFSResourcePath(genaLaunch.getInputResource());
-		String genaParams = genaLaunch.getGenaParams();
+		String sourcePath = fsManager.getFSResourcePath(genaLaunch.getData());
+		String genaParams = genaLaunch.getParams();
 		String resultFolderPath =  fsManager.getFSResourcePath(resultFolder);
 		String cmd = new StringBuilder(genaIntPath).append(" ").append(sourcePath).append(" ")
 				.append(resultFolderPath).append(" ").append(genaParams).toString();
@@ -89,7 +88,7 @@ public class GenaService {
 			Process process = Runtime.getRuntime().exec(cmd);
 			switch (process.waitFor()) {
 			case 0:
-				genaLaunch.setResultResource(resultFolder);
+				genaLaunch.setResult(resultFolder);
 				resultStatus = GenaResultStatus.SUCCESSFUL;
 				break;
 			case 1:
@@ -108,7 +107,7 @@ public class GenaService {
 			return GenaResultStatus.RUNTIME_ERROR;
 		}
 		
-		genaLaunch.setGenaResultStatus(resultStatus);
+		genaLaunch.setStatus(resultStatus);
 		
 		return resultStatus;
 	}
@@ -119,6 +118,10 @@ public class GenaService {
 	
 	public List<GenaLaunch> listLastUserLauches(User user, int count) {
 		return genaLaunchDao.listLastUserLauches(user, count);
+	}
+	
+	public List<GenaLaunch> listLastUserLauches(User user, GenaResultStatus status, int count) {
+		return genaLaunchDao.listLastUserLauches(user, status, count);
 	}
 
 }

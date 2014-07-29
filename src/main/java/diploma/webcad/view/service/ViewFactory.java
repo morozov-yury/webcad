@@ -102,10 +102,10 @@ public class ViewFactory {
         for (GenaLaunch launch : genaLaunches) {
         	cont.addItem(launch);
         	cont.getContainerProperty(launch, "id").setValue(launch.getId());
-        	cont.getContainerProperty(launch, "placement").setValue(launch.getGenaPlacement());
-        	cont.getContainerProperty(launch, "genaParams").setValue(launch.getGenaParams());
+        	cont.getContainerProperty(launch, "placement").setValue(launch.getPlacement());
+        	cont.getContainerProperty(launch, "genaParams").setValue(launch.getParams());
         	cont.getContainerProperty(launch, "creationDate").setValue(launch.getCreationDate());
-        	cont.getContainerProperty(launch, "status").setValue(launch.getGenaResultStatus());
+        	cont.getContainerProperty(launch, "status").setValue(launch.getStatus());
         }
 		
 		return cont;

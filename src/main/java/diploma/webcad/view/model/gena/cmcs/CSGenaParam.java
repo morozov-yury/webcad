@@ -26,8 +26,6 @@ public class CSGenaParam extends AddrMicroinstParam {
 		
 		MUST_NOT("Must not"),
 		
-		IN_NEED("In need"),
-		
 		NECESSARY("Necessary");
 		
 		private String name;
@@ -51,6 +49,9 @@ public class CSGenaParam extends AddrMicroinstParam {
 
 	public CSGenaParam() {
 		super(MachineType.CS);
+		codePlacemet = CodePlacement.THIS_MO;
+		extCodeConverter = ExtCodeConverter.NECESSARY;
+		elementarizatsiya = false;
 	}
 
 	public Boolean getElementarizatsiya() {
@@ -95,9 +96,6 @@ public class CSGenaParam extends AddrMicroinstParam {
 		}
 		if (extCodeConverter != null) {
 			switch (extCodeConverter) {
-			case IN_NEED:
-				sb.append("-c 1 ");
-				break;
 			case MUST_NOT:
 				sb.append("-c 0 ");
 				break;
