@@ -370,6 +370,10 @@
 	content: "\e81f";
 }
 
+.icon-xilinx.v-nativebutton:before, .icon-xilinx > .v-button-wrap:before, .icon-xilinx.v-label:before, .v-menubar-menuitem-icon-xilinx:before {
+	content: "\e843";
+}
+
 .icon-cog.v-nativebutton:before, .icon-cog > .v-button-wrap:before, .icon-cog.v-label:before, .v-menubar-menuitem-icon-cog:before {
 	content: "\e845";
 }

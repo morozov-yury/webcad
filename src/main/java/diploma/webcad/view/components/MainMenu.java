@@ -17,7 +17,8 @@ import com.vaadin.ui.NativeButton;
 
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.pages.MainPage;
-import diploma.webcad.view.pages.gena.GenaPage;
+import diploma.webcad.view.pages.modelling.GenaPage;
+import diploma.webcad.view.pages.modelling.XilinxPage;
 
 public class MainMenu extends CssLayout {
 
@@ -35,6 +36,7 @@ public class MainMenu extends CssLayout {
         
         addButton("Главная", MainPage.NAME, "icon-home");
         addButton("Gena", GenaPage.NAME, "icon-gena");
+        addButton("Xilinx", XilinxPage.NAME, "icon-xilinx");
         
         Component component = iterator().next();
         component.addStyleName("selected");
