@@ -1,6 +1,5 @@
 package diploma.webcad.core.model;
 
-
 public class ExecResult {
 
 	private int exitStatus;

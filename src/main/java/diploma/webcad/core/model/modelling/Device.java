@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 @Entity
-@Table(name = "device")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "device", propOrder = { "id", "name", "deviceFamily" })
 public class Device implements Serializable {
@@ -26,11 +25,11 @@ public class Device implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(targetEntity = DeviceFamily.class, optional = false)
+	@ManyToOne(optional = false)
 	private DeviceFamily deviceFamily;
 	
 	@XmlAttribute(name = "name")
-	@Column(name = "name", length = 16, unique = true)
+	@Column(length = 16, unique = true)
 	private String name;
 	
 	public Device () {

@@ -4,34 +4,26 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.Lob;
 
 @Entity
 public class Template implements Serializable {
-	
-	private static final long serialVersionUID = -9215483508114784752L;
+
+	private static final long serialVersionUID = -4439573560442073799L;
 
 	@Id
-    @Column(name = "id")
     private String id;
     
+	@Lob
 	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinTable(name = "TemplatesTitles", joinColumns = @JoinColumn(name = "id"))
-	@MapKeyColumn(name = "locale")
-	@Column(name = "value", length = 1024)
     private Map<Language, String> titles;
     
+	@Lob
 	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinTable(name = "TemplatesBody", joinColumns = @JoinColumn(name = "id"))
-	@MapKeyColumn(name = "locale")
-	@Column(name = "value", length = 1024)
     private Map<Language, String> bodies;
     
     private TemplateAccessType templateAccessType;
@@ -76,6 +68,59 @@ public class Template implements Serializable {
 
 	public void setTemplateAccessType(TemplateAccessType templateAccessType) {
 		this.templateAccessType = templateAccessType;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getBodies() == null) ? 0 : getBodies().hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime
+				* result
+				+ ((getTemplateAccessType() == null) ? 0 : getTemplateAccessType()
+						.hashCode());
+		result = prime * result + ((getTitles() == null) ? 0 : getTitles().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Template other = (Template) obj;
+		if (getId() == null) {
+			if (other.getId() != null) {
+				return false;
+			}
+		} else if (!getId().equals(other.getId())) {
+			return false;
+		}
+		if (getBodies() == null) {
+			if (other.getBodies() != null) {
+				return false;
+			}
+		} else if (!getBodies().equals(other.getBodies())) {
+			return false;
+		}
+		if (getTemplateAccessType() != other.getTemplateAccessType()) {
+			return false;
+		}
+		if (getTitles() == null) {
+			if (other.getTitles() != null) {
+				return false;
+			}
+		} else if (!getTitles().equals(other.getTitles())) {
+			return false;
+		}
+		return true;
 	}
 
 }

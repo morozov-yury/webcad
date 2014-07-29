@@ -33,13 +33,13 @@ public class XtclshLaunch implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = false)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private FSResource tclFile;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = false)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private FSResource sourceFolder;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = false)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private FSResource resultFolder;
 
 }

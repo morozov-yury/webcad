@@ -9,33 +9,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
-@Table(name = "users")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = -9215483528958346752L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "name", nullable=false, unique=true)
+	@Column(nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "password", nullable=false)
+	@Column(nullable = false)
 	private String password;
 	
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	private Language language;
 	
-	@Column(name = "date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date registrationDate;
 	
-	@Column(name = "userrole", nullable=false)
+	@Column(nullable = false)
 	private UserRole userRole;
 	
 	public User() {

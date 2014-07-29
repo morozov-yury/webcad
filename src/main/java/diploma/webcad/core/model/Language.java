@@ -4,14 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="languages")
 public class Language implements Serializable, Comparable<Language> {
-    
-	private static final long serialVersionUID = -1836521679171955080L;
-	
+
+	private static final long serialVersionUID = -5434957227982138816L;
+
+	@Id
 	private String iso;
 	
 	private String name;
@@ -21,11 +20,10 @@ public class Language implements Serializable, Comparable<Language> {
 	}
 	
 	public Language(String language, String name) {
-		this.iso = language;
-		this.name = name;
+		setIso(language);
+		setName(name);
 	}
 
-	@Id
 	public String getIso() {
 		return iso;
 	}

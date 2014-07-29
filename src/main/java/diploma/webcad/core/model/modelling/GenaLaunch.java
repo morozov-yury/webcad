@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,37 +17,36 @@ import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.resource.FSResource;
 
 @Entity
-@Table(name = "genaLaunches")
 public class GenaLaunch implements Serializable {
 
-	private static final long serialVersionUID = 1900655406665158287L;
+	private static final long serialVersionUID = -6359344158229211420L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(targetEntity = User.class, optional = false)
+	@ManyToOne(optional = false)
 	private User user;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
-	@Column(name = "genaPlacement", nullable = false)
-	private GenaPlacement genaPlacement;
+	@Column(nullable = false)
+	private GenaPlacement placement;
 	
-	@Column(name = "genaParams", nullable = false, unique = false, length = 64)
-	private String genaParams;
+	@Column(nullable = false, length = 64)
+	private String params;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
-	private FSResource inputResource;
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	private FSResource data;
 	
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = FSResource.class, optional = true)
-	private FSResource resultResource;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private FSResource result;
 	
-	@Column(name = "genaResultStatus", nullable = false)
-	private GenaResultStatus genaResultStatus;
+	private GenaResultStatus status;
 	
 	public GenaLaunch () {
+		setStatus(GenaResultStatus.FAILED);
 		setCreationDate(new Date());
 	}
 
@@ -68,36 +66,36 @@ public class GenaLaunch implements Serializable {
 		this.user = user;
 	}
 
-	public GenaPlacement getGenaPlacement() {
-		return genaPlacement;
+	public GenaPlacement getPlacement() {
+		return placement;
 	}
 
-	public void setGenaPlacement(GenaPlacement genaPlacement) {
-		this.genaPlacement = genaPlacement;
+	public void setPlacement(GenaPlacement genaPlacement) {
+		this.placement = genaPlacement;
 	}
 
-	public String getGenaParams() {
-		return genaParams;
+	public String getParams() {
+		return params;
 	}
 
-	public void setGenaParams(String genaParams) {
-		this.genaParams = genaParams;
+	public void setParams(String genaParams) {
+		this.params = genaParams;
 	}
 
-	public FSResource getInputResource() {
-		return inputResource;
+	public FSResource getData() {
+		return data;
 	}
 
-	public void setInputResource(FSResource inputData) {
-		this.inputResource = inputData;
+	public void setData(FSResource data) {
+		this.data = data;
 	}
 
-	public FSResource getResultResource() {
-		return resultResource;
+	public FSResource getResult() {
+		return result;
 	}
 
-	public void setResultResource(FSResource resultData) {
-		this.resultResource = resultData;
+	public void setResult(FSResource result) {
+		this.result = result;
 	}
 
 	public Date getCreationDate() {
@@ -108,12 +106,12 @@ public class GenaLaunch implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public GenaResultStatus getGenaResultStatus() {
-		return genaResultStatus;
+	public GenaResultStatus getStatus() {
+		return status;
 	}
 
-	public void setGenaResultStatus(GenaResultStatus genaResultStatus) {
-		this.genaResultStatus = genaResultStatus;
+	public void setStatus(GenaResultStatus status) {
+		this.status = status;
 	}
 
 	@Override
@@ -123,17 +121,17 @@ public class GenaLaunch implements Serializable {
 		result = prime * result
 				+ ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
 		result = prime * result
-				+ ((getGenaParams() == null) ? 0 : getGenaParams().hashCode());
+				+ ((getParams() == null) ? 0 : getParams().hashCode());
 		result = prime * result
-				+ ((getGenaPlacement() == null) ? 0 : getGenaPlacement().hashCode());
+				+ ((getPlacement() == null) ? 0 : getPlacement().hashCode());
 		result = prime
 				* result
-				+ ((getGenaResultStatus() == null) ? 0 : getGenaResultStatus().hashCode());
+				+ ((getStatus() == null) ? 0 : getStatus().hashCode());
 		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		result = prime * result
-				+ ((getInputResource() == null) ? 0 : getInputResource().hashCode());
+				+ ((getData() == null) ? 0 : getData().hashCode());
 		result = prime * result
-				+ ((getResultResource() == null) ? 0 : getResultResource().hashCode());
+				+ ((getResult() == null) ? 0 : getResult().hashCode());
 		result = prime * result + ((getUser() == null) ? 0 : getUser().hashCode());
 		return result;
 	}
@@ -152,29 +150,29 @@ public class GenaLaunch implements Serializable {
 				return false;
 		} else if (!getCreationDate().equals(other.getCreationDate()))
 			return false;
-		if (getGenaParams() == null) {
-			if (other.getGenaParams() != null)
+		if (getParams() == null) {
+			if (other.getParams() != null)
 				return false;
-		} else if (!getGenaParams().equals(other.getGenaParams()))
+		} else if (!getParams().equals(other.getParams()))
 			return false;
-		if (getGenaPlacement() != other.getGenaPlacement())
+		if (getPlacement() != other.getPlacement())
 			return false;
-		if (getGenaResultStatus() != other.getGenaResultStatus())
+		if (getStatus() != other.getStatus())
 			return false;
 		if (getId() == null) {
 			if (other.getId() != null)
 				return false;
 		} else if (!getId().equals(other.getId()))
 			return false;
-		if (getInputResource() == null) {
-			if (other.getInputResource() != null)
+		if (getData() == null) {
+			if (other.getData() != null)
 				return false;
-		} else if (!getInputResource().equals(other.getInputResource()))
+		} else if (!getData().equals(other.getData()))
 			return false;
-		if (getResultResource() == null) {
-			if (other.getResultResource() != null)
+		if (getResult() == null) {
+			if (other.getResult() != null)
 				return false;
-		} else if (!getResultResource().equals(other.getResultResource()))
+		} else if (!getResult().equals(other.getResult()))
 			return false;
 		if (getUser() == null) {
 			if (other.getUser() != null)
