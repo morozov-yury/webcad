@@ -1,4 +1,4 @@
-package diploma.webcad.view.pages.modelling;
+package diploma.webcad.view.pages.simulation;
 
 import java.util.List;
 
@@ -15,15 +15,14 @@ import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.modelling.Device;
-import diploma.webcad.core.model.modelling.GenaLaunch;
+import diploma.webcad.core.model.simulation.Device;
+import diploma.webcad.core.model.simulation.GenaLaunch;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.core.service.XilinxService;
 import diploma.webcad.view.WebCadUI;
@@ -121,7 +120,10 @@ public class XilinxPage extends AbstractPage {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				List<String> selectedDevicesNames = deviceSelector.listSelectedDevices();
-				List<Device> devises = xilinxService.listDevises(selectedDevicesNames);
+				List<Device> devices = xilinxService.listDevises(selectedDevicesNames);
+				GenaLaunch genaLaunch = (GenaLaunch) launchesTable.getValue();
+				
+				xilinxService.createBatchSimulation(genaLaunch, devices, user);
 			}
 		});
 		startButton.addStyleName("default");

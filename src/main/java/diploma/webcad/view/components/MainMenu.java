@@ -17,8 +17,8 @@ import com.vaadin.ui.NativeButton;
 
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.pages.MainPage;
-import diploma.webcad.view.pages.modelling.GenaPage;
-import diploma.webcad.view.pages.modelling.XilinxPage;
+import diploma.webcad.view.pages.simulation.GenaPage;
+import diploma.webcad.view.pages.simulation.XilinxPage;
 
 public class MainMenu extends CssLayout {
 

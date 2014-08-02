@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.modelling;
+package diploma.webcad.core.model.simulation;
 
 import java.util.ArrayList;
 import java.util.List;

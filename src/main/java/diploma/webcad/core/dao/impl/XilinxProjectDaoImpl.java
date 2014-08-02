@@ -1,8 +1,11 @@
 package diploma.webcad.core.dao.impl;
 
-import diploma.webcad.core.dao.XilinxProjectDao;
-import diploma.webcad.core.model.modelling.XilinxProject;
+import org.springframework.stereotype.Repository;
 
+import diploma.webcad.core.dao.XilinxProjectDao;
+import diploma.webcad.core.model.simulation.XilinxProject;
+
+@Repository
 public class XilinxProjectDaoImpl extends BaseDaoImpl<XilinxProject, Long>
 		implements XilinxProjectDao {
 

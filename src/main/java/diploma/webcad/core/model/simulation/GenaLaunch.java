@@ -1,4 +1,4 @@
-package diploma.webcad.core.model.modelling;
+package diploma.webcad.core.model.simulation;
 
 import java.io.Serializable;
 import java.util.Date;

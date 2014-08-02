@@ -5,7 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.DeviceFamilyDao;
-import diploma.webcad.core.model.modelling.DeviceFamily;
+import diploma.webcad.core.model.simulation.DeviceFamily;
 
 @Repository
 public class DeviceFamilyDaoImpl extends BaseDaoImpl<DeviceFamily, Long>

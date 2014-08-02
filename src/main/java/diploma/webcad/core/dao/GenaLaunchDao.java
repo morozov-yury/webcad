@@ -3,8 +3,8 @@ package diploma.webcad.core.dao;
 import java.util.List;
 
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.modelling.GenaLaunch;
-import diploma.webcad.core.model.modelling.GenaResultStatus;
+import diploma.webcad.core.model.simulation.GenaLaunch;
+import diploma.webcad.core.model.simulation.GenaResultStatus;
 
 public interface GenaLaunchDao extends BaseDao<GenaLaunch, Long> {
 	

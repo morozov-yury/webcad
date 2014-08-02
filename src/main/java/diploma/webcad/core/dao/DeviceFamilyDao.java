@@ -1,6 +1,6 @@
 package diploma.webcad.core.dao;
 
-import diploma.webcad.core.model.modelling.DeviceFamily;
+import diploma.webcad.core.model.simulation.DeviceFamily;
 
 public interface DeviceFamilyDao extends BaseDao<DeviceFamily, Long> {
 

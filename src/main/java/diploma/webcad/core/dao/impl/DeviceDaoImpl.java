@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.DeviceDao;
-import diploma.webcad.core.model.modelling.Device;
+import diploma.webcad.core.model.simulation.Device;
 
 @Repository
 @SuppressWarnings("unchecked")

@@ -22,10 +22,10 @@ import com.vaadin.ui.CustomTable.RowHeaderMode;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 
-import diploma.webcad.core.model.modelling.Device;
-import diploma.webcad.core.model.modelling.GenaLaunch;
-import diploma.webcad.core.model.modelling.GenaPlacement;
-import diploma.webcad.core.model.modelling.GenaResultStatus;
+import diploma.webcad.core.model.simulation.Device;
+import diploma.webcad.core.model.simulation.GenaLaunch;
+import diploma.webcad.core.model.simulation.GenaPlacement;
+import diploma.webcad.core.model.simulation.GenaResultStatus;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")

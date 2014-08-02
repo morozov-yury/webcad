@@ -23,7 +23,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
 
-import diploma.webcad.core.model.modelling.Device;
+import diploma.webcad.core.model.simulation.Device;
 
 public class DeviceSelector extends HorizontalLayout {
 
@@ -131,6 +131,10 @@ public class DeviceSelector extends HorizontalLayout {
 	
 	public List<String> listSelectedDevices () {
 		return (List<String>) rightContainer.getItemIds();
+	}
+	
+	public void clearSelection () {
+		
 	}
 
 }

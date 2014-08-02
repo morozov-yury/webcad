@@ -1,4 +1,4 @@
-package diploma.webcad.view.pages.modelling;
+package diploma.webcad.view.pages.simulation;
 
 import java.io.InputStream;
 import java.util.List;
@@ -26,9 +26,9 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.modelling.GenaLaunch;
-import diploma.webcad.core.model.modelling.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
+import diploma.webcad.core.model.simulation.GenaLaunch;
+import diploma.webcad.core.model.simulation.GenaResultStatus;
 import diploma.webcad.core.service.FSResourceService;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.view.WebCadUI;

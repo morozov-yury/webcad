@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 
 import diploma.webcad.core.dao.GenaLaunchDao;
 import diploma.webcad.core.model.User;
-import diploma.webcad.core.model.modelling.GenaLaunch;
-import diploma.webcad.core.model.modelling.GenaPlacement;
-import diploma.webcad.core.model.modelling.GenaResultStatus;
 import diploma.webcad.core.model.resource.FSResource;
+import diploma.webcad.core.model.simulation.GenaLaunch;
+import diploma.webcad.core.model.simulation.GenaPlacement;
+import diploma.webcad.core.model.simulation.GenaResultStatus;
 
 @Service
 @Scope("singleton")

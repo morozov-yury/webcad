@@ -31,9 +31,9 @@ import diploma.webcad.core.data.templates.XmlTemplate;
 import diploma.webcad.core.data.templates.XmlTemplates;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.model.Template;
-import diploma.webcad.core.model.modelling.Device;
-import diploma.webcad.core.model.modelling.DeviceFamilies;
-import diploma.webcad.core.model.modelling.DeviceFamily;
+import diploma.webcad.core.model.simulation.Device;
+import diploma.webcad.core.model.simulation.DeviceFamilies;
+import diploma.webcad.core.model.simulation.DeviceFamily;
 import diploma.webcad.core.service.SystemService;
 import diploma.webcad.core.service.XilinxService;
 
