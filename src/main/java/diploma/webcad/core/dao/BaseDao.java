@@ -6,24 +6,24 @@ import java.util.List;
 
 public interface BaseDao <T, PK extends Serializable> {
 	
-    T read(PK id);
+    public T read(PK id);
     
-    void delete(T persistentObject);
+    public void delete(T persistentObject);
     
-    List<T> list();
+    public List<T> list();
     
-    List<T> list(String property, Object value);
+    public List<T> list(String property, Object value);
     
-    List<T> listSortedAsc(String property);
+    public List<T> listSortedAsc(String property);
     
-    T merge(T entity);
+    public T merge(T entity);
     
-    void refresh(T entity);
+    public void refresh(T entity);
     
-    T create(T enity);
+    public PK save(T enity);
     
-    void saveOrUpdate(T entity);
+    public void saveOrUpdate(T entity);
     
-    void batchSaveOrUpdate(Collection<T> entities);
+    public void batchSaveOrUpdate(Collection<T> entities);
     
 }
