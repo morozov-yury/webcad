@@ -1,5 +1,6 @@
 package diploma.webcad.view.service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -96,7 +97,9 @@ public class ViewFactory {
 		cont.addContainerProperty("id", Long.class, null);
         cont.addContainerProperty("placement", GenaPlacement.class, null);
         cont.addContainerProperty("genaParams", String.class, null);
-        cont.addContainerProperty("creationDate", Date.class, null);
+        // Here is Timestamp.class because of hibernate returns Timestamp instead Date
+        // Issue https://github.com/tepi/FilteringTable/issues/12
+        cont.addContainerProperty("creationDate", Timestamp.class, null);
         cont.addContainerProperty("status", GenaResultStatus.class, null);
         
         for (GenaLaunch launch : genaLaunches) {

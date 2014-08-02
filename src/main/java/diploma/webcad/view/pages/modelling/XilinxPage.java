@@ -10,9 +10,16 @@ import org.tepi.filtertable.FilterTable;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.modelling.Device;
@@ -46,6 +53,12 @@ public class XilinxPage extends AbstractPage {
 
 	private User user;
 	
+	private FilterTable launchesTable;
+
+	private DeviceSelector deviceSelector;
+
+	private Button startButton;
+	
 	public XilinxPage() {
 		super("Xilinx");
 	}
@@ -64,7 +77,7 @@ public class XilinxPage extends AbstractPage {
 		content.setSpacing(true);
 		
 		List<Device> devices = xilinxService.listDevices();
-		DeviceSelector deviceSelector = new DeviceSelector(viewFactory.getDevicesContainer(devices));
+		deviceSelector = new DeviceSelector(viewFactory.getDevicesContainer(devices));
 		deviceSelector.setCaption("Drag devices for modelling");
 		Component deviceSelectorWrapper = viewFactory.wrapComponent(deviceSelector);
 		deviceSelectorWrapper.setWidth("100%");
@@ -73,29 +86,55 @@ public class XilinxPage extends AbstractPage {
 		
 		final List<GenaLaunch> allLaunches = genaService.listLastUserLauches(user, 15);
 		
+		launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
+		launchesTable.setCaption("Last launches");
+		launchesTable.setMultiSelect(false);
+		final Component launchesTableWrapper = viewFactory.wrapComponent(launchesTable);
+		final VerticalLayout actionLayout = new VerticalLayout();
+		final Component actionLayoutWrapper = viewFactory.wrapComponent(actionLayout);
 		content.addComponent(new VerticalLayout() {{
 			setSpacing(true);
 			setSizeFull();
-			
-			FilterTable launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
-			launchesTable.setCaption("Last launches");
-			Component launchesTableWrapper = viewFactory.wrapComponent(launchesTable);
 			addComponent(launchesTableWrapper);
-			
-			VerticalLayout actionLayout = new VerticalLayout();
 			actionLayout.setCaption("Properties");
 			actionLayout.setSizeFull();
-			Component actionLayoutWrapper = viewFactory.wrapComponent(actionLayout);
 			addComponent(actionLayoutWrapper);
-			
 			setExpandRatio(launchesTableWrapper, 1);
 			setExpandRatio(actionLayoutWrapper, 2);
-			
-			
-			
 		}});
 		
+		deviceSelector.addItemSetChangeListener(new ItemSetChangeListener() {
+			@Override
+			public void containerItemSetChange(ItemSetChangeEvent event) {
+				handleSelection();
+			}
+		});
+		
+		launchesTable.addValueChangeListener(new ValueChangeListener() {
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				handleSelection();
+			}
+		});
+		
+		startButton = new Button("Start", new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				List<String> selectedDevicesNames = deviceSelector.listSelectedDevices();
+				List<Device> devises = xilinxService.listDevises(selectedDevicesNames);
+			}
+		});
+		startButton.addStyleName("default");
+		startButton.setVisible(false);
+		
+		addComponentToTop(startButton);
+
 		setContent(content);
+	}
+	
+	private void handleSelection () {
+		startButton.setVisible(deviceSelector.listSelectedDevices().size() != 0 
+				&& launchesTable.getValue() != null);
 	}
 
 }

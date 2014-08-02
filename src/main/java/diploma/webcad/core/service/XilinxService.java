@@ -9,6 +9,8 @@ import diploma.webcad.core.dao.DeviceDao;
 import diploma.webcad.core.dao.DeviceFamilyDao;
 import diploma.webcad.core.model.modelling.Device;
 import diploma.webcad.core.model.modelling.DeviceFamily;
+import diploma.webcad.core.model.modelling.GenaLaunch;
+import diploma.webcad.core.model.modelling.XilinxProject;
 
 @Service
 public class XilinxService {
@@ -39,8 +41,26 @@ public class XilinxService {
 		return deviceDao.list();
 	}
 	
+	public List<Device> listDevises (List<String> names) {
+		return deviceDao.listDevises(names);
+	}
+	
+	public Device getDevice (String name) {
+		return deviceDao.getByName(name);
+	}
+	
 	public Boolean isDeviceExist (String deviceName) {
 		return deviceDao.list("name", deviceName).size() != 0;
 	}
+	
+	public XilinxProject createXilinxProject (GenaLaunch genaLaunch, List<Device> devices) {
+		XilinxProject xilinxProject = new XilinxProject();
+		
+		
+		
+		return xilinxProject;
+	}
+	
+	
 	
 }

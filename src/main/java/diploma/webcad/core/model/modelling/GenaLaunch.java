@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.resource.FSResource;
@@ -28,7 +26,6 @@ public class GenaLaunch implements Serializable {
 	@ManyToOne(optional = false)
 	private User user;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
 	@Column(nullable = false)

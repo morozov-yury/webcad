@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "device", propOrder = { "id", "name", "deviceFamily" })
 public class Device implements Serializable {
 
-	private static final long serialVersionUID = 2028640833280609824L;
+	private static final long serialVersionUID = 3259552690340920602L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -97,5 +96,10 @@ public class Device implements Serializable {
 		}
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Device [id=" + getId() + ", deviceFamily=" + getDeviceFamily().getName()
+				+ ", name=" + getName() + "]";
+	}
 }
