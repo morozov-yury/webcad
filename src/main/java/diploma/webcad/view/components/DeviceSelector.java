@@ -1,12 +1,18 @@
 package diploma.webcad.view.components;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
@@ -16,6 +22,8 @@ import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
+
+import diploma.webcad.core.model.modelling.Device;
 
 public class DeviceSelector extends HorizontalLayout {
 
@@ -76,10 +84,8 @@ public class DeviceSelector extends HorizontalLayout {
 			
 			@Override
 			public void drop(DragAndDropEvent event) {
-				// TODO Auto-generated method stub
 				Object itemId = event.getTransferable().getData("itemId");
-				
-				Item item = sourceContainer.getItem(itemId);
+				final Item item = sourceContainer.getItem(itemId);
 				
 				if (receiverContainer.getItem(itemId) == null) {
 					Item newItem = receiverContainer.addItem(itemId);
@@ -87,23 +93,25 @@ public class DeviceSelector extends HorizontalLayout {
 							item.getItemProperty("name").getValue());
 				}
 				
-				Collection<?> children = sourceContainer.getChildren(itemId);
-				if (children != null) {
-					rightTree.expandItemsRecursively(itemId);
-					children = new ConcurrentLinkedQueue<Object>(
-							sourceContainer.getChildren(itemId));
-					for (Object childId : children) {
-						Item childItem = receiverContainer.addItem(childId);
-						childItem.getItemProperty("name").setValue(childId);
-						receiverContainer.setChildrenAllowed(childId, false);
-						receiverContainer.setParent(childId, itemId);
-						sourceContainer.removeItem(childId);
+				if (sourceContainer.areChildrenAllowed(itemId)) {
+					Collection<?> children = sourceContainer.getChildren(itemId);
+					if (children != null) {
+						rightTree.expandItemsRecursively(itemId);
+						children = new ConcurrentLinkedQueue<Object>(
+								sourceContainer.getChildren(itemId));
+						for (Object childId : children) {
+							Item childItem = receiverContainer.addItem(childId);
+							childItem.getItemProperty("name").setValue(childId);
+							receiverContainer.setChildrenAllowed(childId, false);
+							receiverContainer.setParent(childId, itemId);
+							sourceContainer.removeItem(childId);
+						}
 					}
 				} else {
 					receiverContainer.setChildrenAllowed(itemId, false);
 					Object parent = sourceContainer.getParent(itemId);
 					Item parentItem = receiverContainer.getItem(parent);
-					if (parentItem == null) {
+					if (parentItem == null && parent != null) {
 						parentItem = receiverContainer.addItem(parent);
 						parentItem.getItemProperty("name").setValue(
 								sourceContainer.getItem(parent).getItemProperty("name").getValue());
@@ -115,6 +123,14 @@ public class DeviceSelector extends HorizontalLayout {
 				sourceContainer.removeItem(itemId);
 			}
 		};
+	}
+	
+	public void addItemSetChangeListener (ItemSetChangeListener itemSetChangeListener) {
+		rightContainer.addItemSetChangeListener(itemSetChangeListener);
+	}
+	
+	public List<String> listSelectedDevices () {
+		return (List<String>) rightContainer.getItemIds();
 	}
 
 }
