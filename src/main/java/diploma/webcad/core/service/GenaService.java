@@ -1,8 +1,11 @@
 package diploma.webcad.core.service;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,35 +55,35 @@ public class GenaService {
 		
 		genaLaunchDao.saveOrUpdate(genaLaunch);
 
-		GenaResultStatus genaResultStatus = runExecutable(genaLaunch);
+		GenaResultStatus genaResultStatus = runGena(genaLaunch);
 		genaLaunch.setStatus(genaResultStatus);
 
 		genaLaunchDao.saveOrUpdate(genaLaunch);
 		return genaLaunch;
 	}
 	
-	private GenaResultStatus runExecutable (GenaLaunch genaLaunch) {
+	private GenaResultStatus runGena (GenaLaunch genaLaunch) {
 		switch (genaLaunch.getPlacement()) {
 		case EXTERNAL:
 			return null;
 		case INTERNAL:
-			return runExecTomcat(genaLaunch);
+			return runGenaTomcat(genaLaunch);
 		}
 		return null;
 	}
 	
-	private GenaResultStatus runExecTomcat (GenaLaunch genaLaunch) {
+	private GenaResultStatus runGenaTomcat (GenaLaunch genaLaunch) {
 		GenaResultStatus resultStatus = GenaResultStatus.PROCESSED;
 		
-		FSResource resultFolder = fsManager.createFolder(genaLaunch.getUser());
-		if (resultFolder == null) {
+		FSResource resultFSResource = fsManager.createFolder(genaLaunch.getUser());
+		if (resultFSResource == null) {
 			log.error("Can't create result folder");
 			return null;
 		}
 
 		String sourcePath = fsManager.getFSResourcePath(genaLaunch.getData());
 		String genaParams = genaLaunch.getParams();
-		String resultFolderPath =  fsManager.getFSResourcePath(resultFolder);
+		String resultFolderPath =  fsManager.getFSResourcePath(resultFSResource);
 		String cmd = new StringBuilder(genaIntPath).append(" ").append(sourcePath).append(" ")
 				.append(resultFolderPath).append(" ").append(genaParams).toString();
 		
@@ -88,7 +91,7 @@ public class GenaService {
 			Process process = Runtime.getRuntime().exec(cmd);
 			switch (process.waitFor()) {
 			case 0:
-				genaLaunch.setResult(resultFolder);
+				genaLaunch.setResult(resultFSResource);
 				resultStatus = GenaResultStatus.SUCCESSFUL;
 				break;
 			case 1:
@@ -105,6 +108,25 @@ public class GenaService {
 			return GenaResultStatus.RUNTIME_ERROR;
 		} catch (InterruptedException e) {
 			return GenaResultStatus.RUNTIME_ERROR;
+		}
+		
+		File resultFolder = new File(resultFolderPath);
+		List<File> folderFiles = Arrays.asList(resultFolder.listFiles());
+		if (folderFiles.size() != 1) {
+			return GenaResultStatus.MULTIPLE_GENA_RESULT;
+		}
+		File subFolder = folderFiles.get(0);
+		try {
+			for (File srcFile: subFolder.listFiles()) {
+		        if (srcFile.isDirectory()) {
+		            FileUtils.copyDirectoryToDirectory(srcFile, resultFolder);
+		        } else {
+		            FileUtils.copyFileToDirectory(srcFile, resultFolder);
+		        }
+		    }
+			FileUtils.deleteDirectory(subFolder);
+		} catch (IOException e) {
+			return GenaResultStatus.FILE_SYSTEM_ERROR;
 		}
 		
 		genaLaunch.setStatus(resultStatus);

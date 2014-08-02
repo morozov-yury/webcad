@@ -14,6 +14,10 @@ public enum GenaResultStatus {
 	
 	UNEXPECTED_ERROR,
 	
-	RUNTIME_ERROR;
+	RUNTIME_ERROR,
+	
+	MULTIPLE_GENA_RESULT,
+	
+	FILE_SYSTEM_ERROR;
 
 }
