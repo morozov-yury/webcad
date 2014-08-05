@@ -43,7 +43,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	}
 	
 	@Override
-	public T read(PK id) {
+	public T get(PK id) {
 		return (T) getSession().get(type, id);
 	}
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BaseDao <T, PK extends Serializable> {
 	
-    public T read(PK id);
+    public T get(PK id);
     
     public void delete(T persistentObject);
     
