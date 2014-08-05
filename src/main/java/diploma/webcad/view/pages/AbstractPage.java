@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.xpoft.vaadin.VaadinView;
 
@@ -29,12 +31,9 @@ public abstract class AbstractPage extends Panel implements View {
 
 	private VerticalLayout content;
 
-	private String caption;
-
 	private HorizontalLayout topLayout;
 
 	public AbstractPage(String caption) {
-		this.caption = caption;
 		setSizeFull();
 		addStyleName("webcad-abstract-page");
 		
@@ -78,9 +77,9 @@ public abstract class AbstractPage extends Panel implements View {
 	public abstract void enter();
 	
 	@Override
-	final public void enter(ViewChangeEvent event) {
-		String parameters = event.getParameters();
-		Properties urlProperties = HttpUtils.getUrlProperties(parameters);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	public void enter(ViewChangeEvent event) {
+		Properties urlProperties = HttpUtils.getUrlProperties(event.getParameters());
 		pageProperties = new PageProperties(urlProperties);
 		if (isAccessAvailable()) {
 			enter();
@@ -101,12 +100,12 @@ public abstract class AbstractPage extends Panel implements View {
 		return vaadinViewAnnotation.value();
 	}
 
-	protected PageProperties getPageParameters() {
+	protected PageProperties getPageProperties() {
 		return pageProperties;
 	}
 
 	protected void refreshPage() {
-		WebCadUI.getCurrent().navigateTo(getPageLocation(), getPageParameters());
+		WebCadUI.getCurrent().navigateTo(getPageLocation(), getPageProperties());
 	}
 	
 }
