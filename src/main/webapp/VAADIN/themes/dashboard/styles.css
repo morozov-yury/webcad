@@ -374,6 +374,10 @@
 	content: "\e843";
 }
 
+.icon-simulations.v-nativebutton:before, .icon-simulations > .v-button-wrap:before, .icon-simulations.v-label:before, .v-menubar-menuitem-icon-simulations:before {
+	content: "\e818";
+}
+
 .icon-cog.v-nativebutton:before, .icon-cog > .v-button-wrap:before, .icon-cog.v-label:before, .v-menubar-menuitem-icon-cog:before {
 	content: "\e845";
 }
