@@ -21,12 +21,14 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.model.simulation.BatchSimulation;
 import diploma.webcad.core.model.simulation.Device;
 import diploma.webcad.core.model.simulation.GenaLaunch;
 import diploma.webcad.core.service.GenaService;
 import diploma.webcad.core.service.XilinxService;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.components.DeviceSelector;
+import diploma.webcad.view.model.PageProperties;
 import diploma.webcad.view.pages.AbstractPage;
 import diploma.webcad.view.service.ViewFactory;
 
@@ -63,17 +65,13 @@ public class XilinxPage extends AbstractPage {
 	}
 
 	@Override
-	public void attach() {
-		user = WebCadUI.getCurrent().getSessionState().getUser();
-		super.attach();
-	}
-	
-	@Override
 	@SuppressWarnings("serial")
 	public void enter() {
 		HorizontalLayout content = new HorizontalLayout();
 		content.setSizeFull();
 		content.setSpacing(true);
+		
+		user = WebCadUI.getCurrent().getSessionState().getUser();
 		
 		List<Device> devices = xilinxService.listDevices();
 		deviceSelector = new DeviceSelector(viewFactory.getDevicesContainer(devices));
@@ -88,6 +86,12 @@ public class XilinxPage extends AbstractPage {
 		launchesTable = viewFactory.getGenaLaunchesTable(allLaunches);
 		launchesTable.setCaption("Last launches");
 		launchesTable.setMultiSelect(false);
+		if (getPageProperties().containsKey("GenaLaunch.id")) {
+			Object property = getPageProperties().get("GenaLaunch.id");
+			Long genaLaunchId = Long.valueOf(property.toString());
+			launchesTable.setValue(genaLaunchId);
+		}
+		
 		final Component launchesTableWrapper = viewFactory.wrapComponent(launchesTable);
 		final VerticalLayout actionLayout = new VerticalLayout();
 		final Component actionLayoutWrapper = viewFactory.wrapComponent(actionLayout);
@@ -116,14 +120,21 @@ public class XilinxPage extends AbstractPage {
 			}
 		});
 		
-		startButton = new Button("Start", new Button.ClickListener() {
+		startButton = new Button("Create and next", new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				List<String> selectedDevicesNames = deviceSelector.listSelectedDevices();
 				List<Device> devices = xilinxService.listDevises(selectedDevicesNames);
-				GenaLaunch genaLaunch = (GenaLaunch) launchesTable.getValue();
+				Long genaLaunchId = (Long) launchesTable.getValue();
+				GenaLaunch genaLaunch = genaService.getGenaLaunch(genaLaunchId);
+				//GenaLaunch genaLaunch = (GenaLaunch) launchesTable.getValue();
+				final BatchSimulation simulation = xilinxService.createBatchSimulation(
+						genaLaunch, devices, user);
 				
-				xilinxService.createBatchSimulation(genaLaunch, devices, user);
+				WebCadUI ui = WebCadUI.getCurrent();
+				ui.navigateTo(UserSimulationsPage.NAME, new PageProperties() {{
+					put("BatchSimulation.id", simulation.getId());
+				}});
 			}
 		});
 		startButton.addStyleName("default");

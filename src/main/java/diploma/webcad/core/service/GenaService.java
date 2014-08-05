@@ -37,6 +37,10 @@ public class GenaService {
 	
 	@Autowired
 	private FSResourceService fsManager;
+	
+	public GenaLaunch getGenaLaunch (Long id) {
+		return genaLaunchDao.get(id);
+	}
 
 	public GenaLaunch createGenaLaunch (User user, String  genaParams, String xmlDecription) {
 		FSResource fileResource = fsManager.createFileResByContent(

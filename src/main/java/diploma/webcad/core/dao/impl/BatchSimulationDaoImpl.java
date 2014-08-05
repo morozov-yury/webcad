@@ -1,5 +1,6 @@
 package diploma.webcad.core.dao.impl;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import diploma.webcad.core.dao.BatchSimulationDao;

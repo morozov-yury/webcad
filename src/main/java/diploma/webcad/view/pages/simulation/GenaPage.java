@@ -36,6 +36,7 @@ import diploma.webcad.view.client.component.Notificator;
 import diploma.webcad.view.client.component.UpdatableLabel;
 import diploma.webcad.view.components.gena.GenaParamSelector;
 import diploma.webcad.view.components.gena.MachineParamsFactory;
+import diploma.webcad.view.model.PageProperties;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.mm.MealyGenaParam;
 import diploma.webcad.view.pages.AbstractPage;
@@ -116,7 +117,8 @@ public class GenaPage extends AbstractPage {
 			private static final long serialVersionUID = 6592228933748021923L;
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				genaLaunch = (GenaLaunch) event.getItemId();
+				Long id = (Long) event.getItemId();
+				genaLaunch = genaService.getGenaLaunch(id);
 				GenaParam genaParamByToken = MachineParamsFactory.getGenaParamByToken(
 						genaLaunch.getParams());
 				parametersSelector = new GenaParamSelector(genaParamByToken);
@@ -169,7 +171,7 @@ public class GenaPage extends AbstractPage {
 		downloader = new FileDownloader(new StreamResource(source, "qwe"));
 		downloader.extend(downloadButton);
 
-        Button startButton = new Button("Start", new Button.ClickListener() {
+        Button startButton = new Button("Create and next", new Button.ClickListener() {
 			private static final long serialVersionUID = 4434872155184459414L;
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -195,12 +197,17 @@ public class GenaPage extends AbstractPage {
 				
 				GenaResultStatus genaResultStatus = genaLaunch.getStatus();
 				notificator.showInfo("Launch result: " + genaResultStatus);
-
-				downloadButton.setVisible(genaLaunch.getStatus() == GenaResultStatus.SUCCESSFUL);
 				
-				List<GenaLaunch> userLauches = genaService.listLastUserLauches(user, 15);
-				Container container = viewFactory.getLaunchesContainer(userLauches);
-				launchesTable.setContainerDataSource(container);
+				WebCadUI ui = WebCadUI.getCurrent();
+				ui.navigateTo(XilinxPage.NAME, new PageProperties() {{
+					put("GenaLaunch.id", genaLaunch.getId());
+				}});
+
+//				downloadButton.setVisible(genaLaunch.getStatus() == GenaResultStatus.SUCCESSFUL);
+//				
+//				List<GenaLaunch> userLauches = genaService.listLastUserLauches(user, 15);
+//				Container container = viewFactory.getLaunchesContainer(userLauches);
+//				launchesTable.setContainerDataSource(container);
 			}
 		});
         startButton.addStyleName("default");

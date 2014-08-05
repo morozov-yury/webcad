@@ -22,7 +22,7 @@ public class PageNotFound extends AbstractPage {
 
 	@Override
 	public void enter() {
-		Object object = getPageParameters().get("page");
+		Object object = getPageProperties().get("page");
 		Label label = new Label("Page not found: " + object);
 		setContent(label);
 	}

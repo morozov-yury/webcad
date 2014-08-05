@@ -181,7 +181,7 @@ public class StartupListener implements ServletContextListener {
 					
 					for (XmlLocale locale : t.getLocales()) {
 						
-						Language lang = langDao.read(locale.getLanguage());
+						Language lang = langDao.get(locale.getLanguage());
 						
 						if (lang != null) {
 							Map<Language, String> titles = template.getTitles();

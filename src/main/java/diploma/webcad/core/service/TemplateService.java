@@ -15,7 +15,7 @@ public class TemplateService {
 	private TemplateDao templateDao;
 
 	public Template getTmplateByName(String name) {
-		return this.templateDao.read(name);
+		return this.templateDao.get(name);
 	}
 	
 }

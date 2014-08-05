@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ import diploma.webcad.core.model.User;
 @Entity
 public class BatchSimulation implements Serializable {
 
-	private static final long serialVersionUID = -9030475041902180142L;
+	private static final long serialVersionUID = -9133325668305624613L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +40,9 @@ public class BatchSimulation implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Device> devices;
+	
+	@Column(nullable = false)
+	private BatchSimulationStatus status;
 
 	public BatchSimulation() {
 		setCreationDate(new Date());
@@ -148,6 +152,14 @@ public class BatchSimulation implements Serializable {
 
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
+	}
+
+	public BatchSimulationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(BatchSimulationStatus status) {
+		this.status = status;
 	}
 
 }

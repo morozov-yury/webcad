@@ -22,6 +22,7 @@ import diploma.webcad.core.model.User;
  */
 @Entity
 public class FSResource implements Serializable {
+	
 	private static final long serialVersionUID = -3542499586657600169L;
 	
 	@Id
@@ -68,6 +69,22 @@ public class FSResource implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	public FSResourcePlacement getPlacement() {
+		return placement;
+	}
+
+	public void setPlacement(FSResourcePlacement placement) {
+		this.placement = placement;
+	}
+
+	public FSResourceType getFsResourceType() {
+		return fsResourceType;
+	}
+
+	public void setFsResourceType(FSResourceType fsResourceType) {
+		this.fsResourceType = fsResourceType;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,20 +109,10 @@ public class FSResource implements Serializable {
 		return true;
 	}
 
-	public FSResourcePlacement getPlacement() {
-		return placement;
-	}
-
-	public void setPlacement(FSResourcePlacement placement) {
-		this.placement = placement;
-	}
-
-	public FSResourceType getFsResourceType() {
-		return fsResourceType;
-	}
-
-	public void setFsResourceType(FSResourceType fsResourceType) {
-		this.fsResourceType = fsResourceType;
+	@Override
+	public String toString() {
+		return "FSResource [id=" + id + ", placement=" + placement
+				+ ", fsResourceType=" + fsResourceType + "]";
 	}
 
 }

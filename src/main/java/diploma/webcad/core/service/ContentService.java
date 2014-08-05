@@ -27,7 +27,7 @@ public class ContentService {
 	private TemplateDao templateDao;
 
 	public Language getLanguage(String iso) {
-		return languageDao.read(iso);
+		return languageDao.get(iso);
 	}
 	
 	public Language getDefaultLanguage() {

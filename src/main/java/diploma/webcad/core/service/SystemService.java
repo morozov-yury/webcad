@@ -34,7 +34,7 @@ public class SystemService {
 	
 	public AppConstant getApplicationConstant(String id) {
 		if(id == null) return null;
-		return applicationConstantDao.read(id);
+		return applicationConstantDao.get(id);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
