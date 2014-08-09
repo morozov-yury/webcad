@@ -87,6 +87,11 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	}
 	
 	@Override
+	public void update(T entity) {
+		getSession().update(entity);
+	}
+
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public PK save(T entity) {
 		return (PK) getSession().save(entity);

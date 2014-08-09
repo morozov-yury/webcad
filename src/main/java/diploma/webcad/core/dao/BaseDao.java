@@ -23,6 +23,8 @@ public interface BaseDao <T, PK extends Serializable> {
     public PK save(T enity);
     
     public void saveOrUpdate(T entity);
+
+    public void update(T entity);
     
     public void batchSaveOrUpdate(Collection<T> entities);
     
