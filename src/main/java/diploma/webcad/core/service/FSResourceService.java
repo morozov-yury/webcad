@@ -1,6 +1,7 @@
 package diploma.webcad.core.service;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -228,6 +230,37 @@ public class FSResourceService {
 	
 	public void saveFSResource (FSResource fsResource) {
 		fileResourceDao.saveOrUpdate(fsResource);
+	}
+	
+	public FSResource copyFSResource (FSResource fsResource) {
+		FSResource newFsResource = new FSResource();
+		newFsResource.setUser(fsResource.getUser());
+		newFsResource.setPlacement(FSResourcePlacement.APP_SERVER);
+		newFsResource.setFsResourceType(fsResource.getFsResourceType());
+		fileResourceDao.save(newFsResource);
+		
+		File fsResFile = new File(getFSResourcePath(fsResource));
+		File newFSResFile = new File(getFSResourcePath(newFsResource));
+		try {
+			switch (fsResource.getPlacement()) {
+			case APP_SERVER:
+				if (fsResource.getFsResourceType() == FSResourceType.FOLDER) {
+					FileUtils.copyDirectory(fsResFile, newFSResFile);
+				} else {
+					FileUtils.copyFile(fsResFile, newFSResFile);
+				}
+				break;
+			case NECLUS:
+				return null;
+			default:
+				return null;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return newFsResource;
 	}
 
 }

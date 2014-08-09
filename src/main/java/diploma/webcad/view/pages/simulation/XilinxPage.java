@@ -132,7 +132,7 @@ public class XilinxPage extends AbstractPage {
 						genaLaunch, devices, user);
 				
 				WebCadUI ui = WebCadUI.getCurrent();
-				ui.navigateTo(UserSimulationsPage.NAME, new PageProperties() {{
+				ui.navigateTo(SimulationsPage.NAME, new PageProperties() {{
 					put("BatchSimulation.id", simulation.getId());
 				}});
 			}

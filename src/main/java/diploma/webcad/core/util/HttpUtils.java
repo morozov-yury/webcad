@@ -1,4 +1,4 @@
-package diploma.webcad.core.util.http;
+package diploma.webcad.core.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

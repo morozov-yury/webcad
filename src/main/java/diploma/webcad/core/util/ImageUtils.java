@@ -1,4 +1,4 @@
-package diploma.webcad.core.util.image;
+package diploma.webcad.core.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

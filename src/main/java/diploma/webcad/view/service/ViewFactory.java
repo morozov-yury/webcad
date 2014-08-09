@@ -28,7 +28,7 @@ import diploma.webcad.core.model.simulation.GenaLaunch;
 import diploma.webcad.core.model.simulation.GenaPlacement;
 import diploma.webcad.core.model.simulation.GenaResultStatus;
 import diploma.webcad.core.model.simulation.XilinxProject;
-import diploma.webcad.core.service.XilinxProjectStatus;
+import diploma.webcad.core.model.simulation.XilinxProjectStatus;
 
 @org.springframework.stereotype.Component
 @Scope("singleton")

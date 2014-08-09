@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.tepi.filtertable.FilterTable;
 
 import ru.xpoft.vaadin.VaadinView;
@@ -16,10 +14,10 @@ import ru.xpoft.vaadin.VaadinView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
 import diploma.webcad.core.model.User;
 import diploma.webcad.core.model.simulation.BatchSimulation;
@@ -32,8 +30,8 @@ import diploma.webcad.view.service.ViewFactory;
 
 @org.springframework.stereotype.Component
 @Scope("prototype")
-@VaadinView(UserSimulationsPage.NAME)
-public class UserSimulationsPage extends AbstractPage {
+@VaadinView(SimulationsPage.NAME)
+public class SimulationsPage extends AbstractPage {
 
 	private static final long serialVersionUID = -5470943902880211139L;
 
@@ -57,7 +55,7 @@ public class UserSimulationsPage extends AbstractPage {
 
 	private Button runButton;
 	
-	public UserSimulationsPage() {
+	public SimulationsPage() {
 		super("Simulations");
 	}
 
@@ -115,7 +113,8 @@ public class UserSimulationsPage extends AbstractPage {
 			private static final long serialVersionUID = 7105297962177174478L;
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
+				Long id = (Long) simulationsTable.getValue();
+				xilinxService.runBatchSimulation(id);
 			}
 		});
 		runButton.setVisible(false);

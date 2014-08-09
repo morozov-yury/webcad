@@ -15,7 +15,7 @@ import diploma.webcad.core.model.User;
 
 /**
  * This is entity that describe file system resource.
- * It can saved on different servers.
+ * It can be saved on different servers.
  * 
  * @author morozov.yury
  *

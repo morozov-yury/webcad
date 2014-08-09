@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import diploma.webcad.core.model.resource.FSResource;
-import diploma.webcad.core.service.XilinxProjectStatus;
 
 @Entity
 public class XilinxProject implements Serializable {

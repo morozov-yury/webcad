@@ -2,21 +2,15 @@ package diploma.webcad.core.init;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
 
-import diploma.webcad.common.content.Resources;
-import diploma.webcad.common.content.UTF8Control;
 import diploma.webcad.core.model.AppConstant;
 import diploma.webcad.core.model.AppConstantType;
 import diploma.webcad.core.model.Language;
 import diploma.webcad.core.service.ContentService;
-import diploma.webcad.core.service.SystemService;
 import diploma.webcad.core.service.UserService;
 
 public class Installer {
@@ -41,7 +35,7 @@ public class Installer {
 		log.info("INSTALLATION FINISH: " + marker);
 		AppConstant constant = new AppConstant("installed", marker, "Installation flag", 
 				AppConstantType.SYSTEM);
-		helper.getBean(SystemService.class).saveApplicationConstant(constant );
+		helper.getBean(ContentService.class).saveApplicationConstant(constant);
 		log.info("INSTALLATION END.");
 	}
 

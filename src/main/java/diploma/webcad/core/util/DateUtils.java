@@ -1,4 +1,4 @@
-package diploma.webcad.core.util.date;
+package diploma.webcad.core.util;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

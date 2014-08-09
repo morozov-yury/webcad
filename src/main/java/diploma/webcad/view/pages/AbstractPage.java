@@ -18,7 +18,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.core.util.http.HttpUtils;
+import diploma.webcad.core.util.HttpUtils;
 import diploma.webcad.view.WebCadUI;
 import diploma.webcad.view.model.PageProperties;
 

@@ -27,7 +27,7 @@ import diploma.webcad.core.model.resource.Templates;
 import diploma.webcad.core.model.simulation.Device;
 import diploma.webcad.core.model.simulation.DeviceFamilies;
 import diploma.webcad.core.model.simulation.DeviceFamily;
-import diploma.webcad.core.service.SystemService;
+import diploma.webcad.core.service.ContentService;
 import diploma.webcad.core.service.XilinxService;
 
 public class StartupListener implements ServletContextListener {
@@ -79,7 +79,7 @@ public class StartupListener implements ServletContextListener {
 	}
 
 	private boolean installed() {
-		String installed = context.getBean(SystemService.class).getConstantValue("installed");
+		String installed = context.getBean(ContentService.class).getConstantValue("installed");
 		return installed.startsWith("installed");
 	}
 	
@@ -97,7 +97,7 @@ public class StartupListener implements ServletContextListener {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			InputStream is = servletContext.getResourceAsStream(constantFilePath);
 			Constants constants = (Constants) unmarshaller.unmarshal(is);
-			context.getBean(SystemService.class).readConstants(constants);
+			context.getBean(ContentService.class).readConstants(constants);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}

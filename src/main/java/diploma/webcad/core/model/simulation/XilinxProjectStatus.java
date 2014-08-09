@@ -1,4 +1,4 @@
-package diploma.webcad.core.service;
+package diploma.webcad.core.model.simulation;
 
 public enum XilinxProjectStatus {
 	

@@ -1,18 +1,14 @@
 package diploma.webcad.core.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.apache.poi.hwpf.model.FSPADocumentPart;
-import org.apache.poi.util.ArrayUtil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -21,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Lists;
-import com.google.gwt.user.client.rpc.core.java.util.Collections;
-import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -32,6 +25,7 @@ import com.jcraft.jsch.Session;
 import diploma.webcad.core.model.ExecResult;
 import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.model.resource.FSResourcePlacement;
+import diploma.webcad.core.model.resource.FSResourceType;
 
 @Service
 @Scope("singleton")
@@ -135,10 +129,25 @@ public class SshService implements InitializingBean, DisposableBean   {
 		
 		ExecResult execResult = null;
 		
-		String fsLocalPath = fsResourceService.getFSResourcePath(fsResource);
-		File file = new File(fsResourceService.getFSResourcePath(fsResource));
+		String fsLocalPath = null;
+		InputStream  fis = null;
+		if (fsResource.getFsResourceType() == FSResourceType.FILE) {
+			fsLocalPath = fsResourceService.getFSResourcePath(fsResource);
+			fis = new FileInputStream(fsLocalPath);
+		} else if (fsResource.getFsResourceType() == FSResourceType.FOLDER) {
+			fsLocalPath = fsResourceService.getFSResourcePath(fsResource) + ".zip";
+			fis = fsResourceService.zipFSResource(fsResource);
+		} else {
+			execResult = new ExecResult(1, null);
+			return execResult;
+		}
+		
+		File localFile = new File(fsLocalPath);
 		fsResource.setPlacement(FSResourcePlacement.NECLUS);
 		String fsRemotePath = fsResourceService.getFSResourcePath(fsResource);
+		if (fsResource.getFsResourceType() == FSResourceType.FOLDER) {
+			fsRemotePath += ".zip";
+		}
 		
 		execResult = makeRemoteDir(fsResourceService.getFSResourceDirPath(fsResource));
 		if (execResult.getExitStatus() != 0) {
@@ -158,7 +167,7 @@ public class SshService implements InitializingBean, DisposableBean   {
 			return execResult;
 		}
 		
-		long filesize = file.length();
+		long filesize = localFile.length();
 		command = "C0644 " + filesize + " ";
 		
 		if (fsLocalPath.lastIndexOf('/') > 0 ){
@@ -176,7 +185,7 @@ public class SshService implements InitializingBean, DisposableBean   {
 			return execResult;
 		}
 		
-		FileInputStream  fis = new FileInputStream(fsLocalPath);
+		
 		byte[] buf = new byte[1024];
 		while (true) {
 			int len = fis.read(buf, 0, buf.length);
@@ -196,6 +205,23 @@ public class SshService implements InitializingBean, DisposableBean   {
 		out.close();
 		channel.disconnect();
 		
+		if (fsResource.getFsResourceType() == FSResourceType.FOLDER) {
+			String unzipCommand = "unzip " 
+					+ fsRemotePath 
+					+ " -d " + fsResourceService.getFSResourceDirPath(fsResource)
+					+ "/" + fsResource.getId();
+			ExecResult exec = exec(unzipCommand);
+			
+			String deleteCommand = "rm " + fsRemotePath;
+			exec = exec(deleteCommand);
+			
+			//Delete local folder
+			FileUtils.deleteDirectory(new File(fsResourceService.getFSResourcePath(fsResource)));
+		}
+
+		//Delete local file or .zip if it's was folder transfering
+		localFile.delete();
+
 		fsResourceService.saveFSResource(fsResource);
 		
 		execResult.setExitStatus(0);

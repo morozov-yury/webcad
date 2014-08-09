@@ -1,6 +1,8 @@
 package diploma.webcad.core.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
@@ -43,6 +45,9 @@ public class XilinxService {
 	
 	@Autowired
 	private FSResourceService fsResourceService;
+	
+	@Autowired
+	private SshService sshService;
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void saveDeviceFamily (DeviceFamily deviceFamily) {
@@ -121,7 +126,8 @@ public class XilinxService {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void runBatchSimulation (BatchSimulation simulation) {
+	public void runBatchSimulation (Long simulationId) {
+		BatchSimulation simulation = batchSimulationDao.get(simulationId);
 		if (simulation.getStatus() != BatchSimulationStatus.CREATED) {
 			throw new IllegalStateException("You can run only simulation with status CREATED");
 		}
@@ -130,6 +136,18 @@ public class XilinxService {
 		
 		List<XilinxProject> projects = simulation.getProjects();
 		for (XilinxProject project : projects) {
+			FSResource genaData = project.getGenaLaunch().getResult();
+			FSResource prData = fsResourceService.copyFSResource(genaData);
+			if (prData == null) {
+				continue;
+			}
+			project.setFolder(prData);
+			project = xilinxProjectDao.merge(project);
+			try {
+				sshService.transferResToNeclus(prData);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			makeTcl(project);
 		}
 		
@@ -149,7 +167,13 @@ public class XilinxService {
 		Device device = project.getDevice();
 		log.debug("For device '{}'", device.getName());
 		
-		
+		Map<String, String> params = new HashMap<String, String>() {{
+			put("project.path", "");
+			put("project.name", "");
+			put("device.family.name", "");
+			put("device.name", "");
+			put("placement.folder.path", "");
+		}};
 		
 	}
 
