@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+	<template id = "tclfile.template">
+		<title>
+			Tcl file template
+		</title>
+		<body>
+			# create the project and set project-level properties
+			project new  ${project.path}${project.name}
+			project set family "${device.family.name}"
+			project set device "${device.name}"
+			
+			# add the source HDLs
+			xfile add ${placement.folder.path}*.vhd
+			
+			# add the source MIFs
+			xfile add ${placement.folder.path}*.mif
+			
+			# run implementation from synthesis through timing analysis
+			process run "Implement Design"
+			
+			#close
+			project close
+		</body>
+	</template>
+
+</templates>

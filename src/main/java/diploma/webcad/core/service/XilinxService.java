@@ -15,6 +15,7 @@ import diploma.webcad.core.dao.DeviceDao;
 import diploma.webcad.core.dao.DeviceFamilyDao;
 import diploma.webcad.core.dao.XilinxProjectDao;
 import diploma.webcad.core.model.User;
+import diploma.webcad.core.model.resource.FSResource;
 import diploma.webcad.core.model.simulation.BatchSimulation;
 import diploma.webcad.core.model.simulation.BatchSimulationStatus;
 import diploma.webcad.core.model.simulation.Device;
@@ -39,6 +40,9 @@ public class XilinxService {
 	
 	@Autowired
 	private BatchSimulationDao batchSimulationDao;
+	
+	@Autowired
+	private FSResourceService fsResourceService;
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void saveDeviceFamily (DeviceFamily deviceFamily) {
@@ -116,10 +120,36 @@ public class XilinxService {
 		return xilinxProject;
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void runBatchSimulation (BatchSimulation simulation) {
 		if (simulation.getStatus() != BatchSimulationStatus.CREATED) {
 			throw new IllegalStateException("You can run only simulation with status CREATED");
 		}
+		simulation.setStatus(BatchSimulationStatus.PREPEARING);
+		simulation = batchSimulationDao.merge(simulation);
+		
+		List<XilinxProject> projects = simulation.getProjects();
+		for (XilinxProject project : projects) {
+			makeTcl(project);
+		}
+		
+	}
+	
+	private void makeTcl (XilinxProject project) {
+		log.debug("Start making TCL file fo project[{}], status[{}]", 
+				project.getId(), project.getStatus().toString());
+		
+		FSResource folder = project.getFolder();
+		if (folder == null) {
+			throw new IllegalStateException("Project's folder can't be null");
+		}
+		String folderPath = fsResourceService.getFSResourcePath(folder);
+		log.debug("In folder '{}'", folderPath);
+		
+		Device device = project.getDevice();
+		log.debug("For device '{}'", device.getName());
+		
+		
 		
 	}
 

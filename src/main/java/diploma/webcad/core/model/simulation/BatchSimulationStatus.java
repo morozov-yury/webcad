@@ -4,6 +4,8 @@ public enum BatchSimulationStatus {
 	
 	CREATED,
 	
+	PREPEARING,
+	
 	RUNNING,
 	
 	PAUSED,

@@ -64,6 +64,7 @@ public class SshService implements InitializingBean, DisposableBean   {
 	
 	private void updateeSession () throws JSchException {
 		JSch jsch = new JSch();
+		log.info("Making ssh connection to {}", sshProperties.getHost());
 		session = jsch.getSession(sshProperties.getUsername(), sshProperties.getHost(), 
 				sshProperties.getPort());
 		session.setUserInfo(sshProperties);
