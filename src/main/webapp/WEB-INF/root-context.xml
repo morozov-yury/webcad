@@ -99,11 +99,10 @@
    	</tx:advice>
 
 <!-- Aspects -->
-	<bean id="contextApplicationContextProvider" class="diploma.webcad.core.service.AppContextProvider" />
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+ 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<aop:config>
-		<aop:pointcut id="hibernateSessionDependingOperation" expression="@annotation(diploma.webcad.core.annotation.HibernateSessionRequired)" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="hibernateSessionDependingOperation" />
+		
 	</aop:config>    
 	
 </beans>
