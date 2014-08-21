@@ -1,13 +1,7 @@
-/**
- * 
- */
 package diploma.webcad.common.security;
 
 import org.apache.commons.lang.RandomStringUtils;
 
-/**
- * @author Arktos
- */
 public class PasswordHelper {
 	
 	public static String generatePassword() {

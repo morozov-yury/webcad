@@ -14,17 +14,10 @@
 		<aspectj.version>1.6.11</aspectj.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
-
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
 		<tomcat-webapp-dir>C:/dev/apache-tomcat-7.0.54/webapps/ROOT</tomcat-webapp-dir>
-		<spring-social.version>1.0.2.RELEASE</spring-social.version>
-		<spring-social-facebook.version>1.0.3.RELEASE</spring-social-facebook.version>
-		<spring-social-twitter.version>1.0.5.RELEASE</spring-social-twitter.version>
-
-		<quartz-scheduler.version>1.8.4</quartz-scheduler.version>
 	</properties>
 
 	<repositories>
@@ -440,12 +433,6 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>${quartz-scheduler.version}</version>
-		</dependency>
-		
-		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
 			<version>0.1.50</version>
@@ -463,7 +450,18 @@
 	    	<version>1.7</version>
 	    	<type>jar</type>
 		</dependency>
-			
+
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.10.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cassandra</groupId>
+			<artifactId>cassandra-all</artifactId>
+			<version>2.0.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -33,6 +33,7 @@ public class Installer {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String marker = "installed: " + format.format(new Date());
 		log.info("INSTALLATION FINISH: " + marker);
+		
 		AppConstant constant = new AppConstant("installed", marker, "Installation flag", 
 				AppConstantType.SYSTEM);
 		helper.getBean(ContentService.class).saveApplicationConstant(constant);
@@ -43,11 +44,8 @@ public class Installer {
 	private void createSystemAccount() {
 		UserService userService = helper.getBean(UserService.class);
 		ContentService contentService = helper.getBean(ContentService.class);
-		
 		Language language = contentService.getDefaultLanguage();
-
 		userService.createUser("admin", "admin", language);
-		
 		userService.createUser("user", "user", language);
 	}
 

@@ -9,10 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Container.ItemSetChangeEvent;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
@@ -22,8 +18,6 @@ import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
-
-import diploma.webcad.core.model.simulation.Device;
 
 public class DeviceSelector extends HorizontalLayout {
 

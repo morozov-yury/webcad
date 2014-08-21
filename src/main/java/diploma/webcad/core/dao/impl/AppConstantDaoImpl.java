@@ -1,6 +1,3 @@
-/**
- * 
- */
 package diploma.webcad.core.dao.impl;
 
 import org.springframework.stereotype.Repository;

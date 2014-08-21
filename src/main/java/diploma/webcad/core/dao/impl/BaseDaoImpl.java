@@ -112,4 +112,5 @@ public abstract class BaseDaoImpl <T, PK extends Serializable> implements BaseDa
 	protected SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	
 }

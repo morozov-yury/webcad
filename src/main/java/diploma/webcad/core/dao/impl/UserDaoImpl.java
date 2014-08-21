@@ -34,4 +34,5 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao {
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
 	}
+	
 }

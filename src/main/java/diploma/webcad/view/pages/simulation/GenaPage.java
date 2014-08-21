@@ -11,7 +11,6 @@ import org.tepi.filtertable.FilterTable;
 
 import ru.xpoft.vaadin.VaadinView;
 
-import com.vaadin.data.Container;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.FileDownloader;

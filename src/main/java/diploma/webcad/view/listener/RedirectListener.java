@@ -1,4 +1,4 @@
-package diploma.webcad.listener;
+package diploma.webcad.view.listener;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;

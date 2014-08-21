@@ -105,12 +105,9 @@ public class ContentService {
 	public String getApplicationPath() {
 		URI location = Page.getCurrent().getLocation();
 		StringBuilder sb = new StringBuilder();
-		sb.append(location.getScheme())
-			.append("://")
-			.append(location.getHost());
+		sb.append(location.getScheme()).append("://").append(location.getHost());
 		if(location.getPort() >= 0) {
-			sb.append(":")
-				.append(location.getPort());
+			sb.append(":").append(location.getPort());
 		}
 		sb.append(StringUtils.removeEnd(location.getPath(), "/"));
 		return sb.toString();

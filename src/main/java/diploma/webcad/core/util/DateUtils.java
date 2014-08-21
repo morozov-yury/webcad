@@ -35,11 +35,7 @@ public class DateUtils {
 		if(fracPart < 15) return intPart;
 		else return intPart + 1;
 	}
-	
-	/*public static Date getCurrentDate() {
-		return Calendar.getInstance(Locale.getDefault()).getTime();
-	}*/
-	
+
 	public static String formatDate(Date date) {
 		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
 		return formatter.format(date);

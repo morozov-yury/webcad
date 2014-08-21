@@ -5,10 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author oakim
- */
 public class MD5Helper {
 
     public static String getHash(String password) {

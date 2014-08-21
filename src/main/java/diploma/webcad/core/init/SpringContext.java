@@ -56,4 +56,5 @@ public class SpringContext {
 	public void setApplication(UI application) {
 		this.application = application;
 	}
+	
 }

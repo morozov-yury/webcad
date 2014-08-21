@@ -7,13 +7,10 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
        	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-	<!-- QUARTZ TRIGGERS -->
-	<!-- import resource="quartz-context.xml"/ --> 
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:spring-configured/>
     <tx:annotation-driven/>
@@ -21,20 +18,15 @@
     <context:component-scan base-package="diploma.webcad.core.dao"/>
     <context:component-scan base-package="diploma.webcad.core.service"/>
     <context:component-scan base-package="diploma.webcad.core.ssh"/>
-    
     <context:component-scan base-package="diploma.webcad.view"/>
-    
     <context:component-scan base-package="diploma.webcad.trigger"/>
-    
     <context:component-scan base-package="diploma.webcad.aop.aspects"/>
     
-    <bean id="diplomaProperties" 
-    	class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="diploma.properties"/>
+    <bean id="diplomaProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+   		<property name="location" value="diploma.properties"/>
     </bean>
 
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>diploma.properties</value>
@@ -43,8 +35,7 @@
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
     </bean>
 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <!-- Connection properties -->
         <property name="driverClass" value="${hibernate.connection.driver_class}"/>
         <property name="jdbcUrl" value="${hibernate.connection.url}"/>
@@ -58,8 +49,7 @@
         <property name="loginTimeout" value="${hibernate.pool.loginTimeout}"/>
     </bean>
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="hibernateProperties" ref="diplomaProperties"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
@@ -69,40 +59,36 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" 
-    	class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="dataSource" ref="dataSource"/>
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     
-    <bean class="org.springframework.transaction.support.TransactionTemplate">
-		<property name="transactionManager" ref="transactionManager" />
+	<bean class="org.springframework.transaction.support.TransactionTemplate">
+			<property name="transactionManager" ref="transactionManager" />
 	</bean>
 
-    <bean id="hibernateStringEncryptor"
-          class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
-        <property name="registeredName">
-            <value>strongHibernateStringEncryptor</value>
-        </property>
-        <property name="algorithm">
-            <value>PBEWithMD5AndTripleDES</value>
-        </property>
-        <property name="password">
-            <value>qkVd93NF9823l2Jx</value>
-        </property>
-    </bean>
+   <bean id="hibernateStringEncryptor" class="org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor">
+       	<property name="registeredName">
+           	<value>strongHibernateStringEncryptor</value>
+       	</property>
+       	<property name="algorithm">
+           	<value>PBEWithMD5AndTripleDES</value>
+       	</property>
+       	<property name="password">
+           	<value>qkVd93NF9823l2Jx</value>
+       	</property>
+   </bean>
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-	    <tx:attributes>
-	    	<tx:method name="*"/>
-	   	</tx:attributes>
-   	</tx:advice>
+			<tx:attributes>
+					<tx:method name="*"/>
+			</tx:attributes>
+	</tx:advice>
 
 <!-- Aspects -->
 
  	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	<aop:config>
-		
-	</aop:config>    
+	<aop:config></aop:config>    
 	
 </beans>

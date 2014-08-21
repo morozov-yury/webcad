@@ -13,4 +13,5 @@ public class WrongPasswordException extends Exception {
 	public void setLeft(int left) {
 		this.left = left;
 	}
+	
 }

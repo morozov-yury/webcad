@@ -10,7 +10,7 @@ import ru.xpoft.vaadin.VaadinView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 
-import diploma.webcad.listener.RedirectListener;
+import diploma.webcad.view.listener.RedirectListener;
 import diploma.webcad.view.pages.AbstractPage;
 
 @Component

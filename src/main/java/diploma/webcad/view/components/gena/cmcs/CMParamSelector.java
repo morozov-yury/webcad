@@ -13,7 +13,6 @@ import com.vaadin.ui.TextField;
 import diploma.webcad.view.components.gena.MachineParamsSelector;
 import diploma.webcad.view.model.gena.GenaParam;
 import diploma.webcad.view.model.gena.MachineType;
-import diploma.webcad.view.model.gena.cmcs.AddrMicroinstParam.EncodingMC;
 import diploma.webcad.view.model.gena.cmcs.CMGenaParam;
 
 public class CMParamSelector extends MachineParamsSelector {
